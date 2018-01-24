@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brav</title>
+  <!-- style file link -->
+  <link rel="stylesheet" href="../styles/bootstrap.css" type="text/css">
+  <link rel="stylesheet" href="../styles/style.css" type="text/css">
+  <!-- fonts link -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,500,500i,600,600i,700" rel="stylesheet">
+  <!-- font awesome link -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body style="background: #FFF">
+  <div class="video-call">
+    <div class="top-header">
+      <img src="../images/header-logo.png" alt="">
+    </div>
+    <div class="top-header-right">
+      <ul>
+        <li><a href="#" id="chat"><i class="fa fa-comments" aria-hidden="true"></i></a></li>
+        <li><a href="#" id="notes"><i class="fa fa-pencil-square" aria-hidden="true"></i></a></li>
+        <li><a href="#" id="alert-msg"><i class="fa fa-bell-o" aria-hidden="true"></i></a></li>
+        <li><a href="#"><img src="../images/user-img.jpg" class="user-img" alt=""></a></li>
+      </ul>
+    </div>
+
+  </div>
+  <!--video-call divion closed -->
+  <div class="left-side-bar">
+    <ul>
+      <li><a href=""><i class="fa fa-file-text-o" aria-hidden="true"></i></a></li>
+      <li><a href=""><i class="fa fa-calendar" aria-hidden="true"></i></a></li>
+      <li class="active"><a href=""><i class="fa fa-video-camera" aria-hidden="true"></i></a></li>
+    </ul>
+  </div>
+  <div class="right-popup">
+    <div class="chat-panel" style="display: none"></div>
+    <div class="notes-panel" style="display: none"></div>
+    <div class="alert-panel" style="display: none"></div>
+  </div>
+  <div class="right-side-panel">
+    <div class="main-camera">
+      <video id="my-video" autoplay="true">
+
+        <video>
+
+          <div class="col-md-6 col-sm-4 col-xs-6 record-video text-left">
+            <a href="#"><i class="fa fa-circle" aria-hidden="true" style="padding-right: 10px;"></i> REC</a>
+          </div>
+          <div class="col-md-6 col-sm-4 col-xs-6 text-right record-video help-circel">
+            <a href="#"><i class="fa fa-info" aria-hidden="true"></i></a>
+          </div>
+    </div>
+    <!--main-camera division closed -->
+    <div class="other-cameras">
+      <div id="clientvedios">
+
+      </div>
+      <div class="col-sm-3 camera-0ne">
+        <video id="video" autoplay="true" width="100%" height="100%">
+
+          <video>
+      </div>
+      <div class="col-sm-3 camera-two">
+        <video id="video" autoplay="true" width="100%" height="100%">
+          <video>
+      </div>
+      <div class="col-sm-3 camera-three">
+        <video id="video" autoplay="true" width="100%" height="100%">
+      </div>
+      <div class="col-sm-3 camera-fore">
+        <video id="video" autoplay="true" width="100%" height="100%">
+      </div>
+      <div class="clearfix"></div>
+      <div class="col-md-12 bottom-button text-center">
+        <ul>
+          <li id="camera"><a href="#"><i class="fa fa-video-camera" aria-hidden="true"></i></a></li>
+          <li id="microphone">
+            <a href="#"><i class="fa fa-microphone" aria-hidden="true"></i></a>
+            <a href="#"><i class="fa fa-microphone-slash" aria-hidden="true"></i></a>
+          </li>
+          <li id="phone">
+            <a href="#"><i class="fa fa-phone" aria-hidden="true"></i></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="user-container">
+    <ul id="users">
+
+    </ul>
+  </div>
+
+  <div class="chat-container">
+    <ul id="chats">
+    </ul>
+  </div>
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/peer.min.js"></script>
+<script>
+  $(document).ready(function () {
+    if (!localStorage.getItem('users'))
+      localStorage.setItem('users', JSON.stringify([]));
+    $('#microphone').children().last().toggle();
+    $("#chat").click(function () {
+      $(".chat-panel").toggle();
+    });
+    $("#notes").click(function () {
+      $(".notes-panel").toggle();
+    });
+    $("#alert-msg").click(function () {
+      $(".alert-panel").toggle();
+    });
+
+  });
+
+  //allow to get microphone and camera
+  navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+  var id = '<%= id %>';
+
+  $(document).ready(function () {
+    //connect to the peering server
+
+
+    var peer = new Peer(id, {
+      host: '/',
+      port: 9000,
+      path: '../api'
+    });
+    var connectedPeers = {};
+
+    // Show this peer's ID.
+    peer.on('open', function (id) {
+      console.log('ID :::: ', id);
+    });
+
+    // Await connections from others
+    peer.on('connection', connect);
+
+    let usersOnline = JSON.parse(localStorage.getItem('users')) || [];
+
+    if (usersOnline.indexOf(id) == -1) {
+      console.log('usersOnline', usersOnline)
+      usersOnline.push(id);
+      console.log('usersOnline', usersOnline)
+      localStorage.setItem('users', JSON.stringify(usersOnline));
+    }
+
+    var _users = JSON.parse(localStorage.getItem('users')) || [];
+    if (_users.length > 0) {
+      var _list = $('#users');
+      for (var i = 0; i < _users.length; i++) {
+        if (_users[i] != id)
+          _list.append('<li class="client">' + _users[i] + '</li>');
+      }
+    }
+
+    peer.on('error', function (err) {
+      alert(err);
+    });
+    peer.on('open', function (id) {});
+
+    function handleCall(call) {
+      console.log('call handle call', call)
+      placecall(call)
+    }
+
+    function placecall(call, index) {
+      index = !index || index === 0 ? 1 : index;
+      call.on('stream', function (remoteStream) {
+        $('#call').hide();
+        var _main = $('#clientvedios');
+        var _div = $('<div class="col-sm-3"></div>');
+        var _vedio = $('<video autoplay="true" width="100%" height="100%">');
+        $(_vedio).prop('src', URL.createObjectURL(remoteStream));
+        $(_main).append($(_div).append(_vedio));
+      });
+    }
+
+    $(document).on('click', '.client', function () {
+      var id = $(this).text();
+      connect(id);
+      var _main = $('#chats');
+      var _li = $('<li></li>');
+      var container = $('<p class="chat-header">' + id.toUpperCase() + '<span data-id="' + id +
+        '" class="chat-call" id="chat-call' + id + '">call</span></p>' +
+        '<div class="chat-text" id="chat-text' + id + '"></div>' +
+        '<input type="text" class="chat-box" id="chat-box' + id + '">' +
+        '<button class="send" data-id="' + id + '">send</button>');
+      $(_main).append($(_li).append($(container)));
+    });
+
+    $(document).on('click', '.chat-call', function () {
+      var _id = $(this).attr('data-id');
+      $(this).toggle();
+      callPeer(_id);
+    });
+
+    $(document).on('click', '.send', function () {
+      var _id = $(this).attr('data-id');
+      var _chatWindow = $('#chat-text' + _id);
+      var m = $('#chat-box' + _id).val();
+      var _msg = $('<p class="chat-msg">' + $('#chat-box' + _id).val() + '</p>');
+      $(_chatWindow).append(_msg);
+      $('#chat-box' + _id).val('');
+      sendMsg(m, _id);
+    });
+
+    function callPeer(id) {
+      var call = peer.call(id, window.localStream);
+      placecall(call, _users.indexOf(id));
+    }
+    var constraints = window.constraints = {
+      audio: true,
+      video: true
+    };
+
+    navigator
+      .mediaDevices
+      .getUserMedia(constraints)
+      .then(function (stream) {
+        window.localStream = stream;
+        $('#my-video').prop('src', URL.createObjectURL(stream));
+        peer.on('call', function (call) {
+          call.answer(stream); // Answer the call with an A/V stream.
+          handleCall(call);
+        });
+      });
+
+
+    function sendMsg(msg, id) {
+      if (msg && id) {
+        var c = peer.connect(id, {
+          label: 'chat',
+          serialization: 'none',
+          metadata: {
+            message: msg
+          }
+        });
+        c.on('open', function () {
+          c.send(msg)
+        });
+      }
+    }
+
+
+
+    function connect(c) {
+      // Handle a chat connection.
+      if (c.label === 'chat') {
+
+        var id = c.peer;
+        var _main = $('#chats');
+        var _li = $('<li></li>');
+        var container;
+
+        if ($(_main).children().find('#chat-call' + id) != 0) {
+          container = $('<p class="chat-header">' + id.toUpperCase() + '<span data-id="' + id +
+            '" class="chat-call" id="chat-call' + id + '">call</span></p>' +
+            '<div class="chat-text" id="chat-text' + id + '"></div>' +
+            '<input type="text" class="chat-box" id="chat-box' + id + '">' +
+            '<button class="send" data-id="' + id + '">send</button>');
+          $(_main).append($(_li).append($(container)));
+        }
+
+        c.on('data', function (data) {
+          var _msg = $('<p class="text-right">' + data + '</p>');
+          $('#chat-text' + id).append(_msg)
+        });
+        c.on('close', function () {
+          alert(c.peer + ' has left the chat.');
+          chatbox.remove();
+          if ($('.connection').length === 0) {
+            $('.filler').show();
+          }
+          delete connectedPeers[c.peer];
+        });
+      } else if (c.label === 'file') {
+        c.on('data', function (data) {
+          // If we're getting a file, create a URL for it.
+          if (data.constructor === ArrayBuffer) {
+            var dataView = new Uint8Array(data);
+            var dataBlob = new Blob([dataView]);
+            var url = window.URL.createObjectURL(dataBlob);
+            $('#' + c.peer).find('.messages').append('<div><span class="file">' +
+              c.peer + ' has sent you a <a target="_blank" href="' + url + '">file</a>.</span></div>');
+          }
+        });
+      }
+      connectedPeers[c.peer] = 1;
+    }
+
+    $('#camera').on('click', function () {
+      window.localStream.getVideoTracks()[0].enabled = !(window.localStream.getVideoTracks()[0].enabled);
+    });
+
+    $('#microphone').on('click', function () {
+
+      $('#microphone').children().last().toggle();
+      $('#microphone').children().first().toggle();
+      window.localStream.getAudioTracks()[0].enabled = !(window.localStream.getAudioTracks()[0].enabled);
+    });
+
+
+    $('#phone').on('click', function () {})
+
+    init();
+
+    function init() {
+      navigator.getUserMedia({
+        audio: true,
+        video: true
+      }, function (stream) {
+        $('#my-video').prop('src', URL.createObjectURL(stream));
+
+        window.localStream = stream;
+      }, function (err) {
+        alert(err);
+      });
+    }
+
+  });
+
+</script>
+</body>
+
+</html>

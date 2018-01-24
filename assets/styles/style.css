@@ -1,0 +1,499 @@
+body {
+    padding: 0px;
+    margin: 0px;
+    background: #598ebf;
+    font-family: 'Raleway', sans-serif;
+}
+
+.margin-top-login {
+    margin: 8% auto;
+}
+
+.form-center {
+    width: 80%;
+    margin: 0px auto
+}
+
+.login-logo {
+    margin-bottom: 15px;
+}
+
+.form-control.txt-username {
+    height: 44px;
+    background: #cdddec;
+    border-radius: 0px;
+    /*    margin: 9px 0px;*/
+    border: none;
+    outline: none;
+    font-size: 18px;
+}
+
+.form-control.txt-username:placholder {
+    color: #323232;
+}
+
+.login-btn {
+    width: 100%;
+    height: 44px;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background: #323232;
+    color: #FFF;
+    border: none;
+    outline: none;
+    border-radius: 0px;
+    margin-top: 10px;
+}
+
+.btn-default.login-btn:hover {
+    color: #FFF;
+    background-color: #323232;
+}
+
+.password-link a {
+    color: #cdddec;
+    letter-spacing: 2px;
+    font-size: 16px;
+}
+
+.password-link a:hover {
+    text-decoration: none;
+}
+
+/*set password page*/
+
+.set-password-header {
+    padding: 35px 0px;
+}
+
+/*password*/
+
+.txt-username,
+.txt-password {
+    outline: none;
+    border: none;
+}
+
+.gery-background {
+    background: #a7a9ac;
+    padding: 10px 30px;
+}
+
+.gery-background h1 {
+    color: #FFF;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.gery-background h4 {
+    color: #FFF;
+    font-weight: normal;
+    margin-bottom: 10px;
+}
+
+.txt-username.retype-password {
+    background: #ebebeb;
+    margin: 20px 0px;
+    border: none;
+    outline: none;
+}
+
+/*create profile page*/
+
+.txt-label {
+    font-size: 16px;
+    color: #FFF;
+    font-family: 'Raleway', sans-serif;
+    font-weight: normal;
+    padding: 0px;
+}
+
+.padding-zero {
+    padding: 0px;
+}
+
+.birthdate {
+    width: 100%;
+    height: 44px;
+    background: #ebebeb;
+    padding-left: 6px;
+    border: none;
+    outline: none;
+    font-size: 18px;
+}
+
+.margin-top-feild {
+    margin: 20px 0px;
+}
+
+.txt-password {
+    font-size: 18px;
+}
+
+.txt-password a {
+    color: #000;
+    text-decoration: underline;
+}
+
+/*video page*/
+
+.video-call {
+    height: 70px;
+    width: 100%;
+    background: #375d81;
+    position: fixed;
+    z-index: 1;
+}
+#my-video{
+    height: calc(100vh - 60px);
+    margin-top: 60px;
+    width: 100%;
+}
+.top-header {
+    float: left;
+}
+
+.top-header-right {
+    float: right;
+    position: relative;
+    right: 50px;
+    padding: 10px 0px;
+}
+
+.top-header-right ul {
+    list-style: none
+}
+
+.top-header-right ul li {
+    display: inline-block;
+    padding: 10px 12px;
+}
+
+.top-header-right ul li a {
+    color: #FFF;
+    font-size: 22px;
+}
+
+.user-img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+
+.right-popup {
+    background: #123;
+    height: 89.5vh;
+    position: absolute;
+    right: 0px;
+}
+
+.chat-panel,
+.notes-panel {
+    height: 89.5vh;
+    width: 250px;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    padding-top: 100px;
+}
+
+.alert-panel {
+    height: 250px;
+    width: 250px;
+    position: absolute;
+    right: 110px;
+    top: 0px;
+    padding-top: 100px;
+}
+
+.chat-panel,
+.notes-panel,
+.alert-panel {
+    background: #000
+}
+
+.left-side-bar {
+    width: 76px;
+    height: 100%;
+    background: #3c3c3c;
+    position: fixed;
+    top: 0px;
+    padding-top: 70px;
+}
+
+.left-side-bar ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.left-side-bar ul li {
+    display: block;
+    text-align: center;
+    padding: 10px 0px;
+    border-left: 4px solid transparent;
+}
+
+.left-side-bar ul li a {
+    font-size: 24px;
+    color: #FFF;
+}
+
+.left-side-bar ul li.active {
+    border-left: 4px solid #598ebf;
+    background: #666;
+}
+
+.right-side-panel {
+    margin-left: 76px;
+    width: 94%
+}
+
+.record-video {
+    position: absolute;
+    margin: 5px;
+}
+
+.record-video a {
+    background: red;
+    padding: 5px 10px;
+    color: #FFF;
+}
+
+.record-video a:hover {
+    text-decoration: none;
+}
+
+.help-circel a {
+    border-radius: 50%;
+}
+
+.record-video.help-circel {
+    right: 10px;
+}
+
+.help-circel .fa-info {
+    font-size: 18px;
+}
+
+.main-camera {
+    /* background: lightgreen; */
+    height: 89.5vh;
+}
+
+.other-cameras {
+    position: absolute;
+    bottom: 5px;
+    width: 94%
+}
+#clientvedios>div{
+    height: 170px;
+    width: 170px;
+}
+.camera-0ne {
+    height: 170px;
+    width: 170px;
+    /* background: #ccc; */
+}
+
+.camera-two {
+    height: 170px;
+    width: 170px;
+    /* background: green; */
+}
+
+.camera-three {
+    height: 170px;
+    width: 170px;
+    /* background: blue; */
+}
+
+.bottom-button {
+    position: absolute;
+    bottom: 15px;
+}
+
+.bottom-button ul {
+    margin: 0px;
+    list-style: none;
+}
+
+.bottom-button ul li {
+    display: inline-block;
+    padding: 0px 20px;
+}
+
+.bottom-button ul li a {
+    font-size: 25px;
+    color: #FFF;
+}
+
+.bottom-button ul li a .fa-video-camera {
+    background: #52afec;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    padding: 12px 0px;
+}
+
+.bottom-button ul li a .fa-microphone {
+    background: #52afec;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    padding: 12px 0px;
+}
+
+.bottom-button ul li a .fa-microphone-slash {
+    background: red;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    padding: 12px 0px;
+}
+
+.bottom-button ul li a .fa-phone {
+    background: red;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    padding: 12px 0px;
+}
+/*availability page*/
+.create-availability h1{
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.create-availability h4{
+    font-weight: normal;
+}
+.txt-label.avaiblability-txt{
+    color: #000;
+}
+.Add-availability{
+    width: 100%;
+}
+.Add-availability p{
+    margin: 10px 0px;
+    font-size: 18px;
+    color: #52afec;
+}
+.Add-availability p a{
+    color: #52afec;
+}
+textarea{
+    width: 100%;
+    height: 90px;
+    background: #ebebeb;
+    resize: none;
+    border: none;
+    outline: none;
+    padding-left: 6px;
+}
+.login-btn.check-schedule{
+    background: #a7a9ac;
+}
+/*my account page*/
+
+.user-account img{
+    width: 150px;
+    margin-bottom: 20px;
+}
+.user-data div{
+    width: 100%;
+    font-size: 18px;
+}
+.contact{
+    font-size: 20px;
+    font-weight: bold;
+}
+.usre-data-heading{
+    border-top: #696969 2px solid;
+    margin: 20px 0px;
+    padding-top: 20px;
+}
+.email-txt{
+    font-size: 18px;
+    color: #696969;
+}
+.emailid{
+    font-size: 18px;
+    color: #000;
+}
+.blue-color{
+    color: #52afec;
+}
+.container-top-margin{
+    padding-top: 70px;
+}
+.margin-bottom{
+    margin-bottom: 20px;
+}
+
+
+
+
+.user-container{
+    position: absolute;
+    right: 0;
+}
+.user-container li{
+    list-style: none;
+    font-weight: 600;
+}
+.user-container li:hover{
+    cursor: pointer;
+}
+
+.chat-container{
+    position: absolute;
+    right: 100px;
+    bottom: 0;
+}
+.chat-container li{
+    display: block;
+    float: left;
+    width: 200px;
+    background: #ccc;
+    margin: 10px;
+}
+.chat-container li .chat-header{
+        background: #999;
+    font-weight: 600;
+    padding: 10px;
+    color: #fff;
+}
+.chat-container li .chat-header span{
+    float: right;
+    cursor: pointer;
+}
+.chat-container li .chat-text{
+    height: 200px;
+    padding: 10px;
+}
+.chat-container li input{
+        width: 75%;
+        padding: 5px;
+}
+.chat-container li button{
+        width: 25%;
+        padding: 5px;
+}
+
+
+
+@media(max-width: 767px) {
+    .form-center {
+        width: 90%;
+    }
+    .birthdate {
+        margin: 5px 0px;
+    }
+    .padding-zero-767 {
+        padding: 0px;
+    }
+    .margin-top-feild {
+        margin: 10px 0px;
+    }
+}
