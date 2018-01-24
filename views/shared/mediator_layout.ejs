@@ -191,12 +191,15 @@
       connect(id);
       var _main = $('#chats');
       var _li = $('<li></li>');
-      var container = $('<p class="chat-header">' + id.toUpperCase() + '<span data-id="' + id +
-        '" class="chat-call" id="chat-call' + id + '">call</span></p>' +
-        '<div class="chat-text" id="chat-text' + id + '"></div>' +
-        '<input type="text" class="chat-box" id="chat-box' + id + '">' +
-        '<button class="send" data-id="' + id + '">send</button>');
-      $(_main).append($(_li).append($(container)));
+      var container;
+      if ($(_main).children().find('#chat-call' + id) != 0) {
+        container = $('<p class="chat-header">' + id.toUpperCase() + '<span data-id="' + id +
+          '" class="chat-call" id="chat-call' + id + '">call</span></p>' +
+          '<div class="chat-text" id="chat-text' + id + '"></div>' +
+          '<input type="text" class="chat-box" id="chat-box' + id + '">' +
+          '<button class="send" data-id="' + id + '">send</button>');
+        $(_main).append($(_li).append($(container)));
+      }
     });
 
     $(document).on('click', '.chat-call', function () {
@@ -262,8 +265,7 @@
         var _main = $('#chats');
         var _li = $('<li></li>');
         var container;
-
-        if ($(_main).children().find('#chat-call' + id) != 0) {
+        if ($(_main).children().find('#chat-call' + id).length == 0) {
           container = $('<p class="chat-header">' + id.toUpperCase() + '<span data-id="' + id +
             '" class="chat-call" id="chat-call' + id + '">call</span></p>' +
             '<div class="chat-text" id="chat-text' + id + '"></div>' +
