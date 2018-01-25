@@ -32,6 +32,9 @@
         <div class="password-link text-center">
           <a href="password.html">Forgot your username?</a>
         </div>
+        <div class="password-link text-center">
+          <a href="#" id="register-user">New Here!!!</a>
+        </div>
       </div>
       <div class="col-md-4"></div>
     </div>
@@ -44,6 +47,7 @@
     $(document).ready(function () {
       $('#loginBtn').toggle();
       $('#password').toggle();
+
       $("#nextBtn").click(function () {
         $('#errMsg').text('');
         if (username && isValidEmail($('#username').val())) {
@@ -55,6 +59,7 @@
         }
 
       });
+
       $("#loginBtn").click(function () {
         $('#errMsg').text('');
         if ($('#password').val() && isValidEmail($('#username').val())) {
@@ -62,14 +67,29 @@
             username: $('#username').val(),
             password: $('#password').val()
           };
+
           $.ajax({
-            url: '/users/login',
-            method: 'POST',
-            data: data,
+            url: '../mediators.json',
+            method: 'GET',
             success: function (res) {
               console.log('login res', res)
-              if (res.success) {} else {
-                $('#errMsg').text(res.msg);
+              if (res.length > 0) {
+                for (var i = 0; i < res.length; i++) {
+                  if (res[i].username == data.username && res[i].password == data.password) {
+
+                    // console.log(window.location)
+                    window.location = '/mediator/' + res[i].id
+                    // $.ajax({
+                    //   url: '../mediators.json',
+                    //   method: 'GET',
+                    //   success: function (res) {
+                    //     console.log()
+                    //   }
+                    // })
+                  }
+                }
+              } else {
+
               }
             },
             error: function (err) {
@@ -78,6 +98,23 @@
             },
             dataType: 'JSON'
           });
+
+          // $.ajax({
+          //   url: '/users/login',
+          //   method: 'POST',
+          //   data: data,
+          //   success: function (res) {
+          //     console.log('login res', res)
+          //     if (res.success) {} else {
+          //       $('#errMsg').text(res.msg);
+          //     }
+          //   },
+          //   error: function (err) {
+          //     console.log('Login error', err);
+          //     $('#errMsg').text(err.msg);
+          //   },
+          //   dataType: 'JSON'
+          // });
         } else {
           if (!username)
             $('#errMsg').text('Enter valid Password');
@@ -86,6 +123,10 @@
         }
 
       });
+
+      $('#register-user').click(function () {
+        // $
+      })
 
       function isValidEmail(email) {
         if (email && (/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/).test(email)) {

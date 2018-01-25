@@ -65,17 +65,41 @@
           <li class="info">
             <a href="#"><i class="fa fa-info" aria-hidden="true"></i></a></li>
         </ul>
+        <!-- <div class="record-video pull-right">
+          <a href="#"><i class="fa fa-circle" aria-hidden="true" style="padding-right: 10px;"></i> REC</a>
+        </div>
+        <div class="text-right record-video help-circel">
+          <a href="#"><i class="fa fa-info" aria-hidden="true"></i></a>
+        </div> -->
       </div>
 
       <video id="my-video" autoplay="true">
 
         <!-- <video> -->
+
+
+
     </div>
     <!--main-camera division closed -->
     <div class="other-cameras">
       <div id="clientvedios">
 
       </div>
+      <!-- <div class="col-sm-3 camera-0ne">
+        <video id="video" autoplay="true" width="100%" height="100%">
+
+          <video>
+      </div>
+      <div class="col-sm-3 camera-two">
+        <video id="video" autoplay="true" width="100%" height="100%">
+          <video>
+      </div>
+      <div class="col-sm-3 camera-three">
+        <video id="video" autoplay="true" width="100%" height="100%">
+      </div>
+      <div class="col-sm-3 camera-fore">
+        <video id="video" autoplay="true" width="100%" height="100%">
+      </div> -->
       <div class="clearfix"></div>
 
     </div>
@@ -99,14 +123,14 @@
       localStorage.setItem('users', JSON.stringify([]));
     $('#microphone').children().last().toggle();
     $("#chat").click(function () {
-      $(".alert-panel").hide();
-      $(".notes-panel").hide();
       $(".chat-panel").toggle();
+      $(".notes-panel").hide();
+      $(".alert-panel").hide();
     });
     $("#notes").click(function () {
       $(".notes-panel").toggle();
-      $(".alert-panel").hide();
       $(".chat-panel").hide();
+      $(".alert-panel").hide();
     });
     $("#alert-msg").click(function () {
       $(".alert-panel").toggle();
@@ -146,20 +170,18 @@
     peer.on('connection', connect);
 
     peer.on('error', function (err) {
-      alert(err);
+      swal(err);
     });
 
 
-
-
-    var _users = JSON.parse(localStorage.getItem('users')) || [];
-    if (_users.length > 0) {
-      var _list = $('#users');
-      for (var i = 0; i < _users.length; i++) {
-        if (_users[i] != id)
-          _list.append('<li class="client">' + _users[i] + '</li>');
-      }
-    }
+    // var _users = JSON.parse(localStorage.getItem('users')) || [];
+    // if (_users.length > 0) {
+    //   var _list = $('#users');
+    //   for (var i = 0; i < _users.length; i++) {
+    //     if (_users[i] != id)
+    //       _list.append('<li class="client">' + _users[i] + '</li>');
+    //   }
+    // }
 
     function handleCall(call) {
       console.log('call handle call', call)
@@ -181,8 +203,10 @@
     }
 
     function callPeer(id) {
+      console.log('idddd', id)
       var call = peer.call(id, window.localStream);
-      placecall(call, _users.indexOf(id));
+      console.log('call', call)
+      placecall(call, id);
     }
     var constraints = window.constraints = {
       audio: true,
@@ -237,6 +261,7 @@
       if (id) {
         return $('<p class="chat-header">' + id.toUpperCase() +
           '<span data-id="' + id + '" class="chat-call" id="chat-call' + id + '">call</span>' +
+          // '<span data-id="' + id + '" class="chat-call" id="chat-call-remove' + id + '">x</span>' +
           '<span data-id="' + id + '" class="chat-call-drop" style="display:none" id="chat-call-drop' + id +
           '">drop</span></p>' +
           '<div class="chat-text" id="chat-text' + id + '"></div>' +
@@ -245,19 +270,10 @@
       } else return false;
     }
 
-
-
-
     function connect(c) {
       // Handle a chat connection.
-      console.log('c', c)
-      setTimeout(function () {
-
-        c.close();
-
-      }, 10000)
-
       if (c.label === 'chat') {
+
         var id = c.peer;
         var _main = $('#chats');
         var _li = $('<li></li>');
@@ -303,14 +319,24 @@
 
     $(document).on('click', '.client', function () {
       var id = $(this).text();
+      connect(id);
       var _main = $('#chats');
-      if ($(_main).children().find('#chat-call' + id).length == 0) {
-        connect(id);
-        $(".chat-panel").toggle();
-        var _li = $('<li></li>');
-        var container = getChatContainer(id);
+      var _li = $('<li></li>');
+      var container;
+      if ($(_main).children().find('#chat-call' + id) != 0) {
+        $(".chat-panel").hide();
+        container = getChatContainer(id);
         $(_main).append($(_li).append($(container)));
+      } else if ($(_main).children().find('#chat-call' + id).length == 1 && $(element).is(":visible")) {
+
       }
+    });
+
+
+    $(document).on('click', '.chat-call-remove', function () {
+      $(this).siblings('.chat-box').toggle();
+      $(this).siblings('.chat-text').toggle();
+      $(this).siblings('.send').toggle();
     });
 
     $(document).on('click', '.chat-header', function () {
@@ -367,6 +393,31 @@
     })
 
     init();
+    getOnlineUsers()
+
+    function getOnlineUsers() {
+      $.ajax({
+        url: '../mediators.json',
+        method: 'GET',
+        success: function (res) {
+          console.log('login res', res)
+          if (res.length > 0) {
+            var _list = $('#users');
+            for (var i = 0; i < res.length; i++) {
+              if (res[i].id != id)
+                _list.append('<li class="client">' + res[i].id + '</li>');
+            }
+          } else {
+
+          }
+        },
+        error: function (err) {
+          console.log('Login error', err);
+          $('#errMsg').text(err.msg);
+        },
+        dataType: 'JSON'
+      });
+    }
 
     function init() {
       navigator.getUserMedia({
@@ -374,6 +425,7 @@
         video: true
       }, function (stream) {
         $('#my-video').prop('src', URL.createObjectURL(stream));
+
         window.localStream = stream;
       }, function (err) {
         alert(err);
