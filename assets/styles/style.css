@@ -340,6 +340,7 @@ body {
 .bottom-button {
   position: absolute;
   bottom: 15px;
+  z-index: 99;
 }
 
 .bottom-button ul {
@@ -479,6 +480,7 @@ textarea {
 
 .user-container ul {
   padding: 0;
+  margin: 0;
 }
 
 .user-container li {
@@ -489,17 +491,14 @@ textarea {
 }
 
 .user-container li:hover {
-  color: #000;
+  background: #375d81;
   transition: 0.5s all;
-}
-
-.user-container li:hover {
   cursor: pointer;
 }
 
 .chat-container {
   position: absolute;
-  right: 100px;
+  right: 0;
   bottom: 0;
 }
 

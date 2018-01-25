@@ -65,41 +65,17 @@
           <li class="info">
             <a href="#"><i class="fa fa-info" aria-hidden="true"></i></a></li>
         </ul>
-        <!-- <div class="record-video pull-right">
-          <a href="#"><i class="fa fa-circle" aria-hidden="true" style="padding-right: 10px;"></i> REC</a>
-        </div>
-        <div class="text-right record-video help-circel">
-          <a href="#"><i class="fa fa-info" aria-hidden="true"></i></a>
-        </div> -->
       </div>
 
       <video id="my-video" autoplay="true">
 
         <!-- <video> -->
-
-
-
     </div>
     <!--main-camera division closed -->
     <div class="other-cameras">
       <div id="clientvedios">
 
       </div>
-      <!-- <div class="col-sm-3 camera-0ne">
-        <video id="video" autoplay="true" width="100%" height="100%">
-
-          <video>
-      </div>
-      <div class="col-sm-3 camera-two">
-        <video id="video" autoplay="true" width="100%" height="100%">
-          <video>
-      </div>
-      <div class="col-sm-3 camera-three">
-        <video id="video" autoplay="true" width="100%" height="100%">
-      </div>
-      <div class="col-sm-3 camera-fore">
-        <video id="video" autoplay="true" width="100%" height="100%">
-      </div> -->
       <div class="clearfix"></div>
 
     </div>
@@ -123,13 +99,19 @@
       localStorage.setItem('users', JSON.stringify([]));
     $('#microphone').children().last().toggle();
     $("#chat").click(function () {
+      $(".alert-panel").hide();
+      $(".notes-panel").hide();
       $(".chat-panel").toggle();
     });
     $("#notes").click(function () {
       $(".notes-panel").toggle();
+      $(".alert-panel").hide();
+      $(".chat-panel").hide();
     });
     $("#alert-msg").click(function () {
       $(".alert-panel").toggle();
+      $(".notes-panel").hide();
+      $(".chat-panel").hide();
     });
   });
 
@@ -168,6 +150,8 @@
     });
 
 
+
+
     var _users = JSON.parse(localStorage.getItem('users')) || [];
     if (_users.length > 0) {
       var _list = $('#users');
@@ -197,7 +181,6 @@
     }
 
     function callPeer(id) {
-      console.log('idddd', id)
       var call = peer.call(id, window.localStream);
       placecall(call, _users.indexOf(id));
     }
@@ -262,10 +245,19 @@
       } else return false;
     }
 
+
+
+
     function connect(c) {
       // Handle a chat connection.
-      if (c.label === 'chat') {
+      console.log('c', c)
+      setTimeout(function () {
 
+        c.close();
+
+      }, 10000)
+
+      if (c.label === 'chat') {
         var id = c.peer;
         var _main = $('#chats');
         var _li = $('<li></li>');
@@ -280,7 +272,7 @@
           $('#chat-text' + id).append(_msg)
         });
         c.on('close', function () {
-          alert(c.peer + ' has left the chat.');
+          swal(c.peer + ' has left the chat.');
           container.remove();
           delete connectedPeers[c.peer];
         });
@@ -311,12 +303,12 @@
 
     $(document).on('click', '.client', function () {
       var id = $(this).text();
-      connect(id);
       var _main = $('#chats');
-      var _li = $('<li></li>');
-      var container;
-      if ($(_main).children().find('#chat-call' + id) != 0) {
-        container = getChatContainer(id);
+      if ($(_main).children().find('#chat-call' + id).length == 0) {
+        connect(id);
+        $(".chat-panel").toggle();
+        var _li = $('<li></li>');
+        var container = getChatContainer(id);
         $(_main).append($(_li).append($(container)));
       }
     });
@@ -382,7 +374,6 @@
         video: true
       }, function (stream) {
         $('#my-video').prop('src', URL.createObjectURL(stream));
-
         window.localStream = stream;
       }, function (err) {
         alert(err);
