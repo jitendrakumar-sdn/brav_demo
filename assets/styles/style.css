@@ -196,27 +196,33 @@ body {
 
 .chat-panel,
 .notes-panel {
-  height: 89.5vh;
-  width: 250px;
+  height: auto;
+  width: 207px;
   position: absolute;
   right: 0px;
-  top: 0px;
-  padding-top: 100px;
+  top: 70px;
+  /* padding-top: 100px; */
+  z-index: 2;
+  color: #fff;
+  background: #3c3c3c;
 }
 
 .alert-panel {
-  height: 250px;
-  width: 250px;
+  /* height: 250px; */
+  /* width: 250px; */
+  height: auto;
+  width: 207px;
   position: absolute;
   right: 110px;
   top: 0px;
-  padding-top: 100px;
+  /* padding-top: 100px; */
 }
 
 .chat-panel,
 .notes-panel,
 .alert-panel {
-  background: #000
+  /* background: #000; */
+  background: #598ebf;
 }
 
 .left-side-bar {
@@ -261,9 +267,16 @@ body {
   margin-top: 100px;
 }
 
+.record-video.pull-right {
+  top: 0;
+  left: 22%;
+  position: absolute;
+}
+
 .record-video a {
   background: red;
   padding: 5px 10px;
+  display: block;
   color: #FFF;
 }
 
@@ -272,11 +285,12 @@ body {
 }
 
 .help-circel a {
-  border-radius: 50%;
+  display: block;
 }
 
 .record-video.help-circel {
-  right: 10px;
+  left: 30%;
+  top: 0;
 }
 
 .help-circel .fa-info {
@@ -343,7 +357,12 @@ body {
   color: #FFF;
 }
 
-.bottom-button ul li a .fa-video-camera {
+.bottom-button ul li a .fa-video-camera,
+.bottom-button ul li a .fa-microphone-slash,
+.bottom-button ul li a .fa-microphone,
+.bottom-button ul li a .fa-phone,
+.bottom-button ul li a .fa-info,
+.bottom-button ul li a .fa-square {
   background: #52afec;
   height: 50px;
   width: 50px;
@@ -353,26 +372,14 @@ body {
 
 .bottom-button ul li a .fa-microphone {
   background: #52afec;
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
-  padding: 12px 0px;
 }
 
 .bottom-button ul li a .fa-microphone-slash {
   background: red;
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
-  padding: 12px 0px;
 }
 
 .bottom-button ul li a .fa-phone {
   background: red;
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
-  padding: 12px 0px;
 }
 
 
@@ -466,13 +473,24 @@ textarea {
 }
 
 .user-container {
-  position: absolute;
-  right: 0;
+  /* position: absolute;
+  right: 0; */
+}
+
+.user-container ul {
+  padding: 0;
 }
 
 .user-container li {
   list-style: none;
   font-weight: 600;
+  font-style: italic;
+  padding: 10px 15px;
+}
+
+.user-container li:hover {
+  color: #000;
+  transition: 0.5s all;
 }
 
 .user-container li:hover {

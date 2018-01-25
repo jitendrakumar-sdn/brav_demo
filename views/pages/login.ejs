@@ -1,175 +1,102 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
-  <head>
-      <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.indigo-pink.min.css">
-      <script src="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.min.js"></script>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-      <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
-      <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
-      <!-- Background -->
-      <style>
-      body {
-        background-color: #598ebf;
-      }
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brav</title>
+  <!-- style file link -->
+  <link rel="stylesheet" href="../styles/bootstrap.css" type="text/css">
+  <link rel="stylesheet" href="../styles/style.css" type="text/css">
+  <!-- fonts link -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,500,500i,600,600i,700" rel="stylesheet">
+</head>
 
-      .login {
-        width: 256px;
-        margin: 0 auto;
-        margin-top: 0.5%;
-        animation: fadeIn 7s;
-        -webkit-animation: fadeIn 7s;
-      }
-
-      .mdl-textfield__label {
-        color: white;
-      }
-
-      .mdl-textfield__input {
-        color: white;
-        text-color: white;
-      }
-
-      #logo-img {
-        width: 100%;
-        height: 100%;
-      }
-
-      #container-custom {
-        height: 200px;
-      }
-
-      #logo-container {
-        width: 200px;
-        height: 200px;
-        margin: auto;
-        margin-top: 100px;
-
-        animation: fancyLogo 2s;
-        -webkit-animation: fancyLogo 2s;
-      }
-
-      @keyframes fancyLogo {
-        0% {
-          width: 0px;
-          height: 0px;
-        }
-        100% {
-          width: 200px;
-          height: 200px;
-        }
-      }
-
-      @-webkit-keyframes fancyLogo {
-        0% {
-          width: 0px;
-          height: 0px;
-        }
-        100% {
-          width: 200px;
-          height: 200px;
-        }
-      }
-
-      #big-title {
-        color: white;
-        text-shadow: #66ff99;
-        margin: auto;
-        animation: fadeIn 3s;
-        -webkit-animation: fadeIn 3s;
-      }
-
-      #login-form {
-        display: block;
-        text-align: center;
-      }
-
-      @keyframes fadeIn {
-        0% {
-          opacity: 0;
-        }
-        50% {
-          opacity: 0;
-        }
-        100% {
-          opacity: 1;
-        }
-      }
-
-      @-webkit-keyframes fadeIn {
-        0% {
-          opacity: 0;
-        }
-        50% {
-          opacity: 0;
-        }
-        100% {
-          opacity: 1;
-        }
-      }
-
-      </style>
-
-  </head>
-
-
-  <body>
-
-    <div id="container-custom">
-      <div id = "logo-container">
-        <img src= "../images/lion_white.png" id="logo-img"/>
+<body>
+  <div class="login-container">
+    <div class="container">
+      <div class="col-md-4"></div>
+      <div class="col-md-4 text-center margin-top-login">
+        <div class="login-logo">
+          <img src="images/login-log.png" alt="" class="">
+        </div>
+        <form>
+          <div class="form-group">
+            <input type="text" class="form-control txt-username" id="username" placeholder="Username">
+            <input type="text" class="form-control txt-username" id="password" placeholder="Password">
+            <p id="errMsg"></p>
+            <button type="button" class="btn btn-default login-btn" id="nextBtn">next</button>
+            <button type="button" class="btn btn-default login-btn" id="loginBtn">login</button>
+          </div>
+        </form>
+        <div class="password-link text-center">
+          <a href="password.html">Forgot your username?</a>
+        </div>
       </div>
+      <div class="col-md-4"></div>
     </div>
-
-    <center> <h1 id="big-title">brāv</h1> </center>
-
-    <div id="login-form">
-      <div class="mdl-textfield mdl-js-textfield" class="login">
-        <input class="mdl-textfield__input" id="userid" type="text" id="sample1">
-        <label class="mdl-textfield__label" for="sample1">User ID</label>
-      </div>
-
-      <br />
-
-      <div class="mdl-textfield mdl-js-textfield" class="login">
-        <input class="mdl-textfield__input" id="password" type="password" id="sample1">
-        <label class="mdl-textfield__label" for="sample1">Password</label>
-      </div>
-
-      <br />
-
-      <button id="submit-button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" style="width: 300px; color: white">
-        Submit
-      </button>
-
   </div>
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <script src="../js/bootstrap.min.js"></script>
   <script>
-    $(document).ready(function() {
-      $('#submit-button').click(function() {
-        var loginData = {
-          userid: $('#userid').val(),
-          password: $('#password').val()
-        };
-        $.ajax({
-          type: "POST",
-          url: '../auth/login',
-          data: loginData,
-          success: function(res) {
-            console.log(res);
-          },
-          error: function(err) {
-            console.log(err);
-          },
-          dataType: 'JSON'
-        });
+    $(document).ready(function () {
+      $('#loginBtn').toggle();
+      $('#password').toggle();
+      $("#nextBtn").click(function () {
+        $('#errMsg').text('');
+        if (username && isValidEmail($('#username').val())) {
+          $('#loginBtn').toggle();
+          $('#password').toggle();
+          $('#nextBtn').toggle();
+        } else {
+          $('#errMsg').text('Enter valid username');
+        }
+
+      });
+      $("#loginBtn").click(function () {
+        $('#errMsg').text('');
+        if ($('#password').val() && isValidEmail($('#username').val())) {
+          let data = {
+            username: $('#username').val(),
+            password: $('#password').val()
+          };
+          $.ajax({
+            url: '/users/login',
+            method: 'POST',
+            data: data,
+            success: function (res) {
+              console.log('login res', res)
+              if (res.success) {} else {
+                $('#errMsg').text(res.msg);
+              }
+            },
+            error: function (err) {
+              console.log('Login error', err);
+              $('#errMsg').text(err.msg);
+            },
+            dataType: 'JSON'
+          });
+        } else {
+          if (!username)
+            $('#errMsg').text('Enter valid Password');
+          else
+            $('#errMsg').text('Enter valid Username');
+        }
 
       });
 
+      function isValidEmail(email) {
+        if (email && (/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/).test(email)) {
+          return true;
+        }
+        return false;
+      }
     });
+
   </script>
 
-
-  </body>
+</body>
 
 </html>
