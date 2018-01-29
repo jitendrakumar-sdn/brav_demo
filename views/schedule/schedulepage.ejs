@@ -34,7 +34,7 @@
     <div class="left-side-bar">
         <ul>
             <li><a href=""><i class="fa fa-file-text-o" aria-hidden="true"></i></a></li>
-            <li class="active"><a href=""><i class="fa fa-calendar" aria-hidden="true"></i></a></li>
+            <li class="active"><a href="/schedule"><i class="fa fa-calendar" aria-hidden="true"></i></a></li>
             <li><a href=""><i class="fa fa-video-camera" aria-hidden="true"></i></a></li>
         </ul>
     </div>
@@ -161,41 +161,38 @@
         $('#year').select2();
         $('#hr').select2();
         $('#min').select2();
-        // $('#availability').select2();
+        $('#availability').select2();
 
 
         $("#addSchedule").on('click', function(){
             console.log('clicked')
             $('errMsg').val('');
-            debugger;
-            var _name = $('#Conflictname').find(':selected').val();
-            var _month = $('#month').find(':selected').val();
-            var _date = $('#date').find(':selected').val();
-            var _year = $('#year').find(':selected').val();
-            var _min = $('#min').find(':selected').val();
-            var _hr = $('#hr').find(':selected').val();
-            // var _availability = $('#availability').find(':selected').val();
+            var _name = String($('#Conflictname').find(':selected').val());
+            var _month = String($('#month').find(':selected').val());
+            var _date = String($('#date').find(':selected').val());
+            var _year = String($('#year').find(':selected').val());
+            var _min = String($('#min').find(':selected').val());
+            var _hr = String($('#hr').find(':selected').val());
+            var _availability =String( $('#availability').find(':selected').val());
             var _description = $('#description').val();
-            debugger;
-            
+
             if(_name && _month && _date && _year && _min && _hr  && _description){
-                var data = {
+                var data1 = {
                     conflictname : _name,
                     month: _month,
                     date: _date,
                     year: _year,
                     hr: _hr,
                     min: _min,
-                    availabilty: _availabilty || "asd",
+                    availabilty: _availability || "asd",
                     description: _description,
                 }
-            debugger;
                 
-                console.log('data',data)
+                console.log('data',data1)
                 $.ajax({
                     url: '/schedule/newschedule',
                     method: 'POST',
-                    data: data,
+                    data: data1,
                     success: function (res) {
                         console.log('schedule res', res)
                     if (res.data.length > 0) {

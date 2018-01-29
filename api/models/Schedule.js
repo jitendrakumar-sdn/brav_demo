@@ -13,23 +13,23 @@ module.exports = {
       required: true
     },
     month: {
-      type: 'INT',
+      type: 'STRING',
       required: true
     },
     date: {
-      type: 'INT',
+      type: 'STRING',
       required: true
     },
     year: {
-      type: 'INT',
+      type: 'STRING',
       required: true
     },
     hr: {
-      type: 'INT',
+      type: 'STRING',
       required: true
     },
     min: {
-      type: 'INT',
+      type: 'STRING',
       required: true
     },
     availabilty: {
