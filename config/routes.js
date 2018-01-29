@@ -33,14 +33,18 @@ module.exports.routes = {
    ***************************************************************************/
 
   '/': {
-    view: 'pages/login'
+    controller: 'UserController',
+    action: 'loginpage'
   },
-
+  '/register': {
+    controller: 'UserController',
+    action: 'registerpage'
+  },
   '/mediator/:id': {
     controller: 'MediatorController',
     action: 'index',
     skipAssets: true
-  }
+  },
 
   /***************************************************************************
    *                                                                          *

@@ -61,13 +61,11 @@ body {
   text-decoration: none;
 }
 
-
 /*set password page*/
 
 .set-password-header {
   padding: 35px 0px;
 }
-
 
 /*password*/
 
@@ -100,7 +98,6 @@ body {
   border: none;
   outline: none;
 }
-
 
 /*create profile page*/
 
@@ -138,7 +135,6 @@ body {
   color: #000;
   text-decoration: underline;
 }
-
 
 /*video page*/
 
@@ -365,6 +361,7 @@ body {
 .bottom-button ul li a .fa-microphone,
 .bottom-button ul li a .fa-phone,
 .bottom-button ul li a .fa-info,
+.bottom-button ul li a .fa-pause,
 .bottom-button ul li a .fa-square {
   background: #52afec;
   height: 50px;
@@ -373,18 +370,24 @@ body {
   padding: 12px 0px;
 }
 
-.bottom-button ul li a .fa-microphone {
-  background: #52afec;
-}
-
-.bottom-button ul li a .fa-microphone-slash {
+.bottom-button ul li a .fa-microphone-slash,
+.bottom-button ul li a .fa-phone,
+.bottom-button ul li a .fa-microphone-slash,
+.bottom-button ul li a .fa-video-camera-slash,
+.bottom-button ul li a .fa.fa-pause {
   background: red;
+  position: relative;
 }
 
-.bottom-button ul li a .fa-phone {
-  background: red;
+.fa-video-camera-slash:after {
+  position: absolute;
+  top: 0;
+  content: '\f0e7';
+  font-size: 36px;
+  left: 38%;
+  transform: rotate(25deg, 25deg, 25deg);
+  top: 10%;
 }
-
 
 /*availability page*/
 
@@ -428,7 +431,6 @@ textarea {
 .login-btn.check-schedule {
   background: #a7a9ac;
 }
-
 
 /*my account page*/
 
@@ -507,7 +509,6 @@ textarea {
 .chat-container li {
   display: inline-block;
   width: 200px;
-  background: #ccc;
   margin: 10px;
   border: 1px solid #999;
   border-radius: 2px;
@@ -519,6 +520,14 @@ textarea {
   padding: 10px;
   color: #fff;
   margin: 0;
+  position: relative;
+}
+
+.chat-call-cancel {
+  position: absolute;
+  top: 0px;
+  font-size: 11px;
+  right: 5px;
 }
 
 .chat-container li .chat-header span {
@@ -530,6 +539,7 @@ textarea {
   height: 200px;
   padding: 10px;
   background: #fff;
+  overflow-y: auto;
 }
 
 .chat-container li .chat-text p {
@@ -553,6 +563,7 @@ textarea {
   width: 75%;
   padding: 5px;
   border: 0;
+  border-top: 1px solid #eee;
 }
 
 .chat-container li button {
