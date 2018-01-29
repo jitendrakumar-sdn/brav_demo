@@ -36,9 +36,17 @@ var jsFilesToInject = [
   'js/jquery.min.js',
   'js/mdl-jquery-modal-dialog.js',
   'js/bootstrap.min.js',
-  'js/sweet-alert.min.js',
+  'js/select2.min.js',
   'js/app.js',
   'js/peer.min.js',
+  'js/moment.min.js',
+  'js/fullcalendar.min.js',
+  'js/scheduler.min.js',
+
+  // 'js/angular/app.js',
+  // 'js/angular/angular-routes.js',
+
+
 ];
 
 

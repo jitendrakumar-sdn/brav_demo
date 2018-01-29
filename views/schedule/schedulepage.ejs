@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brav</title>
+    <link rel="stylesheet" href="../styles/bootstrap.css" type="text/css">
+    <link rel="stylesheet" href="../styles/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="../styles/style.css" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,500,500i,600,600i,700" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.1/fullcalendar.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.1/fullcalendar.print.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.1/fullcalendar.min.js"></script>
+    
+</head>
+
+<body style="background: #FFF">
+    <div class="video-call">
+        <div class="top-header">
+            <img src="images/header-logo.png" alt="">
+        </div>
+        <div class="top-header-right">
+            <ul>
+                <li><a href="#" id="chat"><i class="fa fa-comments" aria-hidden="true"></i></a></li>
+                <li><a href="#" id="notes"><i class="fa fa-pencil-square" aria-hidden="true"></i></a></li>
+                <li><a href="#" id="alert-msg"><i class="fa fa-bell-o" aria-hidden="true"></i></a></li>
+                <li><a href="#"><img src="images/user-img.jpg" class="user-img" alt=""></a></li>
+            </ul>
+        </div>
+
+    </div>
+    <!--video-call divion closed -->
+    <div class="left-side-bar">
+        <ul>
+            <li><a href=""><i class="fa fa-file-text-o" aria-hidden="true"></i></a></li>
+            <li class="active"><a href=""><i class="fa fa-calendar" aria-hidden="true"></i></a></li>
+            <li><a href=""><i class="fa fa-video-camera" aria-hidden="true"></i></a></li>
+        </ul>
+    </div>
+    <div class="right-popup">
+        <div class="chat-panel" style="display: none"></div>
+        <div class="notes-panel" style="display: none"></div>
+        <div class="alert-panel" style="display: none"></div>
+    </div>
+    <div class="right-side-panel">
+        <div class="container container-top-margin">
+            <div class="col-md-8 create-availability">
+                <h1>Hi name last,</h1>
+                <h4>Get started by scheduling a session:</h4>
+                <form>
+                    <div class="form-group margin-top-feild">
+                        <label class="txt-label col-sm-12 avaiblability-txt">Conflict name<sup>*</sup></label>
+                        <div class="col-sm-12 padding-zero">
+                            <!-- <input type="text" placeholder="" id="Conflictname" class="birthdate"> -->
+                            <!-- <select name="" id="Conflictname" class="birthdate">
+                                <option value="">Select Conflict</option>
+                            </select> -->
+                            <select id="Conflictname" class="birthdate" name="Conflictname">
+                                <option disabled="true">Select Conflict</option>
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-group margin-top-feild">
+                        <label class="txt-label col-sm-12 avaiblability-txt">Availability<sup>*</sup></label>
+                        <div class="col-sm-3 padding-zero">
+                            <!-- <input type="text" placeholder="Month" id="month" class="birthdate"> -->
+                            <select name="" id="month" class="birthdate">
+                                <option value="">Select Month</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-2 padding-zero-767">
+                            <!-- <input type="text" placeholder="Day" id="date" class="birthdate"> -->
+                            <select name="" id="date" class="birthdate">
+                                <option value="">Select Date</option>
+                            </select>
+                        </div>
+
+                        <div class="col-sm-3 padding-zero-767">
+                            <!-- <input type="text" placeholder="Year" id="year" class="birthdate"> -->
+                            <select name="" id="year" class="birthdate">
+                                <option value="">Select Year</option>
+                            </select>
+                        </div>
+
+                        <div class="col-sm-2 padding-zero">
+                            <!-- <input type="text" placeholder="Time*" id="year" class="birthdate"> -->
+                            <select name="" id="hr" class="birthdate">
+                                <option value="">Select Hour</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-2 padding-zero">
+                            <!-- <input type="text" placeholder="Time*" id="year" class="birthdate"> -->
+                            <select name="" id="min" class="birthdate">
+                                <option value="">Select Min</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="Add-availability">
+                        <p>Add another available time <a href="#"><i class="fa fa-plus" aria-hidden="true"></i></a> </p>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-group margin-top-feild">
+                        <label class="txt-label col-sm-12 avaiblability-txt">Availability<sup>*</sup></label>
+                        <div class="col-sm-12 padding-zero">
+                            <!-- <input type="text" placeholder="Anne Schmidt, David Beckman" id="parties" class="birthdate"> -->
+                            <select name="" id="availability" class="birthdate" multiple="true">
+                                <option value="">Select Availability</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <div class="form-group margin-top-feild">
+                        <label class="txt-label col-sm-12 avaiblability-txt">Describe the conflict<sup>*</sup></label>
+                        <div class="col-sm-12 padding-zero">
+                            <textarea id="description"></textarea>
+                        </div>
+                    </div>
+                    <p id="errMsg"></p>
+                    <div class="clearfix"></div>
+                    <div class="form-group margin-top-feild">
+                        <div class="col-sm-offset-8 col-sm-4 padding-zero text-right">
+                            <button class="btn btn-default login-btn" id="addSchedule">SUBMIT</button>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <p class="txt-password">Brav respects and protects your privacy. View full privacy policy <a href="">here</a>.</p>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--right-side-panel closed -->
+</body>
+
+</html>
+
+
+<script src="../js/jquery.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/sweet-alert.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#chat").click(function () {
+            $(".chat-panel").toggle();
+        });
+        $("#notes").click(function () {
+            $(".notes-panel").toggle();
+        });
+        $("#alert-msg").click(function () {
+            $(".alert-panel").toggle();
+        });
+
+        $('#Conflictname').select2();
+        $('#month').select2();
+        $('#date').select2();
+        $('#year').select2();
+        $('#hr').select2();
+        $('#min').select2();
+        // $('#availability').select2();
+
+
+        $("#addSchedule").on('click', function(){
+            console.log('clicked')
+            $('errMsg').val('');
+            debugger;
+            var _name = $('#Conflictname').find(':selected').val();
+            var _month = $('#month').find(':selected').val();
+            var _date = $('#date').find(':selected').val();
+            var _year = $('#year').find(':selected').val();
+            var _min = $('#min').find(':selected').val();
+            var _hr = $('#hr').find(':selected').val();
+            // var _availability = $('#availability').find(':selected').val();
+            var _description = $('#description').val();
+            debugger;
+            
+            if(_name && _month && _date && _year && _min && _hr  && _description){
+                var data = {
+                    conflictname : _name,
+                    month: _month,
+                    date: _date,
+                    year: _year,
+                    hr: _hr,
+                    min: _min,
+                    availabilty: _availabilty || "asd",
+                    description: _description,
+                }
+            debugger;
+                
+                console.log('data',data)
+                $.ajax({
+                    url: '/schedule/newschedule',
+                    method: 'POST',
+                    data: data,
+                    success: function (res) {
+                        console.log('schedule res', res)
+                    if (res.data.length > 0) {
+                    // for (var i = 0; i < res.data.length; i++) {
+                    //     var option = new Option(res.data[i].firstname+' '+res.data[i].lastname, res.data[i].id);
+                    //     $('#Conflictname').append(option).trigger('change');
+                    // }
+                    // for (var i = 0; i < res.data.length; i++) {
+                    //     var option = new Option(res.data[i].firstname+' '+res.data[i].lastname, res.data[i].id);
+                    //     $('#availability').append(option).trigger('change');
+                    // }
+                    } else {
+
+                    }
+                },
+                error: function (err) {
+                    console.log('Login error', err);
+                    $('#errMsg').text(err.msg);
+                },
+                dataType: 'JSON'
+                });
+            }else{
+            $('errMsg').val('Enter all fields');
+            }
+        })
+
+
+        $('#month').on('select2:select', function(){
+            console.log("$('#Conflictname').find(':selected')",$('#month').find(':selected').val());
+            var days;
+            var month = $('#month').find(':selected').val();
+            if(month == "Jan" || month == "May" || month == "Mar" || month == "Apr" || month == "Jul" || month == "Aug" || month == "Oct" || month == "Dec"){
+                days = 31;
+            }else if(month == "Jun" || month == "Sep" || month == "Nov" || month == "May"){
+                days = 30;
+            }else if(month == "Feb"){
+                days = 28;
+            }
+            for(var i= 0; i< days;i++){
+                var option = new Option(i+1, i+1);
+                 $('#date').append(option).trigger('change');
+            }
+
+        })
+
+        var monthOption = [
+            new Option("Jan", "Jan"),
+            new Option("Feb", "Feb"),
+            new Option("Mar", "Mar"),
+            new Option("Apr", "Apr"),
+            new Option("May", "May"),
+            new Option("Jun", "Jun"),
+            new Option("Jul", "Jul"),
+            new Option("Aug", "Aug"),
+            new Option("Sep", "Sep"),
+            new Option("Oct", "Oct"),
+            new Option("Nov", "Nov"),
+            new Option("Dec", "Dec")
+        ];
+
+    for (var i = 0; i < monthOption.length; i++) {
+        $('#month').append(monthOption[i]).trigger('change');
+    }
+    for (var i = 2018; i < 2019; i++) {
+        $('#year').append(new Option(i, i)).trigger('change');
+    }
+    for (var i = 0; i < 24; i++) {
+        $('#hr').append(new Option(i, i)).trigger('change');
+    }
+    for (var i = 0; i < 60; i++) {
+        $('#min').append(new Option(i, i)).trigger('change');
+    }
+        
+        
+        $.ajax({
+          url: '/user/online',
+          method: 'GET',
+          success: function (res) {
+            console.log('onlineuser res', res)
+            if (res.data.length > 0) {
+                for (var i = 0; i < res.data.length; i++) {
+                    var option = new Option(res.data[i].firstname, res.data[i].firstname);
+                    $('#Conflictname').append(option).trigger('change');
+                }
+                for (var i = 0; i < res.data.length; i++) {
+                    var option = new Option(res.data[i].firstname, res.data[i].firstname);
+                    $('#availability').append(option).trigger('change');
+                }
+            } else {
+
+            }
+          },
+          error: function (err) {
+            console.log('Login error', err);
+            $('#errMsg').text(err.msg);
+          },
+          dataType: 'JSON'
+        });
+
+
+    });
+
+</script>

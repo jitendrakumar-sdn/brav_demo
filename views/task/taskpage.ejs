@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brav</title>
+    <link rel="stylesheet" href="../styles/bootstrap.css" type="text/css">
+    <link rel="stylesheet" href="../styles/font-awesome.min.css" type="text/css">
+    <link rel='stylesheet' href='../styles/fullcalendar.min.css' />
+    <link rel='stylesheet' href='../styles/scheduler.min.css' />
+    <link rel="stylesheet" href="../styles/style.css" type="text/css">
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/sweet-alert.min.js"></script>
+    <script src='../js/moment.min.js'></script>
+    <script src='../js/fullcalendar.min.js'></script>
+
+<script src='../js/scheduler.js'></script>
+    
+</head>
+
+<body style="background: #FFF">
+    <div class="video-call">
+        <div class="top-header">
+            <img src="images/header-logo.png" alt="">
+        </div>
+        <div class="top-header-right">
+            <ul>
+                <li><a href="#" id="chat"><i class="fa fa-comments" aria-hidden="true"></i></a></li>
+                <li><a href="#" id="notes"><i class="fa fa-pencil-square" aria-hidden="true"></i></a></li>
+                <li><a href="#" id="alert-msg"><i class="fa fa-bell-o" aria-hidden="true"></i></a></li>
+                <li><a href="#"><img src="images/user-img.jpg" class="user-img" alt=""></a></li>
+            </ul>
+        </div>
+
+    </div>
+    <!--video-call divion closed -->
+    <div class="left-side-bar">
+        <ul>
+            <li><a href=""><i class="fa fa-file-text-o" aria-hidden="true"></i></a></li>
+            <li class="active"><a href=""><i class="fa fa-calendar" aria-hidden="true"></i></a></li>
+            <li><a href=""><i class="fa fa-video-camera" aria-hidden="true"></i></a></li>
+        </ul>
+    </div>
+    <div class="right-popup">
+        <div class="chat-panel" style="display: none"></div>
+        <div class="notes-panel" style="display: none"></div>
+        <div class="alert-panel" style="display: none"></div>
+    </div>
+    <div class="right-side-panel">
+        <div class="container container-top-margin">
+            <!-- <div id="calendar"></div> -->
+            <div id='calendar'></div>
+        </div>
+    </div>
+    <!--right-side-panel closed -->
+    <script>
+    $(document).ready(function () {
+
+        $('#calendar').fullCalendar({
+    weekends: true // will hide Saturdays and Sundays
+});
+    });
+</script>
+</body>
+
+</html>

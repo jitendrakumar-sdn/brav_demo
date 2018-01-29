@@ -40,6 +40,18 @@ module.exports.routes = {
     controller: 'UserController',
     action: 'registerpage'
   },
+  '/profile': {
+    controller: 'UserController',
+    action: 'profilepage'
+  },
+  '/schedule': {
+    controller: 'ScheduleController',
+    action: 'schedulepage'
+  },
+  '/task': {
+    controller: 'TaskController',
+    action: 'taskpage'
+  },
   '/mediator/:id': {
     controller: 'MediatorController',
     action: 'index',

@@ -255,7 +255,9 @@ body {
 
 .right-side-panel {
   margin-left: 76px;
-  width: 94%
+  /* width: 94%; */
+  /* width: auto; */
+  max-width: 100%;
 }
 
 .record-video {
@@ -298,12 +300,12 @@ body {
   height: 89.5vh;
 }
 
-.other-cameras {
+ .other-cameras {
   position: absolute;
   width: 200px;
   top: 80px;
   text-align: center;
-}
+} 
 
 #clientvedios>div {
   height: 120px;
@@ -504,6 +506,7 @@ textarea {
   position: absolute;
   right: 0;
   bottom: 0;
+    z-index: 2;
 }
 
 .chat-container li {
@@ -520,14 +523,13 @@ textarea {
   padding: 10px;
   color: #fff;
   margin: 0;
-  position: relative;
 }
 
 .chat-call-cancel {
-  position: absolute;
-  top: 0px;
-  font-size: 11px;
-  right: 5px;
+    margin-left: 10px;
+    background: #3c3c3c;
+    padding: 0px 4px;
+    border-radius: 5px;
 }
 
 .chat-container li .chat-header span {
@@ -563,13 +565,84 @@ textarea {
   width: 75%;
   padding: 5px;
   border: 0;
-  border-top: 1px solid #eee;
+  border-top: 1px solid #598ebf;
 }
 
-.chat-container li button {
-  width: 25%;
-  padding: 5px;
+.chat-container li .send {
+    width: 25%;
+    text-align: center;
+    padding: 5px;
+    background: #598ebf;
+    color: #ffffff;
+    padding: 8px 4px 15px 0px;
+    border-top: 1px solid #598ebf;
+    display: inline-block;
+    height: 31px;
+    cursor: pointer;
 }
+
+
+/*availability page*/
+.create-availability h1{
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.create-availability h4{
+    font-weight: normal;
+}
+.txt-label.avaiblability-txt{
+    color: #000;
+}
+.Add-availability{
+    width: 100%;
+}
+.Add-availability p{
+    margin: 10px 0px;
+    font-size: 18px;
+    color: #52afec;
+}
+.Add-availability p a{
+    color: #52afec;
+}
+textarea{
+    width: 100%;
+    height: 90px;
+    background: #ebebeb;
+    resize: none;
+    border: none;
+    outline: none;
+    padding-left: 6px;
+}
+.login-btn.check-schedule{
+    background: #a7a9ac;
+}
+/*my account page*/
+
+.user-account img{
+    width: 150px;
+    margin-bottom: 20px;
+}
+.user-data div{
+    width: 100%;
+    font-size: 18px;
+}
+.fa.fa-phone.custom {
+  transform: rotate(180deg);
+  font-size: 20px;
+}
+
+.fa.fa-phone.fa-phone-slash {
+  transform: rotate(137deg);
+  font-size: 20px;
+  color: red;
+}
+
+#clientvedios {
+  text-align: center;
+  margin-top: 25px;
+}
+
+
 
 @media(max-width: 767px) {
   .form-center {
@@ -586,18 +659,218 @@ textarea {
   }
 }
 
-.fa.fa-phone.custom {
-  transform: rotate(180deg);
-  font-size: 20px;
+
+
+/*Responsive css */
+
+@media screen and (min-width:768px) and (max-width:1024px){
+ .bottom-button {
+    bottom: 44%;
+}
+  .bottom-button ul li {
+    padding: 0px 4px;
+}
+  .main-camera {
+    height: 79.5vh;
+}
+  #my-video {
+    margin-top: 71px;
+    /* height: intial; */
+   height: auto;
+}
+.other-cameras {
+    position: absolute;
+    text-align: center;
+    top: 60%;
+    left: 90px;
+    right: 0;
+    top: 0;
+    text-align: center;
+}
+  #clientvedios {
+    display: flex;
+    margin-top: 25px;
+}
 }
 
-.fa.fa-phone.fa-phone-slash {
-  transform: rotate(137deg);
-  font-size: 20px;
-  color: red;
+@media screen and (min-width:767px) and (max-width:1024px){
+  .bottom-button {
+    bottom: 44%;
+}
+  .bottom-button ul li {
+    padding: 0px 4px;
+}
+  .main-camera {
+    height: 79.5vh;
+} 
+  #my-video {
+    margin-top: 71px;
+    /* height: intial; */
+   height: auto;
+}
+  .other-cameras {
+    position: absolute;
+    text-align: center;
+    top: 55%;
+    left: 90px;
+    right: 15px;
+    text-align: center;
+    width: auto;
+}
+  #clientvedios {
+    display: flex;
+    margin-top: 25px;
+}
 }
 
-#clientvedios {
-  text-align: center;
-  margin-top: 25px;
+@media screen and (min-width:360px) and (max-width:640px){
+  .bottom-button ul li a .fa-video-camera, .bottom-button ul li a .fa-microphone-slash, .bottom-button ul li a .fa-microphone, .bottom-button ul li a .fa-phone, .bottom-button ul li a .fa-info, .bottom-button ul li a .fa-pause, .bottom-button ul li a .fa-square {
+    height: 35px;
+    width: 35px;
+    padding: 8px 0px;
+} 
+ .bottom-button {
+    left: 25% !important;
+    transform: translateX(5%);
+     bottom: 57% !important;
+}
+  .bottom-button ul li a {
+    font-size: 20px;
+}
+  .bottom-button ul {
+    padding: 0;
+}
+  .bottom-button ul li {
+    padding: 0px 4px;
+}
+  .main-camera {
+    height: 79.5vh;
+} 
+  #my-video {
+    margin-top: 71px;
+    /* height: intial; */
+   height: auto;
+}
+  .other-cameras {
+    top: 45% !important;
+    left: 90px !important;
+    right: 15px !important;
+}
+  #clientvedios {
+    display: flex;
+    margin-top: 25px;
+    flex-wrap: wrap;
+}
+
+#clientvedios>div {
+    margin: 10px auto;
+    flex-basis: 30%;
+}
+}
+
+@media screen and (min-width:320px) and (max-width:480px){
+  .chat-container li .chat-header {
+    font-size: 10px;
+  }
+  ul#chats{
+    margin-bottom: 0;
+  }
+  .chat-container li {
+    width: 170px;
+    margin: 0 10px;
+  }
+  .chat-container li .chat-text {
+    height: 130px;
+  }
+  .chat-container li input {
+    font-size: 10px;
+  }
+  .chat-container li .send  {
+    font-size: 10px;
+    padding: 6px 4px 12px 0px;
+    height: 25px;
+}
+  .bottom-button ul li a .fa-video-camera, .bottom-button ul li a .fa-microphone-slash, .bottom-button ul li a .fa-microphone, .bottom-button ul li a .fa-phone, .bottom-button ul li a .fa-info, .bottom-button ul li a .fa-pause, .bottom-button ul li a .fa-square {
+    height: 35px;
+    width: 35px;
+    padding: 8px 0px;
+} 
+ .bottom-button {
+    left: 22%;
+    transform: translateX(5%);
+    padding: 0;
+    bottom: 49%;
+}
+  .top-header-right {
+    right: 10px;
+  }
+  .top-header-right ul {
+    padding: 0;
+  }
+  .bottom-button ul li a {
+    font-size: 20px;
+}
+  .bottom-button ul {
+    padding: 0;
+}
+  .bottom-button ul li {
+    padding: 0px 4px;
+}
+  .main-camera {
+    height: 79.5vh;
+} 
+  #my-video {
+    margin-top: 71px;
+    /* height: intial; */
+   height: auto;
+}
+  .other-cameras {
+    position: absolute;
+    text-align: center;
+    top: 52%;
+    left: 80px;
+    right: 5px;
+    text-align: center;
+    width: auto;
+}
+  #clientvedios {
+    display: flex;
+    margin-top: 0;
+    flex-wrap: wrap;
+}
+
+#clientvedios>div {
+    margin: 10px auto;
+    flex-basis: 32%;
+    height: auto;
+}
+}
+
+@media screen and (min-width:412px) and (max-width:732px){
+  .other-cameras {
+    top: 48% !important;
+    left: 80px !important;
+    right: 3px !important;
+}
+  .bottom-button {
+    left: 28% !important;
+    bottom: 57% !important;
+}
+
+}
+@media screen and (min-width:320px) and (max-width:568px){
+  .other-cameras {
+    top: 44%;
+    left: 80px !important;
+    right: 3px !important;
+}
+  .bottom-button {
+    left: 23% !important;
+    bottom: 57% !important;
+}
+
+}
+
+.fc-license-message{
+  display: none;
 }

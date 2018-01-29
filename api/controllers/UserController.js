@@ -52,9 +52,10 @@ module.exports = {
 
   },
   registerpage: function (req, res) {
-    res.view({
-      user: "Ahamed"
-    });
+    res.view();
+  },
+  profilepage: function (req, res) {
+    res.view();
   },
   loginpage: function (req, res) {
     res.view();

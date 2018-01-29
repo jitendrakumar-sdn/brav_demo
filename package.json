@@ -6,6 +6,7 @@
   "keywords": [],
   "dependencies": {
     "ejs": "2.3.4",
+    "fullcalendar": "^3.8.1",
     "grunt": "0.4.5",
     "grunt-contrib-clean": "0.6.0",
     "grunt-contrib-coffee": "0.13.0",
@@ -24,7 +25,9 @@
     "sails": "~0.12.1",
     "sails-disk": "~0.10.9",
     "sails-mysql": "^0.11.5",
-    "socket.io": "^2.0.4"
+    "socket.io": "^2.0.4",
+    "socket.io-p2p": "^2.2.0",
+    "socket.io-p2p-server": "^1.2.0"
   },
   "scripts": {
     "debug": "node debug app.js",
