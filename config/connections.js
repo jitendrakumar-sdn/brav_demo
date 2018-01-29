@@ -45,7 +45,7 @@ module.exports.connections = {
     host: '127.0.0.1',
     // port: '81',
     user: 'root',
-    password: 'root',
+    password: '',
     database: 'brav'
   },
   mySqlLive: {

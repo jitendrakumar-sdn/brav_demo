@@ -53,8 +53,11 @@
           <i class="fa fa-file-text-o" aria-hidden="true"></i>
         </a>
       </li>
-                  <li class="active"><a href="/schedule"><i class="fa fa-calendar" aria-hidden="true"></i></a></li>
-
+      <li>
+        <a href="/schedule">
+          <i class="fa fa-calendar" aria-hidden="true"></i>
+        </a>
+      </li>
       <li class="active">
         <a href="">
           <i class="fa fa-video-camera" aria-hidden="true"></i>
@@ -162,6 +165,7 @@
   <script src="../js/bootstrap.min.js"></script>
   <script src="../js/socket.io.js"></script>
   <script src="../js/sweet-alert.min.js"></script>
+  <script src="../js/app.js"></script>
   <script src="../js/peer.min.js"></script>
   <script>
     //allow to get microphone and camera
@@ -220,7 +224,8 @@
       function placecall(call, index) {
         index = !index || index === 0 ? 1 : index + 1;
         var _main = $('#clientvedios');
-        if ($(_main).children().find('#vedio' + index).length == 0) {;
+        if ($(_main).children().find('#vedio' + index).length == 0) {
+          ;
           call.on('stream', function (remoteStream) {
             $('#call').hide();
             var _div = $('<div class="single-client-vedio"></div>');
@@ -331,7 +336,7 @@
           var id = c.peer;
           var _main = $('#chats');
           var _li = $('<li></li>');
-          console.log("name",c);
+          console.log("name", c);
           var container;
           if ($(_main).children().find('#chat-call' + id).length == 0) {
             container = getChatContainer(id, c.metadata.name);
@@ -421,11 +426,11 @@
         e.stopPropagation();
         var _id = $(this).attr('data-id');
         // if (!isInCall) {
-          $(this).next().toggle();
-          $(this).toggle();
-          var call = peer.call(_id, window.localStream);
-          console.log('call', call)
-          placecall(call, _id);
+        $(this).next().toggle();
+        $(this).toggle();
+        var call = peer.call(_id, window.localStream);
+        console.log('call', call)
+        placecall(call, _id);
         // } else {
         //   swal('You are already in a call');
         // }
@@ -498,10 +503,10 @@
               var _list = $('#users');
               for (var i = 0; i < res.data.length; i++) {
                 if (res.data[i].id != id)
-                  _list.append('<li class="client" data-id="'+res.data[i].id+'" data-name="'+res.data[i].firstname+ ' ' + res.data[i].lastname +'">' + res.data[i].firstname + ' ' + res.data[i].lastname +
+                  _list.append('<li class="client" data-id="' + res.data[i].id + '" data-name="' + res.data[i].firstname + ' ' + res.data[i].lastname + '">' + res.data[i].firstname + ' ' + res.data[i].lastname +
                     '</li>');
                 else if (res.data[i].id == id) //temporary
-                    currentUser = res.data[i];
+                  currentUser = res.data[i];
               }
             } else {
 

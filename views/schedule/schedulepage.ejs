@@ -12,7 +12,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.1/fullcalendar.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.1/fullcalendar.print.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.1/fullcalendar.min.js"></script>
-    
+
 </head>
 
 <body style="background: #FFF">
@@ -22,10 +22,26 @@
         </div>
         <div class="top-header-right">
             <ul>
-                <li><a href="#" id="chat"><i class="fa fa-comments" aria-hidden="true"></i></a></li>
-                <li><a href="#" id="notes"><i class="fa fa-pencil-square" aria-hidden="true"></i></a></li>
-                <li><a href="#" id="alert-msg"><i class="fa fa-bell-o" aria-hidden="true"></i></a></li>
-                <li><a href="#"><img src="images/user-img.jpg" class="user-img" alt=""></a></li>
+                <li>
+                    <a href="#" id="chat">
+                        <i class="fa fa-comments" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="notes">
+                        <i class="fa fa-pencil-square" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="alert-msg">
+                        <i class="fa fa-bell-o" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="images/user-img.jpg" class="user-img" alt="">
+                    </a>
+                </li>
             </ul>
         </div>
 
@@ -33,13 +49,31 @@
     <!--video-call divion closed -->
     <div class="left-side-bar">
         <ul>
-            <li><a href=""><i class="fa fa-file-text-o" aria-hidden="true"></i></a></li>
-            <li class="active"><a href="/schedule"><i class="fa fa-calendar" aria-hidden="true"></i></a></li>
-            <li><a href=""><i class="fa fa-video-camera" aria-hidden="true"></i></a></li>
+            <li>
+                <a href="">
+                    <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                </a>
+            </li>
+            <li class="active">
+                <a href="/schedule">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                </a>
+            </li>
+            <li id="mediator">
+                <a>
+                    <i class="fa fa-video-camera" aria-hidden="true"></i>
+                </a>
+            </li>
         </ul>
     </div>
     <div class="right-popup">
-        <div class="chat-panel" style="display: none"></div>
+        <div class="chat-panel" style="display: none">
+            <div class="user-container">
+                <ul id="users">
+
+                </ul>
+            </div>
+        </div>
         <div class="notes-panel" style="display: none"></div>
         <div class="alert-panel" style="display: none"></div>
     </div>
@@ -50,7 +84,9 @@
                 <h4>Get started by scheduling a session:</h4>
                 <form>
                     <div class="form-group margin-top-feild">
-                        <label class="txt-label col-sm-12 avaiblability-txt">Conflict name<sup>*</sup></label>
+                        <label class="txt-label col-sm-12 avaiblability-txt">Conflict name
+                            <sup>*</sup>
+                        </label>
                         <div class="col-sm-12 padding-zero">
                             <!-- <input type="text" placeholder="" id="Conflictname" class="birthdate"> -->
                             <!-- <select name="" id="Conflictname" class="birthdate">
@@ -64,7 +100,9 @@
                     </div>
                     <div class="clearfix"></div>
                     <div class="form-group margin-top-feild">
-                        <label class="txt-label col-sm-12 avaiblability-txt">Availability<sup>*</sup></label>
+                        <label class="txt-label col-sm-12 avaiblability-txt">Availability
+                            <sup>*</sup>
+                        </label>
                         <div class="col-sm-3 padding-zero">
                             <!-- <input type="text" placeholder="Month" id="month" class="birthdate"> -->
                             <select name="" id="month" class="birthdate">
@@ -100,11 +138,17 @@
                     </div>
                     <div class="clearfix"></div>
                     <div class="Add-availability">
-                        <p>Add another available time <a href="#"><i class="fa fa-plus" aria-hidden="true"></i></a> </p>
+                        <p>Add another available time
+                            <a href="#">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            </a>
+                        </p>
                     </div>
                     <div class="clearfix"></div>
                     <div class="form-group margin-top-feild">
-                        <label class="txt-label col-sm-12 avaiblability-txt">Availability<sup>*</sup></label>
+                        <label class="txt-label col-sm-12 avaiblability-txt">Availability
+                            <sup>*</sup>
+                        </label>
                         <div class="col-sm-12 padding-zero">
                             <!-- <input type="text" placeholder="Anne Schmidt, David Beckman" id="parties" class="birthdate"> -->
                             <select name="" id="availability" class="birthdate" multiple="true">
@@ -115,7 +159,9 @@
 
                     <div class="clearfix"></div>
                     <div class="form-group margin-top-feild">
-                        <label class="txt-label col-sm-12 avaiblability-txt">Describe the conflict<sup>*</sup></label>
+                        <label class="txt-label col-sm-12 avaiblability-txt">Describe the conflict
+                            <sup>*</sup>
+                        </label>
                         <div class="col-sm-12 padding-zero">
                             <textarea id="description"></textarea>
                         </div>
@@ -128,32 +174,92 @@
                         </div>
                     </div>
                     <div class="clearfix"></div>
-                    <p class="txt-password">Brav respects and protects your privacy. View full privacy policy <a href="">here</a>.</p>
+                    <p class="txt-password">Brav respects and protects your privacy. View full privacy policy
+                        <a href="">here</a>.</p>
 
                 </form>
             </div>
         </div>
     </div>
+
+    <div class="chat-container">
+        <ul id="chats">
+        </ul>
+    </div>
     <!--right-side-panel closed -->
 </body>
-
-</html>
-
 
 <script src="../js/jquery.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
 <script src="../js/sweet-alert.min.js"></script>
 <script>
     $(document).ready(function () {
-        $("#chat").click(function () {
-            $(".chat-panel").toggle();
+        // $('#microphone').children().last().toggle();
+        // $('#camera').children().last().toggle();
+        // $('#phone').children().last().toggle();
+        // $('#record-icon').children().last().toggle();
+
+        // $("#chat").click(function () {
+        //     $(".chat-panel").toggle();
+        //     $(".notes-panel").hide();
+        //     $(".alert-panel").hide();
+        // });
+        // $("#notes").click(function () {
+        //     $(".notes-panel").toggle();
+        //     $(".chat-panel").hide();
+        //     $(".alert-panel").hide();
+        // });
+        // $("#alert-msg").click(function () {
+        //     $(".alert-panel").toggle();
+        //     $(".notes-panel").hide();
+        //     $(".chat-panel").hide();
+        // });
+        
+
+
+      $(document).on('click', '.chat-call-cancel', function (e) {
+        e.stopPropagation();
+        var id = $(this).attr('data-id');
+        $('#chat-container' + id).hide();
+      });
+
+        $('#mediator').on('click', function () {
+            if (sessionStorage.getItem('bravUser'))
+                window.location = '/mediator/' + JSON.parse(sessionStorage.getItem('bravUser'))['id'];
+        })
+
+
+        function getChatContainer(id, name) {
+            if (id) {
+                return $('<p class="chat-header">' + name.toUpperCase() +
+                    '<span data-id="' + id + '" class="chat-call-cancel" id="chat-call-remove' + id + '">x</span></p>' +
+                    // '<span data-id="' + id + '" class="chat-call" id="chat-call' + id + '">call</span>' +
+                    // '<span data-id="' + id + '" class="chat-call-drop" style="display:none" id="chat-call-drop' + id +
+                    // '">drop</span></p>' +
+                    '<div class="chat-text" id="chat-text' + id + '"></div>' +
+                    '<input type="text" class="chat-box" id="chat-box' + id + '" data-id="' + id + '">' +
+                    '<i  class="send fa fa-paper-plane" data-id="' + id + '" aria-hidden="true"></i>');
+            } else return false;
+        }
+
+        $(document).on('click', '.client', function () {
+            var id = $(this).attr('data-id');
+            var name = $(this).attr('data-name');
+            // connect(id);
+            var _main = $('#chats');
+            var _li = $('<li id="chat-container' + id + '"></li>');
+            var container;
+            console.log($('#chat-container' + id))
+            if ($(_main).children().find('#chat-call' + id).length == 0) {
+                $(".chat-panel").hide();
+                container = getChatContainer(id, name);
+                $(_main).append($(_li).append($(container)));
+            } else if ($(_main).children().find('#chat-call' + id).length == 1) {
+                $(".chat-panel").hide();
+                $('#chat-container' + id).show();
+            }
         });
-        $("#notes").click(function () {
-            $(".notes-panel").toggle();
-        });
-        $("#alert-msg").click(function () {
-            $(".alert-panel").toggle();
-        });
+
 
         $('#Conflictname').select2();
         $('#month').select2();
@@ -164,7 +270,7 @@
         $('#availability').select2();
 
 
-        $("#addSchedule").on('click', function(){
+        $("#addSchedule").on('click', function () {
             console.log('clicked')
             $('errMsg').val('');
             var _name = String($('#Conflictname').find(':selected').val());
@@ -173,12 +279,12 @@
             var _year = String($('#year').find(':selected').val());
             var _min = String($('#min').find(':selected').val());
             var _hr = String($('#hr').find(':selected').val());
-            var _availability =String( $('#availability').find(':selected').val());
+            var _availability = String($('#availability').find(':selected').val());
             var _description = $('#description').val();
 
-            if(_name && _month && _date && _year && _min && _hr  && _description){
+            if (_name && _month && _date && _year && _min && _hr && _description) {
                 var data1 = {
-                    conflictname : _name,
+                    conflictname: _name,
                     month: _month,
                     date: _date,
                     year: _year,
@@ -187,53 +293,46 @@
                     availabilty: _availability || "asd",
                     description: _description,
                 }
-                
-                console.log('data',data1)
+
+                console.log('data', data1)
                 $.ajax({
                     url: '/schedule/newschedule',
                     method: 'POST',
                     data: data1,
                     success: function (res) {
                         console.log('schedule res', res)
-                    if (res.data.length > 0) {
-                    // for (var i = 0; i < res.data.length; i++) {
-                    //     var option = new Option(res.data[i].firstname+' '+res.data[i].lastname, res.data[i].id);
-                    //     $('#Conflictname').append(option).trigger('change');
-                    // }
-                    // for (var i = 0; i < res.data.length; i++) {
-                    //     var option = new Option(res.data[i].firstname+' '+res.data[i].lastname, res.data[i].id);
-                    //     $('#availability').append(option).trigger('change');
-                    // }
-                    } else {
-
-                    }
-                },
-                error: function (err) {
-                    console.log('Login error', err);
-                    $('#errMsg').text(err.msg);
-                },
-                dataType: 'JSON'
+                        if (res.success) {
+                            swal(res.msg);
+                        } else {
+                            swal(res.msg);
+                        }
+                    },
+                    error: function (err) {
+                        console.log('Login error', err);
+                        $('#errMsg').text(err.msg);
+                    },
+                    dataType: 'JSON'
                 });
-            }else{
-            $('errMsg').val('Enter all fields');
+            } else {
+                $('errMsg').val('Enter all fields');
             }
         })
 
 
-        $('#month').on('select2:select', function(){
-            console.log("$('#Conflictname').find(':selected')",$('#month').find(':selected').val());
+        $('#month').on('select2:select', function () {
+            console.log("$('#Conflictname').find(':selected')", $('#month').find(':selected').val());
             var days;
             var month = $('#month').find(':selected').val();
-            if(month == "Jan" || month == "May" || month == "Mar" || month == "Apr" || month == "Jul" || month == "Aug" || month == "Oct" || month == "Dec"){
+            if (month == "Jan" || month == "May" || month == "Mar" || month == "Apr" || month == "Jul" || month == "Aug" || month == "Oct" || month == "Dec") {
                 days = 31;
-            }else if(month == "Jun" || month == "Sep" || month == "Nov" || month == "May"){
+            } else if (month == "Jun" || month == "Sep" || month == "Nov" || month == "May") {
                 days = 30;
-            }else if(month == "Feb"){
+            } else if (month == "Feb") {
                 days = 28;
             }
-            for(var i= 0; i< days;i++){
-                var option = new Option(i+1, i+1);
-                 $('#date').append(option).trigger('change');
+            for (var i = 0; i < days; i++) {
+                var option = new Option(i + 1, i + 1);
+                $('#date').append(option).trigger('change');
             }
 
         })
@@ -253,46 +352,199 @@
             new Option("Dec", "Dec")
         ];
 
-    for (var i = 0; i < monthOption.length; i++) {
-        $('#month').append(monthOption[i]).trigger('change');
-    }
-    for (var i = 2018; i < 2019; i++) {
-        $('#year').append(new Option(i, i)).trigger('change');
-    }
-    for (var i = 0; i < 24; i++) {
-        $('#hr').append(new Option(i, i)).trigger('change');
-    }
-    for (var i = 0; i < 60; i++) {
-        $('#min').append(new Option(i, i)).trigger('change');
-    }
-        
-        
-        $.ajax({
-          url: '/user/online',
-          method: 'GET',
-          success: function (res) {
-            console.log('onlineuser res', res)
-            if (res.data.length > 0) {
-                for (var i = 0; i < res.data.length; i++) {
-                    var option = new Option(res.data[i].firstname, res.data[i].firstname);
-                    $('#Conflictname').append(option).trigger('change');
-                }
-                for (var i = 0; i < res.data.length; i++) {
-                    var option = new Option(res.data[i].firstname, res.data[i].firstname);
-                    $('#availability').append(option).trigger('change');
-                }
-            } else {
+        for (var i = 0; i < monthOption.length; i++) {
+            $('#month').append(monthOption[i]).trigger('change');
+        }
+        for (var i = 2018; i < 2019; i++) {
+            $('#year').append(new Option(i, i)).trigger('change');
+        }
+        for (var i = 0; i < 24; i++) {
+            $('#hr').append(new Option(i, i)).trigger('change');
+        }
+        for (var i = 0; i < 60; i++) {
+            $('#min').append(new Option(i, i)).trigger('change');
+        }
 
-            }
-          },
-          error: function (err) {
-            console.log('Login error', err);
-            $('#errMsg').text(err.msg);
-          },
-          dataType: 'JSON'
+
+        $.ajax({
+            url: '/user/online',
+            method: 'GET',
+            success: function (res) {
+                console.log('onlineuser res', res)
+                if (res.data.length > 0) {
+                    for (var i = 0; i < res.data.length; i++) {
+                        var option = new Option(res.data[i].firstname, res.data[i].firstname);
+                        $('#Conflictname').append(option).trigger('change');
+                    }
+                    for (var i = 0; i < res.data.length; i++) {
+                        var option = new Option(res.data[i].firstname, res.data[i].firstname);
+                        $('#availability').append(option).trigger('change');
+                    }
+                } else {
+
+                }
+            },
+            error: function (err) {
+                console.log('Login error', err);
+                $('#errMsg').text(err.msg);
+            },
+            dataType: 'JSON'
         });
 
 
+        //connect to the peering server
+
+        let connectedPeers = {};
+        let connectedCall = {};
+        let isInCall = false;
+        let loggedUser = JSON.parse(sessionStorage.getItem('bravUser'));
+
+        let peer = new Peer(loggedUser.id, {
+            host: '/',
+            port: 9000,
+            path: '/api'
+        });
+
+        // Show this peer's ID.
+        peer.on('open', function (id) {
+            console.log('ID :::: ', id);
+        });
+
+        // Await connections from others
+        peer.on('connection', connect);
+
+        peer.on('error', function (err) {
+            swal(err);
+        });
+        peer.on('close', function (err) {
+            swal(err + ' closed');
+        });
+
+        function sendMsg(msg, id) {
+            if (msg && id) {
+                var user = loggedUser;
+                var c = peer.connect(id, {
+                    label: 'chat',
+                    serialization: 'none',
+                    metadata: {
+                        message: msg,
+                        name: user.firstname + ' ' + user.lastname
+                    }
+                });
+                c.on('open', function () {
+                    c.send(msg)
+                });
+            }
+        }
+
+        function connect(c) {
+            // Handle a chat connection.
+
+            if (c.label === 'chat') {
+
+                var id = c.peer;
+                var _main = $('#chats');
+                var _li = $('<li></li>');
+                console.log("name", c);
+                var container;
+                if ($(_main).children().find('#chat-call' + id).length == 0) {
+                    container = getChatContainer(id, c.metadata.name);
+                    $(_main).append($(_li).append($(container)));
+                }
+                c.on('data', function (data) {
+                    var _msg = $('<p class="chat-msg text-right">' + data + '</p>');
+                    $('#chat-text' + id).append(_msg)
+                    console.log('peer', peer);
+                });
+                c.on('close', function () {
+                    swal(c.peer + ' has left the chat.');
+                    container.remove();
+                    delete connectedPeers[c.peer];
+                });
+                connectedPeers[c.peer] = c;
+            } else if (c.label === 'file') {
+                c.on('data', function (data) {
+                    // If we're getting a file, create a URL for it.
+                    if (data.constructor === ArrayBuffer) {
+                        var dataView = new Uint8Array(data);
+                        var dataBlob = new Blob([dataView]);
+                        var url = window.URL.createObjectURL(dataBlob);
+                        $('#' + c.peer).find('.messages').append('<div><span class="file">' +
+                            c.peer + ' has sent you a <a target="_blank" href="' + url + '">file</a>.</span></div>');
+                    }
+                });
+                connectedPeers[c.peer] = c;
+            } else if (c.label === 'call') {
+
+                connectedPeers[c.peer] = c;
+            }
+            console.log('connectedPeers', connectedPeers)
+        }
+
+
+        $(document).on('click', '.chat-header', function () {
+            $(this).siblings('.chat-box').toggle();
+            $(this).siblings('.chat-text').toggle();
+            $(this).siblings('.send').toggle();
+        });
+
+        $(document).on('click', '.send', function () {
+            var _id = $(this).attr('data-id');
+            var m = $('#chat-box' + _id).val();
+            if (m) {
+                var _chatWindow = $('#chat-text' + _id);
+                var _msg = $('<p class="chat-msg">' + $('#chat-box' + _id).val() + '</p>');
+                $(_chatWindow).append(_msg);
+                $('#chat-box' + _id).val('');
+                sendMsg(m, _id);
+            }
+        });
+
+        $(document).on('keypress', '.chat-box', function (key) {
+            if (key == 13) {
+                handleMsg($(this).attr('data-id'), $('#chat-box' + $(this).attr('data-id')).val())
+            }
+        });
+
+        function handleMsg(_id, _msg) {
+            if (_id && _msg) {
+                $('#chat-text' + _id).append(_msg);
+                $('#chat-box' + _id).val('');
+                sendMsg(_msg, _id);
+            }
+        }
+
+
+
+        getOnlineUsers()
+        function getOnlineUsers() {
+            $.ajax({
+                url: '/user/online',
+                method: 'GET',
+                success: function (res) {
+                    console.log('onlineuser res', res)
+                    if (res.data.length > 0) {
+                        var _list = $('#users');
+                        var id = JSON.parse(sessionStorage.getItem('bravUser'))['id'];
+                        for (var i = 0; i < res.data.length; i++) {
+                            if (res.data[i].id != id)
+                                _list.append('<li class="client" data-id="' + res.data[i].id + '" data-name="' + res.data[i].firstname + ' ' + res.data[i].lastname + '">' + res.data[i].firstname + ' ' + res.data[i].lastname +
+                                    '</li>');
+                            else if (res.data[i].id == id) //temporary
+                                currentUser = res.data[i];
+                        }
+                    } else {
+
+                    }
+                },
+                error: function (err) {
+                    console.log('Login error', err);
+                    $('#errMsg').text(err.msg);
+                },
+                dataType: 'JSON'
+            });
+        }
     });
 
 </script>
+</html>
