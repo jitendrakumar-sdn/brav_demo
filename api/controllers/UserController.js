@@ -69,7 +69,6 @@ module.exports = {
   register: function (req, res) {
     if (req.body.firstname && req.body.username && req.body.password) {
       User.create(req.body, function (err, createdUser) {
-
         if (err) return res.serverError({
           'success': false,
           'msg': 'Something went wrong!!! Try again later'

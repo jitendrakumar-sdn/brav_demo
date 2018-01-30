@@ -42,7 +42,7 @@ var jsFilesToInject = [
   'js/moment.min.js',
   'js/fullcalendar.min.js',
   'js/scheduler.min.js',
-'js/bootstrap-datepicker.js'
+  'js/bootstrap-datepicker.js'
   // 'js/angular/app.js',
   // 'js/angular/angular-routes.js',
 

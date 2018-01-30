@@ -78,7 +78,7 @@
     <div class="right-side-panel">
         <div class="container container-top-margin">
             <div class="col-md-8 create-availability">
-                <h1>Hi name last,</h1>
+                <h1>Hi <span id="myname"></span>,</h1>
                 <h4>Get started by scheduling a session:</h4>
                 <form>
                     <div class="form-group margin-top-feild">
@@ -87,10 +87,6 @@
                         </label>
                         <div class="col-sm-12 padding-zero">
                             <input type="text" placeholder="Conflict Name" id="Conflictname" class="birthdate">
-                            <!-- <select id="Conflictname" class="birthdate" name="Conflictname">
-                                <option disabled="true">Select Conflict</option>
-                            </select> -->
-
                         </div>
                     </div>
                     <div class="clearfix"></div>
@@ -131,9 +127,6 @@
                     
                     </div>
                     <div class="clearfix"></div>
-
-
-
                     <!-- <div class="Add-availability">
                         <p>Add another available time
                             <a href="#">
@@ -192,15 +185,21 @@
 <script src="../js/sweet-alert.min.js"></script>
 <script>
     $(document).ready(function () {
+
+        if(sessionStorage.getItem('bravUser')){
+            var myname= JSON.parse(sessionStorage.getItem('bravUser'));
+            $('#myname').text(myname.firstname+' ' +myname.middlename+' ' +myname.lastname)
+        }
+
         $('#datetime').datetimepicker({
             format: 'LT'
         });
         $('#datestart').datetimepicker({
-            format: 'DD-MM-YYYY'
+            format: 'YYYY-MM-DD'
         });
         $('#dateend').datetimepicker({
             useCurrent: false, //Important! See issue #1075
-            format: 'DD-MM-YYYY'
+            format: 'YYYY-MM-DD'
         });
         $("#datestart").on("dp.change", function (e) {
             $('#dateend').data("DateTimePicker").minDate(e.date);
@@ -210,20 +209,18 @@
         });
         
 
-        $("#addSchedule").on('click', function () {
-            console.log('clicked')
+        $("#addSchedule").on('click', function (e) {
+            e.preventDefault();
             $('errMsg').val('');
             var _name = $('#Conflictname').val();
             var _availability = JSON.stringify($('#availability').val());
-            // var _availability = JSON.stringify(('#availability').select2('data'));
             var _description = $('#description').val();
             var _start = $('#datestart').data('date');
             var _end = $('#dateend').data('date');
             var _time = $('#datetime').data('date');
-            console.log("$('#datestart').val()",_time,_availability,$('#datestart').data('date'))
 
             if (_name && _start && _end && _time && _availability && _description) {
-                var data1 = {
+                var data = {
                     title: _name,
                     start: _start,
                     end: _end,
@@ -231,25 +228,21 @@
                     availabilty: _availability,
                     description: _description,
                 }
-
-                console.log('data', data1)
                 $.ajax({
-                    url: '/schedule/newschedule',
-                    method: 'POST',
-                    data: data1,
-                    success: function (res) {
-                        console.log('schedule res', res)
-                        if (res.success) {
-                            swal(res.msg);
-                        } else {
-                            swal(res.msg);
-                        }
-                    },
-                    error: function (err) {
-                        console.log('Login error', err);
-                        $('#errMsg').text(err.msg);
-                    },
-                    dataType: 'JSON'
+                url: '/schedule/newschedule',
+                method: 'POST',
+                data: data,
+                success: function (res) {
+                    if (res.success) {
+                    window.location = '/schedule/done';
+                    } else {
+                    $('#errMsg').text(err.msg);
+                    }
+                },
+                error: function (err) {
+                    $('#errMsg').text(err.msg);
+                },
+                dataType: 'JSON'
                 });
             } else {
                 $('errMsg').val('Enter all fields');
@@ -272,9 +265,6 @@
             if (id) {
                 return $('<p class="chat-header">' + name.toUpperCase() +
                     '<span data-id="' + id + '" class="chat-call-cancel" id="chat-call-remove' + id + '">x</span></p>' +
-                    // '<span data-id="' + id + '" class="chat-call" id="chat-call' + id + '">call</span>' +
-                    // '<span data-id="' + id + '" class="chat-call-drop" style="display:none" id="chat-call-drop' + id +
-                    // '">drop</span></p>' +
                     '<div class="chat-text" id="chat-text' + id + '"></div>' +
                     '<input type="text" class="chat-box" id="chat-box' + id + '" data-id="' + id + '">' +
                     '<i  class="send fa fa-paper-plane" data-id="' + id + '" aria-hidden="true"></i>');
@@ -317,9 +307,6 @@
                                     '</li>');
                             else if (res.data[i].id == id) //temporary
                                 currentUser = res.data[i];
-      
-                        // var option = new Option(res.data[i].firstname, res.data[i].firstname);
-                        // $('#Conflictname').append(option).trigger('change');
                         var option2 = new Option(res.data[i].firstname, res.data[i].firstname);
                         $('#availability').append(option2).trigger('change');
                 }

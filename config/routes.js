@@ -48,6 +48,10 @@ module.exports.routes = {
     controller: 'ScheduleController',
     action: 'schedulepage'
   },
+  '/schedule/done': {
+    controller: 'ScheduleController',
+    action: 'thankpage'
+  },
   '/task': {
     controller: 'TaskController',
     action: 'taskpage'

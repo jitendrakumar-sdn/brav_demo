@@ -9,22 +9,29 @@ module.exports = {
   schedulepage: function (req, res) {
     res.view();
   },
-  newschedule: function(req, res){
+  thankpage: function (req, res) {
+    res.view();
+  },
+  newschedule: function(req, res, ok){
     if (req.body.title && req.body.start && req.body.end && req.body.time  && req.body.availabilty && req.body.description) {
       Schedule.create(req.body, function (err, createdSchedule) {
         if (err) return res.serverError({
           'success': false,
           'msg': 'Something went wrong!!! Try again later'
         });
-        if (!createdSchedule) return res.ok({
+        
+        if (!createdSchedule){
+          return res.ok({
           'success': false,
           'msg': 'Enter all flieds'
         });
-        return res.ok({
+        }else{        
+        return res.jsonp({
           'success': true,
-          'msg': 'Schedule inserted',
-          data: createdSchedule
-        });
+          'msg': 'Schedule inserted'
+        });  
+        } 
+        
       });
     } else {
       return res.ok({
@@ -37,7 +44,6 @@ module.exports = {
     ScheduleService
     .getschedule()
     .exec(function (err, ress) {
-      console.log('ress',JSON.stringify(ress))
       if (err) return res.serverError({
         'success': false,
         'msg': 'Something went wrong!!! Try again later'
@@ -46,11 +52,12 @@ module.exports = {
         'success': false,
         'msg': 'Invalid username or password'
       });
+      return res.ok(ress);
 
-      var data = [];
-      for(var i = 0; i<ress.length; i++)
-        data.push({id:ress[i].id,title:ress[i].title,start:new Date(ress[i].start)})
-      return res.ok(data);
+      // var data = [];
+      // for(var i = 0; i<ress.length; i++)
+      //   data.push({id:ress[i].id,title:ress[i].title,start:new Date(ress[i].start)})
+      // return res.ok(data);
     });
   }
 };

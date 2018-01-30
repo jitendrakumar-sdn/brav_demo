@@ -18,7 +18,7 @@
     <script src='../js/moment.min.js'></script>
     <script src='../js/fullcalendar.min.js'></script>
     <script src='../js/scheduler.js'></script>
-    
+
 </head>
 
 <body style="background: #FFF">
@@ -40,8 +40,17 @@
     <div class="left-side-bar">
         <ul>
             <li><a href=""><i class="fa fa-file-text-o" aria-hidden="true"></i></a></li>
-                        <li class="active"><a href="/schedule"><i class="fa fa-calendar" aria-hidden="true"></i></a></li>
-            <li><a href=""><i class="fa fa-video-camera" aria-hidden="true"></i></a></li>
+
+            <li class="active">
+                <a href="/schedule">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                </a>
+            </li>
+            <li id="mediator">
+                <a>
+                    <i class="fa fa-video-camera" aria-hidden="true"></i>
+                </a>
+            </li>
         </ul>
     </div>
     <div class="right-popup">
@@ -55,67 +64,37 @@
             <div id='calendar'></div>
         </div>
     </div>
+
+    <div class="chat-container">
+        <ul id="chats">
+        </ul>
+    </div>
     <!--right-side-panel closed -->
     <script>
-    
-$(document).ready(function () {
-var data= [];
-    $.ajax({
-            url: '/schedule/getschedule',
-            method: 'GET',
-            success: function (res) {
-                console.log('schedule res', res)
-                if (res.success && res.data.length > 0) {
-                    data = res.data;
-                } else {
+        $(document).ready(function () {
+            $('#mediator').on('click', function () {
+                if (sessionStorage.getItem('bravUser'))
+                    window.location = '/mediator/' + JSON.parse(sessionStorage.getItem('bravUser'))['id'];
+            })
 
+            $('#calendar').fullCalendar({
+                editable: true, // enable draggable events
+                aspectRatio: 1.8,
+                scrollTime: '00:00', // undo default 6am scrollTime
+                header: {
+                    left: 'today prev,next',
+                    center: 'title',
+                    right: 'agendaWeek,month'//timelineDay,timelineThreeDays,
+                },
+                resourceLabelText: 'Rooms',
+                events: {
+                    url: '/schedule/getschedule',
+                    textColor: 'black'
                 }
-            },
-            error: function (err) {
-                console.log('Login error', err);
-                $('#errMsg').text(err.msg);
-            },
-            dataType: 'JSON'
+
+            });
         });
-
-
-
-
-    $('#calendar').fullCalendar({
-        // now: '2018-02-07',
-        editable: true, // enable draggable events
-        aspectRatio: 1.8,
-        scrollTime: '00:00', // undo default 6am scrollTime
-        header: {
-        left: 'today prev,next',
-        center: 'title',
-        right: 'agendaWeek,month'//timelineDay,timelineThreeDays,
-        },
-        // defaultView: 'timelineDay',
-        // views: {
-        // timelineThreeDays: {
-        //     type: 'timeline',
-        //     duration: { days: 3 }
-        // }
-        // },
-        resourceLabelText: 'Rooms',
-  
-        // resources: { // you can also specify a plain string like 'json/resources.json'
-        // url: '../json/resources.json',
-        // error: function() {
-        //     $('#script-warning').show();
-        // }
-        // },
-  
-        // events: data
-        events : {
-            url: '/schedule/getschedule',
-            textColor: 'black'
-        }
-  
-  });
-  });
-</script>
+    </script>
 </body>
 
 </html>
