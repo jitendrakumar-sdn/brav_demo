@@ -643,6 +643,91 @@ textarea{
 }
 
 
+.profile-edit {
+    position: absolute;
+    right: 64px;
+    padding: 5px;
+    height: 190px;
+    /*    border: solid #123 1px;*/
+    margin-top: 71px;
+    width: 170px;
+    background: #eee;
+    z-index: 99;
+}
+
+.profile-edit:before {
+    content: "";
+    position: absolute;
+    /* width: 6px; */
+    /* height: 13px; */
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #EEE;
+    right: 5px;
+    top: -10px;
+    z-index: 9;
+}
+
+.profile-edit img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.your-account {
+    width: 100%;
+    background: #598ebf;
+    color: #FFF;
+    padding: 5px 0px;
+    margin: 5px 0px;
+}
+
+.your-account a {
+    color: #FFF;
+}
+
+.your-account a:hover {
+    text-decoration: none;
+}
+
+.logout a {
+    font-size: 14px;
+}
+
+.logout a:hover {
+    text-decoration: none;
+}
+.after-container{
+    width: 76%;
+}
+
+.add-schedule-btn{
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  background: #598ebf;
+    color: #fff;
+    padding: 10px 12px;
+    border-radius: 50%;
+    font-size: 17px;
+    text-decoration: none;
+    border: 1px solid #fff;
+    transition: all .5s ease-in-out;
+}
+.add-schedule-btn:hover{
+      color: #598ebf;
+      text-decoration: none;
+    background-color: #fff;
+    border-color: #598ebf;
+}
+  .add-schedule-btn .fa.fa-plus{
+    display: block;
+  }
+
+
+
+
 
 @media(max-width: 767px) {
   .form-center {

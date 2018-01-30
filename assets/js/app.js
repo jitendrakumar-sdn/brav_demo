@@ -20,6 +20,34 @@ $(document).ready(function () {
     $(".notes-panel").hide();
     $(".chat-panel").hide();
   });
+  $(".user-img").click(function() {
+      $(".profile-edit").toggle();
+  });
+
+  $('#logout').on('click',function(){
+    console.log('logout')
+    if(sessionStorage.getItem('bravUser')){
+      var id = JSON.parse(sessionStorage.getItem('bravUser')).id;
+      $.ajax({
+        url: "/user/logout",
+        method: "POST",
+        data: {id:id},
+        success: function(res){
+          if(res.success){
+            sessionStorage.removeItem('bravUser');
+            window.location = '/';
+          }
+        },
+        error: function(err){
+
+        },
+        dataType: 'JSON'
+      });
+    }else{
+      window.location = '/';
+    }
+  })
+
 });
 
 

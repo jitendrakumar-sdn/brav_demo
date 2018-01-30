@@ -73,6 +73,9 @@
 <script>
     $('document').ready(function() {
 
+        $(".user-img").click(function() {
+            $(".profile-edit").toggle();
+        });
      $('#chat').on('click', function(){
          if($('.right-side-panel').hasClass('main-container')){
              $('.right-side-panel').removeClass('main-container');  

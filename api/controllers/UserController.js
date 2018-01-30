@@ -6,6 +6,28 @@
  */
 
 module.exports = {
+  logout: function (req, res) {
+    if (req.body.id) {
+      User.update({ id: req.body.id }, {
+        online: false
+      }, function (errUpdate, resUpdate) {
+        if (errUpdate) return res.serverError({
+          'success': false,
+          'msg': 'Something went wrong!!! Try again later'
+        });
+        if (!resUpdate) return res.ok({
+          'success': false,
+          'msg': 'You can not be not online now'
+        });
+        req.session.userId = '';
+        req.session.loggedin = false;
+        return res.ok({
+          'success': true,
+          'msg': 'Logout successfull'
+        });
+      });
+    }
+  },
   login: function (req, res) {
     if (req.body.username && req.body.password) {
       UserService
@@ -19,35 +41,30 @@ module.exports = {
             'success': false,
             'msg': 'Invalid username or password'
           });
-
-          return res.ok({
-            'success': true,
-            'msg': 'Login successfull',
-            data: ress
-          });
           // if (ress.online)
           //   return res.ok({
           //     'success': false,
           //     'msg': 'You are already online in some browser'
           //   });
-          //   res.render('pages/mediator', {_layoutFile: '../shared/mediator_layout.ejs', id: ress.id, data: ress});
-          // User.update(ress, {
-          //   online: true
-          // }, function (errUpdate, resUpdate) {
-          //   if (errUpdate) return res.serverError({
-          //     'success': false,
-          //     'msg': 'Something went wrong!!! Try again later'
-          //   });
-          //   if (!resUpdate) return res.ok({
-          //     'success': false,
-          //     'msg': 'You can not be not online now'
-          //   });
-          //   return res.ok({
-          //     'success': true,
-          //     'msg': 'Login successfull',
-          //     data: ress
-          //   });
-          // });
+          User.update(ress, {
+            online: true
+          }, function (errUpdate, resUpdate) {
+            if (errUpdate) return res.serverError({
+              'success': false,
+              'msg': 'Something went wrong!!! Try again later'
+            });
+            if (!resUpdate) return res.ok({
+              'success': false,
+              'msg': 'You can not be not online now'
+            });
+            req.session.userId = ress.id;
+            req.session.loggedin = true;
+            return res.ok({
+              'success': true,
+              'msg': 'Login successfull',
+              data: ress
+            });
+          });
         });
     } else {
       return res.ok({
@@ -61,7 +78,24 @@ module.exports = {
     res.view();
   },
   profilepage: function (req, res) {
-    res.view();
+
+    if (req.session.userId && req.session.loggedin) {
+      UserService
+        .checkLogin(req.session.userId)
+        .exec(function (err, ress) {
+          if (err) {
+            ress.redirect('/');
+          }
+          else if (!ress) {
+            ress.redirect('/');
+          }
+          else {
+            res.view();
+          }
+        });
+    } else {
+      res.redirect('/');
+    }
   },
   loginpage: function (req, res) {
     res.view();

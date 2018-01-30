@@ -6,7 +6,23 @@
  */
 
 module.exports = {
-	index: function(req, res) {
-		res.render('pages/mediator', {_layoutFile: '../shared/mediator_layout.ejs', id: req.param('id')});
+	index: function (req, res) {
+    if (req.session.userId && req.session.loggedin && req.param('id') && req.session.userId == req.param('id')) {
+			UserService
+				.checkLogin(req.session.userId)
+				.exec(function (err, ress) {
+					if (err) {
+						ress.redirect('/');
+					}
+					else if (!ress) {
+						ress.redirect('/');
+					}
+					else {
+						res.render('pages/mediator', { _layoutFile: '../shared/mediator_layout.ejs', id: req.param('id') });
+					}
+				});
+		}else{
+			res.redirect('/');			
+		}
 	}
 };
