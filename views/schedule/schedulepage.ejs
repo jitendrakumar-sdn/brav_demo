@@ -9,9 +9,7 @@
     <link rel="stylesheet" href="../styles/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="../styles/style.css" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,500,500i,600,600i,700" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.1/fullcalendar.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.1/fullcalendar.print.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.1/fullcalendar.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" />
 
 </head>
 
@@ -88,69 +86,67 @@
                             <sup>*</sup>
                         </label>
                         <div class="col-sm-12 padding-zero">
-                            <!-- <input type="text" placeholder="" id="Conflictname" class="birthdate"> -->
-                            <!-- <select name="" id="Conflictname" class="birthdate">
-                                <option value="">Select Conflict</option>
-                            </select> -->
-                            <select id="Conflictname" class="birthdate" name="Conflictname">
+                            <input type="text" placeholder="Conflict Name" id="Conflictname" class="birthdate">
+                            <!-- <select id="Conflictname" class="birthdate" name="Conflictname">
                                 <option disabled="true">Select Conflict</option>
-                            </select>
+                            </select> -->
 
                         </div>
                     </div>
                     <div class="clearfix"></div>
-                    <div class="form-group margin-top-feild">
+                     <div class="form-group margin-top-feild">
                         <label class="txt-label col-sm-12 avaiblability-txt">Availability
                             <sup>*</sup>
                         </label>
-                        <div class="col-sm-3 padding-zero">
-                            <!-- <input type="text" placeholder="Month" id="month" class="birthdate"> -->
-                            <select name="" id="month" class="birthdate">
-                                <option value="">Select Month</option>
-                            </select>
+                        <div class='col-md-4'>
+                            <div class="form-group">
+                                <div class='input-group date' id='datestart'>
+                                    <input type='text' class="form-control" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-sm-2 padding-zero-767">
-                            <!-- <input type="text" placeholder="Day" id="date" class="birthdate"> -->
-                            <select name="" id="date" class="birthdate">
-                                <option value="">Select Date</option>
-                            </select>
+                        <div class='col-md-4'>
+                            <div class="form-group">
+                                <div class='input-group date' id='dateend'>
+                                    <input type='text' class="form-control" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
-
-                        <div class="col-sm-3 padding-zero-767">
-                            <!-- <input type="text" placeholder="Year" id="year" class="birthdate"> -->
-                            <select name="" id="year" class="birthdate">
-                                <option value="">Select Year</option>
-                            </select>
+                        <div class='col-md-4'>
+                            <div class="form-group">
+                                <div class='input-group date' id='datetime'>
+                                    <input type='text' class="form-control" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
-
-                        <div class="col-sm-2 padding-zero">
-                            <!-- <input type="text" placeholder="Time*" id="year" class="birthdate"> -->
-                            <select name="" id="hr" class="birthdate">
-                                <option value="">Select Hour</option>
-                            </select>
-                        </div>
-                        <div class="col-sm-2 padding-zero">
-                            <!-- <input type="text" placeholder="Time*" id="year" class="birthdate"> -->
-                            <select name="" id="min" class="birthdate">
-                                <option value="">Select Min</option>
-                            </select>
-                        </div>
+                    
                     </div>
                     <div class="clearfix"></div>
-                    <div class="Add-availability">
+
+
+
+                    <!-- <div class="Add-availability">
                         <p>Add another available time
                             <a href="#">
                                 <i class="fa fa-plus" aria-hidden="true"></i>
                             </a>
                         </p>
-                    </div>
+                    </div> -->
                     <div class="clearfix"></div>
                     <div class="form-group margin-top-feild">
                         <label class="txt-label col-sm-12 avaiblability-txt">Availability
                             <sup>*</sup>
                         </label>
                         <div class="col-sm-12 padding-zero">
-                            <!-- <input type="text" placeholder="Anne Schmidt, David Beckman" id="parties" class="birthdate"> -->
                             <select name="" id="availability" class="birthdate" multiple="true">
                                 <option value="">Select Availability</option>
                             </select>
@@ -191,31 +187,74 @@
 
 <script src="../js/jquery.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
+<script src='../js/moment.min.js'></script>
+<script src="../js/bootstrap-datepicker.js"></script>
 <script src="../js/sweet-alert.min.js"></script>
 <script>
     $(document).ready(function () {
-        // $('#microphone').children().last().toggle();
-        // $('#camera').children().last().toggle();
-        // $('#phone').children().last().toggle();
-        // $('#record-icon').children().last().toggle();
-
-        // $("#chat").click(function () {
-        //     $(".chat-panel").toggle();
-        //     $(".notes-panel").hide();
-        //     $(".alert-panel").hide();
-        // });
-        // $("#notes").click(function () {
-        //     $(".notes-panel").toggle();
-        //     $(".chat-panel").hide();
-        //     $(".alert-panel").hide();
-        // });
-        // $("#alert-msg").click(function () {
-        //     $(".alert-panel").toggle();
-        //     $(".notes-panel").hide();
-        //     $(".chat-panel").hide();
-        // });
+        $('#datetime').datetimepicker({
+            format: 'LT'
+        });
+        $('#datestart').datetimepicker({
+            format: 'DD-MM-YYYY'
+        });
+        $('#dateend').datetimepicker({
+            useCurrent: false, //Important! See issue #1075
+            format: 'DD-MM-YYYY'
+        });
+        $("#datestart").on("dp.change", function (e) {
+            $('#dateend').data("DateTimePicker").minDate(e.date);
+        });
+        $("#dateend").on("dp.change", function (e) {
+            $('#datestart').data("DateTimePicker").maxDate(e.date);
+        });
         
 
+        $("#addSchedule").on('click', function () {
+            console.log('clicked')
+            $('errMsg').val('');
+            var _name = $('#Conflictname').val();
+            var _availability = JSON.stringify($('#availability').val());
+            // var _availability = JSON.stringify(('#availability').select2('data'));
+            var _description = $('#description').val();
+            var _start = $('#datestart').data('date');
+            var _end = $('#dateend').data('date');
+            var _time = $('#datetime').data('date');
+            console.log("$('#datestart').val()",_time,_availability,$('#datestart').data('date'))
+
+            if (_name && _start && _end && _time && _availability && _description) {
+                var data1 = {
+                    title: _name,
+                    start: _start,
+                    end: _end,
+                    time: _time,
+                    availabilty: _availability,
+                    description: _description,
+                }
+
+                console.log('data', data1)
+                $.ajax({
+                    url: '/schedule/newschedule',
+                    method: 'POST',
+                    data: data1,
+                    success: function (res) {
+                        console.log('schedule res', res)
+                        if (res.success) {
+                            swal(res.msg);
+                        } else {
+                            swal(res.msg);
+                        }
+                    },
+                    error: function (err) {
+                        console.log('Login error', err);
+                        $('#errMsg').text(err.msg);
+                    },
+                    dataType: 'JSON'
+                });
+            } else {
+                $('errMsg').val('Enter all fields');
+            }
+        })
 
       $(document).on('click', '.chat-call-cancel', function (e) {
         e.stopPropagation();
@@ -261,126 +300,30 @@
         });
 
 
-        $('#Conflictname').select2();
-        $('#month').select2();
-        $('#date').select2();
-        $('#year').select2();
-        $('#hr').select2();
-        $('#min').select2();
+        // $('#Conflictname').select2();
         $('#availability').select2();
-
-
-        $("#addSchedule").on('click', function () {
-            console.log('clicked')
-            $('errMsg').val('');
-            var _name = String($('#Conflictname').find(':selected').val());
-            var _month = String($('#month').find(':selected').val());
-            var _date = String($('#date').find(':selected').val());
-            var _year = String($('#year').find(':selected').val());
-            var _min = String($('#min').find(':selected').val());
-            var _hr = String($('#hr').find(':selected').val());
-            var _availability = String($('#availability').find(':selected').val());
-            var _description = $('#description').val();
-
-            if (_name && _month && _date && _year && _min && _hr && _description) {
-                var data1 = {
-                    conflictname: _name,
-                    month: _month,
-                    date: _date,
-                    year: _year,
-                    hr: _hr,
-                    min: _min,
-                    availabilty: _availability || "asd",
-                    description: _description,
-                }
-
-                console.log('data', data1)
-                $.ajax({
-                    url: '/schedule/newschedule',
-                    method: 'POST',
-                    data: data1,
-                    success: function (res) {
-                        console.log('schedule res', res)
-                        if (res.success) {
-                            swal(res.msg);
-                        } else {
-                            swal(res.msg);
-                        }
-                    },
-                    error: function (err) {
-                        console.log('Login error', err);
-                        $('#errMsg').text(err.msg);
-                    },
-                    dataType: 'JSON'
-                });
-            } else {
-                $('errMsg').val('Enter all fields');
-            }
-        })
-
-
-        $('#month').on('select2:select', function () {
-            console.log("$('#Conflictname').find(':selected')", $('#month').find(':selected').val());
-            var days;
-            var month = $('#month').find(':selected').val();
-            if (month == "Jan" || month == "May" || month == "Mar" || month == "Apr" || month == "Jul" || month == "Aug" || month == "Oct" || month == "Dec") {
-                days = 31;
-            } else if (month == "Jun" || month == "Sep" || month == "Nov" || month == "May") {
-                days = 30;
-            } else if (month == "Feb") {
-                days = 28;
-            }
-            for (var i = 0; i < days; i++) {
-                var option = new Option(i + 1, i + 1);
-                $('#date').append(option).trigger('change');
-            }
-
-        })
-
-        var monthOption = [
-            new Option("Jan", "Jan"),
-            new Option("Feb", "Feb"),
-            new Option("Mar", "Mar"),
-            new Option("Apr", "Apr"),
-            new Option("May", "May"),
-            new Option("Jun", "Jun"),
-            new Option("Jul", "Jul"),
-            new Option("Aug", "Aug"),
-            new Option("Sep", "Sep"),
-            new Option("Oct", "Oct"),
-            new Option("Nov", "Nov"),
-            new Option("Dec", "Dec")
-        ];
-
-        for (var i = 0; i < monthOption.length; i++) {
-            $('#month').append(monthOption[i]).trigger('change');
-        }
-        for (var i = 2018; i < 2019; i++) {
-            $('#year').append(new Option(i, i)).trigger('change');
-        }
-        for (var i = 0; i < 24; i++) {
-            $('#hr').append(new Option(i, i)).trigger('change');
-        }
-        for (var i = 0; i < 60; i++) {
-            $('#min').append(new Option(i, i)).trigger('change');
-        }
-
 
         $.ajax({
             url: '/user/online',
             method: 'GET',
             success: function (res) {
                 console.log('onlineuser res', res)
-                if (res.data.length > 0) {
+                if (res.success && res.data.length > 0) {
+                    var _list = $('#users');
+                        var id = JSON.parse(sessionStorage.getItem('bravUser'))['id'];
                     for (var i = 0; i < res.data.length; i++) {
-                        var option = new Option(res.data[i].firstname, res.data[i].firstname);
-                        $('#Conflictname').append(option).trigger('change');
-                    }
-                    for (var i = 0; i < res.data.length; i++) {
-                        var option = new Option(res.data[i].firstname, res.data[i].firstname);
-                        $('#availability').append(option).trigger('change');
-                    }
-                } else {
+                            if (res.data[i].id != id)
+                                _list.append('<li class="client" data-id="' + res.data[i].id + '" data-name="' + res.data[i].firstname + ' ' + res.data[i].lastname + '">' + res.data[i].firstname + ' ' + res.data[i].lastname +
+                                    '</li>');
+                            else if (res.data[i].id == id) //temporary
+                                currentUser = res.data[i];
+      
+                        // var option = new Option(res.data[i].firstname, res.data[i].firstname);
+                        // $('#Conflictname').append(option).trigger('change');
+                        var option2 = new Option(res.data[i].firstname, res.data[i].firstname);
+                        $('#availability').append(option2).trigger('change');
+                }
+             } else {
 
                 }
             },
@@ -514,36 +457,6 @@
             }
         }
 
-
-
-        getOnlineUsers()
-        function getOnlineUsers() {
-            $.ajax({
-                url: '/user/online',
-                method: 'GET',
-                success: function (res) {
-                    console.log('onlineuser res', res)
-                    if (res.data.length > 0) {
-                        var _list = $('#users');
-                        var id = JSON.parse(sessionStorage.getItem('bravUser'))['id'];
-                        for (var i = 0; i < res.data.length; i++) {
-                            if (res.data[i].id != id)
-                                _list.append('<li class="client" data-id="' + res.data[i].id + '" data-name="' + res.data[i].firstname + ' ' + res.data[i].lastname + '">' + res.data[i].firstname + ' ' + res.data[i].lastname +
-                                    '</li>');
-                            else if (res.data[i].id == id) //temporary
-                                currentUser = res.data[i];
-                        }
-                    } else {
-
-                    }
-                },
-                error: function (err) {
-                    console.log('Login error', err);
-                    $('#errMsg').text(err.msg);
-                },
-                dataType: 'JSON'
-            });
-        }
     });
 
 </script>

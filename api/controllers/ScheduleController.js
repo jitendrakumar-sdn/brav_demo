@@ -10,7 +10,7 @@ module.exports = {
     res.view();
   },
   newschedule: function(req, res){
-    if (req.body.conflictname && req.body.month && req.body.date && req.body.year && req.body.hr && req.body.min && req.body.availabilty && req.body.description) {
+    if (req.body.title && req.body.start && req.body.end && req.body.time  && req.body.availabilty && req.body.description) {
       Schedule.create(req.body, function (err, createdSchedule) {
         if (err) return res.serverError({
           'success': false,
@@ -32,6 +32,26 @@ module.exports = {
         'msg': 'Enter all manditory field'
       });
     }
+  },
+  getschedule: function(req, res){
+    ScheduleService
+    .getschedule()
+    .exec(function (err, ress) {
+      console.log('ress',JSON.stringify(ress))
+      if (err) return res.serverError({
+        'success': false,
+        'msg': 'Something went wrong!!! Try again later'
+      });
+      if (!ress) return res.ok({
+        'success': false,
+        'msg': 'Invalid username or password'
+      });
+
+      var data = [];
+      for(var i = 0; i<ress.length; i++)
+        data.push({id:ress[i].id,title:ress[i].title,start:new Date(ress[i].start)})
+      return res.ok(data);
+    });
   }
 };
 

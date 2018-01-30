@@ -8,27 +8,19 @@
 module.exports = {
 
   attributes: {
-    conflictname: {
+    title: {
       type: 'STRING',
       required: true
     },
-    month: {
+    start: {
       type: 'STRING',
       required: true
     },
-    date: {
+    end: {
       type: 'STRING',
       required: true
     },
-    year: {
-      type: 'STRING',
-      required: true
-    },
-    hr: {
-      type: 'STRING',
-      required: true
-    },
-    min: {
+    time: {
       type: 'STRING',
       required: true
     },
