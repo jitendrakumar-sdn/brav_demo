@@ -430,9 +430,20 @@ ol li a{color:#fff;}
             $('#chat-container' + id).hide();
         });
 
-        $(document).on('keypress', '.chat-box', function (key) {
-            if (key == 13) {
-                handleMsg($(this).attr('data-id'), $('#chat-box' + $(this).attr('data-id')).val())
+      $(document).on('keypress', '.chat-box', function (key) {
+            console.log('evet', key)
+            if (key.keyCode == 13) {
+
+                var _id = $(this).attr('data-id');
+                var m = $('#chat-box' + _id).val();
+                if (m) {
+                    var _chatWindow = $('#chat-text' + _id);
+                    var _msg = $('<p class="chat-msg">' + $('#chat-box' + _id).val() + '</p>');
+                    $(_chatWindow).append(_msg);
+                    $('#chat-box' + _id).val('');
+                    sendMsg(m, _id);
+                }
+                // handleMsg($(this).attr('data-id'), $('#chat-box' + $(this).attr('data-id')).val())
             }
         });
 
