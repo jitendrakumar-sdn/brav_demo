@@ -56,6 +56,14 @@ module.exports.routes = {
     controller: 'TaskController',
     action: 'taskpage'
   },
+  '/note/create': {
+    controller: 'NoteController',
+    action: 'notepage'
+  },
+  '/note/view': {
+    controller: 'NoteController',
+    action: 'viewnote'
+  },
   '/mediator/:id': {
     controller: 'MediatorController',
     action: 'index',

@@ -30,7 +30,7 @@
         <div class="top-header-right">
             <ul>
                 <li><a href="#" id="chat"><i class="fa fa-comments" aria-hidden="true"></i></a></li>
-                <li><a href="#" id="notes"><i class="fa fa-pencil-square" aria-hidden="true"></i></a></li>
+                <li><a href="/note/create" id="notes"><i class="fa fa-pencil-square" aria-hidden="true"></i></a></li>
                 <li><a href="#" id="alert-msg"><i class="fa fa-bell-o" aria-hidden="true"></i></a></li>
                 <li><a href="#"><img src="images/user-img.jpg" class="user-img" alt=""></a></li>
             </ul>
@@ -40,7 +40,7 @@
     <!--video-call divion closed -->
     <div class="left-side-bar">
         <ul>
-            <li><a href=""><i class="fa fa-file-text-o" aria-hidden="true"></i></a></li>
+            <li><a href="/note/view"><i class="fa fa-file-text-o" aria-hidden="true"></i></a></li>
 
             <li class="active">
                 <a href="/task">
@@ -67,7 +67,7 @@
         <div class="profile-edit text-center" style="display: none">
             <img src="../images/user-img.jpg" alt="">
             <div class="your-account">
-                <a href="">Your Account</a>
+                <a href="/profile">Your Account</a>
             </div>
             <div class="logout">
                 <a href="#" id="logout">Logout</a>
@@ -90,15 +90,7 @@
     <!--right-side-panel closed -->
     <script>
         $(document).ready(function () {
-            $('#mediator').on('click', function () {
-                if (sessionStorage.getItem('bravUser')) {
-                    window.location = '/mediator/' + JSON.parse(sessionStorage.getItem('bravUser'))['id'];
-                } else {
-                    window.location = '/';
-                }
-            })
-
-
+            
             $('#calendar').fullCalendar({
                 editable: true, // enable draggable events
                 aspectRatio: 1.8,
@@ -154,7 +146,7 @@
 
             let peer = new Peer(loggedUser.id, {
                 host: '/',
-                proxied: true,
+                port: 9000,
                 path: '/api'
             });
 

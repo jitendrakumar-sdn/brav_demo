@@ -46,6 +46,14 @@ $(document).ready(function () {
     }else{
       window.location = '/';
     }
+  });
+  
+  $('#mediator').on('click', function () {
+    if (sessionStorage.getItem('bravUser')) {
+      window.location = '/mediator/' + JSON.parse(sessionStorage.getItem('bravUser'))['id'];
+    } else {
+      window.location = '/';
+    }
   })
 
 });

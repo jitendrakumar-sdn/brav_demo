@@ -8,7 +8,13 @@
 module.exports = {
 
   attributes: {
-
+    note: {
+      type: 'text',
+      required: true
+    },
+    userid: {
+      model: 'User'
+    }
   }
 };
 

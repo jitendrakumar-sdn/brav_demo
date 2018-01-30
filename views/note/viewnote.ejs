@@ -5,13 +5,94 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brav</title>
+    <!-- style file link -->
     <link rel="stylesheet" href="../styles/bootstrap.css" type="text/css">
     <link rel="stylesheet" href="../styles/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="../styles/style.css" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,500,500i,600,600i,700" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"
+    <!-- Include Editor style. -->
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.3/css/froala_editor.min.css' rel='stylesheet' type='text/css'
     />
-
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.3/css/froala_style.min.css' rel='stylesheet' type='text/css'
+    /><link href="http://fonts.googleapis.com/css?family=Reenie+Beanie:regular" rel="stylesheet" type="text/css">
+    <style>
+        h2,p{
+  font-size:100%;
+  font-weight:normal;
+}
+ul,li{
+  list-style:none;
+}
+#mynotes{
+  overflow:hidden;
+  padding:3em;
+}
+#mynotes .main{
+  color:#000;
+  background:#ffc;
+  display:block;
+  height:10em;
+  width:10em;
+  padding:1em;
+  -moz-box-shadow:5px 5px 7px rgba(33,33,33,1);
+  -webkit-box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+  box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+  -moz-transition:-moz-transform .15s linear;
+  -o-transition:-o-transform .15s linear;
+  -webkit-transition:-webkit-transform .15s linear;
+  margin:1em;
+  float:left;
+}
+/* #mynotes .main h2{
+  font-size:140%;
+  font-weight:bold;
+  padding-bottom:10px;
+} */
+#mynotes .main p{
+  font-family:"Reenie Beanie",arial,sans-serif;
+  font-size:180%;
+}
+#mynotes .main{
+  -webkit-transform: rotate(-6deg);
+  -o-transform: rotate(-6deg);
+  -moz-transform:rotate(-6deg);
+}
+#mynotes .main:nth-child(even){
+  -o-transform:rotate(4deg);
+  -webkit-transform:rotate(4deg);
+  -moz-transform:rotate(4deg);
+  position:relative;
+  top:5px;
+  background:#cfc;
+}
+#mynotes .main:nth-child(3n){
+  -o-transform:rotate(-3deg);
+  -webkit-transform:rotate(-3deg);
+  -moz-transform:rotate(-3deg);
+  position:relative;
+  top:-5px;
+  background:#ccf;
+}
+#mynotes .main:nth-child(5n){
+  -o-transform:rotate(5deg);
+  -webkit-transform:rotate(5deg);
+  -moz-transform:rotate(5deg);
+  position:relative;
+  top:-10px;
+}
+#mynotes .main:hover,#mynotes .main:focus{
+  box-shadow:10px 10px 7px rgba(0,0,0,.7);
+  -moz-box-shadow:10px 10px 7px rgba(0,0,0,.7);
+  -webkit-box-shadow: 10px 10px 7px rgba(0,0,0,.7);
+  -webkit-transform: scale(1.25);
+  -moz-transform: scale(1.25);
+  -o-transform: scale(1.25);
+  position:relative;
+  z-index:5;
+}
+ol{text-align:center;}
+ol li{display:inline;padding-right:1em;}
+ol li a{color:#fff;}
+</style>
 </head>
 
 <body style="background: #FFF">
@@ -48,18 +129,18 @@
     <!--video-call divion closed -->
     <div class="left-side-bar">
         <ul>
-            <li>
-                <a href="/note/view">
+            <li class="active">
+                <a href="#">
                     <i class="fa fa-file-text-o" aria-hidden="true"></i>
                 </a>
             </li>
-            <li class="active">
+            <li>
                 <a href="/task">
                     <i class="fa fa-calendar" aria-hidden="true"></i>
                 </a>
             </li>
             <li id="mediator">
-                <a>
+                <a href="#">
                     <i class="fa fa-video-camera" aria-hidden="true"></i>
                 </a>
             </li>
@@ -83,101 +164,12 @@
             <div class="logout">
                 <a href="#" id="logout">Logout</a>
             </div>
-
         </div>
     </div>
     <div class="right-side-panel">
         <div class="container container-top-margin">
-            <div class="col-md-8 create-availability">
-                <h1>Hi <span id="myname"></span>,</h1>
-                <h4>Get started by scheduling a session:</h4>
-                <form>
-                    <div class="form-group margin-top-feild">
-                        <label class="txt-label col-sm-12 avaiblability-txt">Conflict name
-                            <sup>*</sup>
-                        </label>
-                        <div class="col-sm-12 padding-zero">
-                            <input type="text" placeholder="Conflict Name" id="Conflictname" class="birthdate">
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="form-group margin-top-feild">
-                        <label class="txt-label col-sm-12 avaiblability-txt">Availability
-                            <sup>*</sup>
-                        </label>
-                        <div class='col-md-4'>
-                            <div class="form-group">
-                                <div class='input-group date' id='datestart'>
-                                    <input type='text' class="form-control" />
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class='col-md-4'>
-                            <div class="form-group">
-                                <div class='input-group date' id='dateend'>
-                                    <input type='text' class="form-control" />
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class='col-md-4'>
-                            <div class="form-group">
-                                <div class='input-group date' id='datetime'>
-                                    <input type='text' class="form-control" />
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="clearfix"></div>
-                    <!-- <div class="Add-availability">
-                        <p>Add another available time
-                            <a href="#">
-                                <i class="fa fa-plus" aria-hidden="true"></i>
-                            </a>
-                        </p>
-                    </div> -->
-                    <div class="clearfix"></div>
-                    <div class="form-group margin-top-feild">
-                        <label class="txt-label col-sm-12 avaiblability-txt">Availability
-                            <sup>*</sup>
-                        </label>
-                        <div class="col-sm-12 padding-zero">
-                            <select name="" id="availability" class="birthdate" multiple="true">
-                                <option value="">Select Availability</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="clearfix"></div>
-                    <div class="form-group margin-top-feild">
-                        <label class="txt-label col-sm-12 avaiblability-txt">Describe the conflict
-                            <sup>*</sup>
-                        </label>
-                        <div class="col-sm-12 padding-zero">
-                            <textarea id="description"></textarea>
-                        </div>
-                    </div>
-                    <p id="errMsg"></p>
-                    <div class="clearfix"></div>
-                    <div class="form-group margin-top-feild">
-                        <div class="col-sm-offset-8 col-sm-4 padding-zero text-right">
-                            <button class="btn btn-default login-btn" id="addSchedule">SUBMIT</button>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                    <p class="txt-password">Brav respects and protects your privacy. View full privacy policy
-                        <a href="">here</a>.</p>
-
-                </form>
+            <div class="row" id="mynotes">
+                
             </div>
         </div>
     </div>
@@ -189,76 +181,64 @@
     <!--right-side-panel closed -->
 </body>
 
+</html>
+
 <script src="../js/jquery.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
-<script src='../js/moment.min.js'></script>
-<script src="../js/bootstrap-datepicker.js"></script>
 <script src="../js/sweet-alert.min.js"></script>
+<script src="../js/app.js"></script>
+
 <script>
     $(document).ready(function () {
-
+        var meUser;
         if (sessionStorage.getItem('bravUser')) {
-            var myname = JSON.parse(sessionStorage.getItem('bravUser'));
-            $('#myname').text(myname.firstname + ' ' + myname.middlename + ' ' + myname.lastname)
+            meUser = JSON.parse(sessionStorage.getItem('bravUser'))
+        } else {
+            window.location = '/';
         }
 
-        $('#datetime').datetimepicker({
-            format: 'LT'
+        $("#chat").click(function () {
+            $(".chat-panel").toggle();
+            $(".notes-panel").hide();
+            $(".alert-panel").hide();
         });
-        $('#datestart').datetimepicker({
-            format: 'YYYY-MM-DD'
+        $("#notes").click(function () {
+            $(".notes-panel").toggle();
+            $(".chat-panel").hide();
+            $(".alert-panel").hide();
         });
-        $('#dateend').datetimepicker({
-            useCurrent: false, //Important! See issue #1075
-            format: 'YYYY-MM-DD'
+        $("#alert-msg").click(function () {
+            $(".alert-panel").toggle();
+            $(".notes-panel").hide();
+            $(".chat-panel").hide();
         });
-        $("#datestart").on("dp.change", function (e) {
-            $('#dateend').data("DateTimePicker").minDate(e.date);
-        });
-        $("#dateend").on("dp.change", function (e) {
-            $('#datestart').data("DateTimePicker").maxDate(e.date);
+        $(".user-img").click(function () {
+            $(".profile-edit").toggle();
         });
 
-
-        $("#addSchedule").on('click', function (e) {
-            e.preventDefault();
-            $('errMsg').val('');
-            var _name = $('#Conflictname').val();
-            var _availability = JSON.stringify($('#availability').val());
-            var _description = $('#description').val();
-            var _start = $('#datestart').data('date');
-            var _end = $('#dateend').data('date');
-            var _time = $('#datetime').data('date');
-
-            if (_name && _start && _end && _time && _availability && _description) {
-                var data = {
-                    title: _name,
-                    start: _start,
-                    end: _end,
-                    time: _time,
-                    availabilty: _availability,
-                    description: _description,
+        $.ajax({
+            method: "GET",
+            url: '/note/notes',
+            success: function (res) {
+                console.log('notes res', res)
+                if (res.success && res.data.length > 0) {
+                    var _main = $('#mynotes');
+                    for(var i=0; i < res.data.length; i++){
+                        var _note = $('<div class="main"></div>')
+                        $(_note).html(res.data[i].note);
+                        console.log($(_note))
+                        $(_main).append($(_note));
+                    }
+                } else {
+                    swal({ title: res.msg, icon: "info" });
                 }
-                $.ajax({
-                    url: '/schedule/newschedule',
-                    method: 'POST',
-                    data: data,
-                    success: function (res) {
-                        if (res.success) {
-                            window.location = '/schedule/done';
-                        } else {
-                            $('#errMsg').text(err.msg);
-                        }
-                    },
-                    error: function (err) {
-                        $('#errMsg').text(err.msg);
-                    },
-                    dataType: 'JSON'
-                });
-            } else {
-                $('errMsg').val('Enter all fields');
-            }
-        })
+            },
+            error: function (err) {
+
+            },
+            dataType: 'JSON'
+
+        });
 
         $(document).on('click', '.chat-call-cancel', function (e) {
             e.stopPropagation();
@@ -267,8 +247,8 @@
         });
 
         $('#mediator').on('click', function () {
-            if (sessionStorage.getItem('bravUser'))
-                window.location = '/mediator/' + JSON.parse(sessionStorage.getItem('bravUser'))['id'];
+            if (meUser)
+                window.location = '/mediator/' + meUser.id;
         })
 
 
@@ -355,12 +335,12 @@
         peer.on('connection', connect);
 
         peer.on('error', function (err) {
-            if(err)
-            swal(err || err.Error);
+            if (err)
+                swal(err || err.Error);
         });
         peer.on('close', function (err) {
-            if(err)
-            swal(err || err.Error);
+            if (err)
+                swal(err || err.Error);
         });
 
         function sendMsg(msg, id) {
@@ -393,7 +373,7 @@
                     container = getChatContainer(id, c.metadata.name);
                     $(_main).append($(_li).append($(container)));
                 } else {
-                       container.show();
+                    container.show();
                 }
                 c.on('data', function (data) {
                     var _msg = $('<p class="chat-msg text-right">' + data + '</p>');
@@ -467,5 +447,3 @@
     });
 
 </script>
-
-</html>

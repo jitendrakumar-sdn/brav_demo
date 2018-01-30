@@ -42,7 +42,10 @@ var jsFilesToInject = [
   'js/moment.min.js',
   'js/fullcalendar.min.js',
   'js/scheduler.min.js',
-  'js/bootstrap-datepicker.js'
+  'js/bootstrap-datepicker.js',
+  // 'js/fullscreen.min.js',
+  'js/froala_editor.min.js',
+  'js/froala_editor.pkgd.min.js'
   // 'js/angular/app.js',
   // 'js/angular/angular-routes.js',
 

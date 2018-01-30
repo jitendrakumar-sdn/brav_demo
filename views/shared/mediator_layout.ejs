@@ -28,7 +28,7 @@
           </a>
         </li>
         <li>
-          <a href="#" id="notes">
+          <a href="/note/create" id="notes">
             <i class="fa fa-pencil-square" aria-hidden="true"></i>
           </a>
         </li>
@@ -78,7 +78,7 @@
     <div class="profile-edit text-center" style="display: none">
       <img src="../images/user-img.jpg" alt="">
       <div class="your-account">
-        <a href="">Your Account</a>
+        <a href="/profile">Your Account</a>
       </div>
       <div class="logout">
         <a href="#" id="logout">Logout</a>
@@ -196,7 +196,7 @@
 
       let peer = new Peer(id, {
         host: '/',
-        proxied: true,
+        port: 9000,
         path: '/api'
       });
 
@@ -480,11 +480,22 @@
         }
       });
 
-      $(document).on('keypress', '.chat-box', function (key) {
-        if (key == 13) {
-          handleMsg($(this).attr('data-id'), $('#chat-box' + $(this).attr('data-id')).val())
-        }
-      });
+       $(document).on('keypress', '.chat-box', function (key) {
+          console.log('evet', key)
+          if (key.keyCode == 13) {
+
+            var _id = $(this).attr('data-id');
+            var m = $('#chat-box' + _id).val();
+            if (m) {
+              var _chatWindow = $('#chat-text' + _id);
+              var _msg = $('<p class="chat-msg">' + $('#chat-box' + _id).val() + '</p>');
+              $(_chatWindow).append(_msg);
+              $('#chat-box' + _id).val('');
+              sendMsg(m, _id);
+            }
+            // handleMsg($(this).attr('data-id'), $('#chat-box' + $(this).attr('data-id')).val())
+          }
+        });
 
       function handleMsg(_id, _msg) {
         if (_id && _msg) {
