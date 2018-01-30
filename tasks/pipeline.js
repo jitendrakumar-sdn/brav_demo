@@ -45,10 +45,16 @@ var jsFilesToInject = [
   'js/bootstrap-datepicker.js',
   // 'js/fullscreen.min.js',
   'js/froala_editor.min.js',
-  'js/froala_editor.pkgd.min.js'
+  'js/froala_editor.pkgd.min.js',
   // 'js/angular/app.js',
   // 'js/angular/angular-routes.js',
 
+  // 'js/angular/angular.min.js',
+  // 'js/angular/angular-route.min.js',
+  // 'js/angular/app.js',
+  // 'js/angular/constants.js',
+  // 'js/angular/routes.js',
+  // 'js/**/*.js'
 
 ];
 

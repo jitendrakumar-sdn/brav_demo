@@ -8,7 +8,9 @@
 module.exports = {
   logout: function (req, res) {
     if (req.body.id) {
-      User.update({ id: req.body.id }, {
+      User.update({
+        id: req.body.id
+      }, {
         online: false
       }, function (errUpdate, resUpdate) {
         if (errUpdate) return res.serverError({
@@ -85,11 +87,9 @@ module.exports = {
         .exec(function (err, ress) {
           if (err) {
             ress.redirect('/');
-          }
-          else if (!ress) {
+          } else if (!ress) {
             ress.redirect('/');
-          }
-          else {
+          } else {
             res.view();
           }
         });
@@ -124,7 +124,7 @@ module.exports = {
       });
     }
   },
-  online: function (res, res) {
+  online: function (req, res) {
     UserService
       .getOnlineUser()
       .exec(function (err, onlineUser) {
@@ -142,5 +142,12 @@ module.exports = {
           data: onlineUser
         });
       })
+  },
+  getById: function (req, res) {
+    if (req.session.userId && req.session.loggedin) {
+
+    } else {
+      res.redirect('/')
+    }
   }
 };
