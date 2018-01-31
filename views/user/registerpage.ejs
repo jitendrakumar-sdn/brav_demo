@@ -33,7 +33,6 @@
 <script>
   $(document).ready(function () {
     $("#registerBtn").click(function () {
-      console.log('asdasd')
       $('#errMsg').text('');
       var _firstName = $('#firstName').val();
       var _lastName = $('#lastName').val();
@@ -49,22 +48,19 @@
           username: _userName,
           password: _password
         };
-        console.log('data', data)
 
         $.ajax({
           url: '/user/register',
           method: 'POST',
           data: data,
           success: function (res) {
-            console.log('register res', res)
             if (res.success) {
               window.location = '/';
             } else {
-              $('#errMsg').text(err.msg);
+              swal({title: res.msg, icon: 'error'})
             }
           },
           error: function (err) {
-            console.log('register error', err);
             $('#errMsg').text(err.msg);
           },
           dataType: 'JSON'

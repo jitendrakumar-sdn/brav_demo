@@ -9,7 +9,6 @@ function mainController($scope, $location) {
   MSC.isHeaderView = false;
 
   $scope.$on('$routeChangeStart', function () {
-    console.log('route changed')
     if ($location.path() == '/' || $location.path() == '/register') {
       deleteSession();
       MSC.isHeaderView = false;
@@ -19,6 +18,6 @@ function mainController($scope, $location) {
   });
 
   function deleteSession() {
-    if (sessionStorage.getItem('bravUser')) sessionStorage.removeItem('bravUser')
+    // if (sessionStorage.getItem('bravUser')) sessionStorage.removeItem('bravUser')
   }
 }

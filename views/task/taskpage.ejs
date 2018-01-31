@@ -79,9 +79,29 @@
         <div class="container container-top-margin">
             <a href="/schedule" class="add-schedule-btn"><i class="fa fa-plus" aria-hidden="true"></i></a>
             <!-- <div id="calendar"></div> -->
-            <div id='calendar'></div>
+            <div id="calendar"></div>
+            <div id="myModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h3 class="modal-title text-center" id="calenderTitle"></h3>
+                        </div>
+                        <div class="modal-body">
+                            <h4>Description</h4>
+                            <p id="calenderDescrption"></p>
+                            <h4>Date</h4>
+                            <p><span id="startDate"></span> <span id="endDate"></span> <span id="time"></span></p>
+                            <h4>Availabilty</h4>
+                            <p id="availabilty"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+
 
     <div class="chat-container">
         <ul id="chats">
@@ -90,7 +110,6 @@
     <!--right-side-panel closed -->
     <script>
         $(document).ready(function () {
-            
             $('#calendar').fullCalendar({
                 editable: true, // enable draggable events
                 aspectRatio: 1.8,
@@ -104,7 +123,34 @@
                 events: {
                     url: '/schedule/getschedule',
                     textColor: 'black'
-                }
+                },
+                    eventRender: function (event, element) {
+                        element.attr('href', 'javascript:void(0);');
+                        element.click(function () {
+                            console.log(event)
+                            if (event.start)
+                                $("#startDate").html("On : " + moment(event.start).format("MMM DD, YYYY"));
+                            else
+                                $("#startDate").text("");
+                            if (event.end)
+                                $("#endDate").html("<br/>Till : " + moment(event.end).format("MMM DD, YYYY"));
+                            else
+                                $("#endDate").text("");
+                            if (event.time)
+                                $("#time").html("<br/>Time : " + event.time);
+                            else
+                                $("#time").text("");
+                            $("#calenderTitle").text(event.title);
+                            $("#calenderDescrption").text(event.description);
+                            if(event.availabilty){
+                                var avail = JSON.parse(event.availabilty).join(',');
+                                $("#availabilty").text(avail);
+                            }else{
+                                $("#availabilty").text();
+                            }
+                            $('#myModal').modal('show')
+                        });
+                    }
             });
 
             getOnlineUsers();
@@ -146,7 +192,7 @@
 
             let peer = new Peer(loggedUser.id, {
                 host: '/',
-                port: 5103,
+                port: 9000,
                 path: '/api'
             });
 

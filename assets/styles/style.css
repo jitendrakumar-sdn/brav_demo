@@ -577,23 +577,27 @@ textarea {
 }
 
 .chat-container li input {
-  width: 75%;
+  width: 74%;
   padding: 5px;
+  height: 30px;
   border: 0;
   border-top: 1px solid #598ebf;
 }
 
 .chat-container li .send {
-  width: 25%;
+  width: 23%;
   text-align: center;
-  padding: 5px;
   background: #598ebf;
   color: #ffffff;
   padding: 8px 4px 15px 0px;
-  border-top: 1px solid #598ebf;
+  border: 1px solid #598ebf;
   display: inline-block;
   height: 31px;
   cursor: pointer;
+}
+.modal .modal-content p{
+  color: initial;
+  padding-left: 20px;
 }
 
 /*availability page*/
@@ -1032,7 +1036,7 @@ textarea {
   background: #ffc;
   display: block;
   height: 10em;
-  width: 10em;
+  width: 15em;
   padding: 1em;
   -moz-box-shadow: 5px 5px 7px rgba(33, 33, 33, 1);
   -webkit-box-shadow: 5px 5px 7px rgba(33, 33, 33, .7);
@@ -1095,4 +1099,6 @@ textarea {
   z-index: 5;
   height: initial;
   min-height: 10em;
+    /* width: auto;
+    margin-left: 80px; */
 }

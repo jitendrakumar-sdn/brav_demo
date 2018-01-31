@@ -11,6 +11,7 @@ function commonService($q, $http, notificationService) {
     deleteCall: deleteCall,
     editCall: editCall,
     formValNotManditory: formValNotManditory,
+    getAllCall: getAllCall,
     getSessionData: getSessionData,
     isEmail: isEmail
   };

@@ -11,6 +11,7 @@
     login: appUrl + 'user/login',
     register: appUrl + 'user/register',
     singleUser: appUrl + 'user/single',
+    onlineUser: appUrl + 'user/online'
   };
 
   angular.module('brav').constant('constants', apiRoutesUrl);

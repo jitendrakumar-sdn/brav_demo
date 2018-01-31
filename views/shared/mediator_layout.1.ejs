@@ -110,9 +110,9 @@
             <a href="#">
               <i class="fa fa-phone" aria-hidden="true"></i>
             </a>
-            <a href="#">
+             <a href="#">
               <i class="fa fa-phone slash" aria-hidden="true"></i>
-            </a>
+            </a> 
           </li>
           <li class="record" id="record-icon">
             <a href="#">
@@ -130,7 +130,7 @@
         </ul>
       </div>
 
-      <video id="my-video" autoplay="true"></video>
+      <video id="my-video" autoplay="true">
 
         <!-- <video> -->
 
@@ -142,6 +142,21 @@
       <div id="clientvedios">
 
       </div>
+      <!-- <div class="col-sm-3 camera-0ne">
+        <video id="video" autoplay="true" width="100%" height="100%">
+
+          <video>
+      </div>
+      <div class="col-sm-3 camera-two">
+        <video id="video" autoplay="true" width="100%" height="100%">
+          <video>
+      </div>
+      <div class="col-sm-3 camera-three">
+        <video id="video" autoplay="true" width="100%" height="100%">
+      </div>
+      <div class="col-sm-3 camera-fore">
+        <video id="video" autoplay="true" width="100%" height="100%">
+      </div> -->
       <div class="clearfix"></div>
 
     </div>
@@ -163,23 +178,27 @@
   <script src="../js/peer.min.js"></script>
   <script>
     //allow to get microphone and camera
+    console.log('navigator.getUserMedia', navigator.getUserMedia);
+    console.log('navigator.webkitGetUserMedia', navigator.webkitGetUserMedia);
+    console.log('navigator.mozGetUserMedia', navigator.mozGetUserMedia);
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
     var id = '<%= id %>'; // this has to user id from db
 
     $(document).ready(function () {
       //connect to the peering server
 
-      let connectedPeers = {};
-      let connectedCall = {};
-      let isInCall = false;
-      // let usersOnline = JSON.parse(localStorage.getItem('users')) || [];
+      var connectedPeers = {};
+      var connectedCall = {};
+      var isInCall = false;
+      // var window = Window || window;
+      // var usersOnline = JSON.parse(localStorage.getItem('users')) || [];
 
       // if (usersOnline.indexOf(id) == -1) { // id is from url ( id = '<%= id %>' )
       //   usersOnline.push(id);
       //   localStorage.setItem('users', JSON.stringify(usersOnline));
       // }
 
-      let peer = new Peer(id, {
+      var peer = new Peer(id, {
         host: '/',
         port: 9000,
         path: '/api'
@@ -193,6 +212,7 @@
       peer.on('connection', connect);
 
       peer.on('error', function (err) {
+        // err = err
         // swal(err);
       });
       peer.on('close', function (err) {
@@ -297,9 +317,9 @@
         // Handle a chat connection.
 
         if (c.label === 'drop') {
-          $('#vedio' + c.peer).parent().remove();
+          $('#vedio'+c.peer).parent().remove();
           isInCall = false;
-        } else if (c.label === 'chat') {
+        }else if (c.label === 'chat') {
           var id = c.peer;
           var _main = $('#chats');
           var _li = $('<li></li>');
@@ -353,7 +373,7 @@
         $('#record-icon').children().first().toggle();
       });
 
-      $('#phone').on('click', function () {
+      $('#phone').on('click',function(){
         endCall();
       });
 
@@ -392,10 +412,12 @@
       $(document).on('click', '.chat-call', function (e) {
         e.stopPropagation();
         var _id = $(this).attr('data-id');
+        console.log(_id, window.localStream)
         if (!isInCall) {
           $(this).next().toggle();
           $(this).toggle();
           var call = peer.call(_id, window.localStream);
+          console.log('call',call)
           placecall(call, _id);
         } else {
           swal('You are already in a call');
@@ -412,27 +434,28 @@
       });
 
       function endCall() {
+
         if (sessionStorage.getItem('bravUser')) {
           var user = JSON.parse(sessionStorage.getItem('bravUser'));
-          if (window.existingCall) {
-            window.existingCall.close();
-            isInCall = false;
-            $('#vedio' + window.existingCallId).parent().remove();
-            var c = peer.connect(window.existingCallId, {
+        if (window.existingCall) {
+          window.existingCall.close();
+          isInCall = false;
+          $('#vedio'+window.existingCallId).parent().remove();
+          var c = peer.connect(window.existingCallId, {
               label: 'drop',
               serialization: 'none',
               metadata: {
                 name: user.firstname + ' ' + user.lastname
               }
             });
-            c.on('open', function () {
-              c.send('Call disconnected');
-            });
-          }
-        } else {
-          window.location = '/';
-        }
+              c.on('open', function () {
+                c.send('Call disconnected');
+              });
+            }
+          }else{
+            window.location = '/';
       }
+    }
 
       $(document).on('click', '.send', function () {
         var _id = $(this).attr('data-id');
@@ -446,21 +469,21 @@
         }
       });
 
-      $(document).on('keypress', '.chat-box', function (key) {
-        if (key.keyCode == 13) {
+       $(document).on('keypress', '.chat-box', function (key) {
+          if (key.keyCode == 13) {
 
-          var _id = $(this).attr('data-id');
-          var m = $('#chat-box' + _id).val();
-          if (m) {
-            var _chatWindow = $('#chat-text' + _id);
-            var _msg = $('<p class="chat-msg">' + $('#chat-box' + _id).val() + '</p>');
-            $(_chatWindow).append(_msg);
-            $('#chat-box' + _id).val('');
-            sendMsg(m, _id);
+            var _id = $(this).attr('data-id');
+            var m = $('#chat-box' + _id).val();
+            if (m) {
+              var _chatWindow = $('#chat-text' + _id);
+              var _msg = $('<p class="chat-msg">' + $('#chat-box' + _id).val() + '</p>');
+              $(_chatWindow).append(_msg);
+              $('#chat-box' + _id).val('');
+              sendMsg(m, _id);
+            }
+            // handleMsg($(this).attr('data-id'), $('#chat-box' + $(this).attr('data-id')).val())
           }
-          // handleMsg($(this).attr('data-id'), $('#chat-box' + $(this).attr('data-id')).val())
-        }
-      });
+        });
 
       function handleMsg(_id, _msg) {
         if (_id && _msg) {

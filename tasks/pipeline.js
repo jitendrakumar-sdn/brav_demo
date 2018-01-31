@@ -49,12 +49,12 @@ var jsFilesToInject = [
   // 'js/angular/app.js',
   // 'js/angular/angular-routes.js',
 
-  // 'js/angular/angular.min.js',
-  // 'js/angular/angular-route.min.js',
-  // 'js/angular/app.js',
-  // 'js/angular/constants.js',
-  // 'js/angular/routes.js',
-  // 'js/**/*.js'
+  'js/angular/angular.min.js',
+  'js/angular/angular-route.min.js',
+  'js/angular/app.js',
+  'js/angular/constants.js',
+  'js/angular/routes.js',
+  'js/**/*.js'
 
 ];
 
