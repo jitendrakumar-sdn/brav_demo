@@ -11,6 +11,7 @@ function commonService($q, $http, notificationService) {
     deleteCall: deleteCall,
     editCall: editCall,
     formValNotManditory: formValNotManditory,
+    getSessionData: getSessionData,
     isEmail: isEmail
   };
 
@@ -144,5 +145,11 @@ function commonService($q, $http, notificationService) {
       notificationService.error('Please enter valid email');
       return false;
     }
+  }
+
+  function getSessionData(){
+    if (sessionStorage.getItem('bravUser')){
+      return JSON.parse(sessionStorage.getItem('bravUser'));
+    }else return false;
   }
 }
