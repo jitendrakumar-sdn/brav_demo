@@ -110,9 +110,9 @@
             <a href="#">
               <i class="fa fa-phone" aria-hidden="true"></i>
             </a>
-            <a href="#">
+             <a href="#">
               <i class="fa fa-phone slash" aria-hidden="true"></i>
-            </a>
+            </a> 
           </li>
           <li class="record" id="record-icon">
             <a href="#">
@@ -234,7 +234,6 @@
         index = !index || index === 0 ? 1 : index + 1;
         var _main = $('#clientvedios');
         if ($(_main).children().find('#vedio' + index).length == 0) {
-          ;
           call.on('stream', function (remoteStream) {
             $('#call').hide();
             var _div = $('<div class="single-client-vedio"></div>');
@@ -242,6 +241,7 @@
             $(_vedio).prop('src', URL.createObjectURL(remoteStream));
             $(_main).append($(_div).append(_vedio));
             isInCall = true;
+            window.existingCall = call;
           });
         }
       }
@@ -299,6 +299,7 @@
             }).then(function (res) {
               if (res) {
                 // connectedCall.push(call);
+                window.existingCall = call;
                 call.answer(stream); // Answer the call with an A/V stream.
                 handleCall(call);
               }
@@ -402,6 +403,10 @@
         $('#record-icon').children().first().toggle();
       });
 
+      $('#phone').on('click',function(){
+        endCall();
+      });
+
 
 
       $(document).on('click', '.client', function () {
@@ -438,16 +443,16 @@
       $(document).on('click', '.chat-call', function (e) {
         e.stopPropagation();
         var _id = $(this).attr('data-id');
-        // if (!isInCall) {
-        $(this).next().toggle();
-        $(this).toggle();
-        var call = peer.call(_id, window.localStream);
-        console.log('call', call)
-        placecall(call, _id);
-        // } else {
-        //   swal('You are already in a call');
-        // }
-        // callPeer(_id);
+        if (!isInCall) {
+          $(this).next().toggle();
+          $(this).toggle();
+          var call = peer.call(_id, window.localStream);
+          console.log('call', call)
+          placecall(call, _id);
+        } else {
+          swal('You are already in a call');
+        }
+        callPeer(_id);
       });
 
       $(document).on('click', '.chat-call-drop', function (e) {
@@ -458,13 +463,9 @@
         endCall(_id);
       });
 
-      function endCall(id) {
-        if (id) {
-          console.log(peer)
-          var c = peer.connect(id);
-          c.on('open', function () {
-            c.close();
-          });
+      function endCall() {
+        if (window.existingCall) {
+          window.existingCall.close();
         }
       }
 
