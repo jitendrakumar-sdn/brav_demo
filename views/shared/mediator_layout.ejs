@@ -202,7 +202,6 @@
 
       // Show this peer's ID.
       peer.on('open', function (id) {
-        console.log('ID :::: ', id);
       });
 
       // Await connections from others
@@ -215,65 +214,33 @@
         swal(err + ' closed');
       });
 
-
-      // var _users = JSON.parse(localStorage.getItem('users')) || [];
-      // if (_users.length > 0) {
-      //   var _list = $('#users');
-      //   for (var i = 0; i < _users.length; i++) {
-      //     if (_users[i] != id)
-      //       _list.append('<li class="client">' + _users[i] + '</li>');
-      //   }
-      // }
-
-      function handleCall(call) {
-        console.log('call handle call', call)
+      function handleCall(call, id) {
         placecall(call, id)
       }
 
       function placecall(call, index) {
-        index = !index || index === 0 ? 1 : index + 1;
+        index = !index || index === 0 ? 1 : index;
         var _main = $('#clientvedios');
         if ($(_main).children().find('#vedio' + index).length == 0) {
           call.on('stream', function (remoteStream) {
             $('#call').hide();
-            var _div = $('<div class="single-client-vedio"></div>');
+            var _div = $('<div class="single-client-vedio" ></div>');
             var _vedio = $('<video id="vedio' + index + '" autoplay="true" width="100%" height="100%">');
             $(_vedio).prop('src', URL.createObjectURL(remoteStream));
             $(_main).append($(_div).append(_vedio));
             isInCall = true;
             window.existingCall = call;
+            window.existingCallId = index;
           });
         }
       }
 
 
       function callPeer(id) {
-        console.log('idddd', id)
         var call = peer.call(id, window.localStream);
-        console.log('call', call)
         placecall(call, id);
       }
 
-      // function callPeer(id) {
-      //   console.log('idddd', id)
-      //   var c = peer.connect(id, {
-      //       label: 'call',
-      //       metadata: {
-      //         message: "want to connect by Call"
-      //       }
-      //     });
-      //     c.on('open', function () {
-      //       console.log('called');
-      //         var call = peer.call(id, window.localStream);
-      //         console.log('peer', peer)
-      //         placecall(call, id);
-
-      //       // c.send(msg)
-      //     }); 
-      // var call = peer.call(id, window.localStream);
-      // console.log('call', call)
-      // placecall(call, id);
-      // }
       var constraints = window.constraints = {
         audio: true,
         video: true
@@ -298,10 +265,9 @@
               }
             }).then(function (res) {
               if (res) {
-                // connectedCall.push(call);
                 window.existingCall = call;
                 call.answer(stream); // Answer the call with an A/V stream.
-                handleCall(call);
+                handleCall(call, call.peer);
               }
             });
           });
@@ -345,12 +311,13 @@
       function connect(c) {
         // Handle a chat connection.
 
-        if (c.label === 'chat') {
-
+        if (c.label === 'drop') {
+          $('#vedio'+c.peer).parent().remove();
+          isInCall = false;
+        }else if (c.label === 'chat') {
           var id = c.peer;
           var _main = $('#chats');
           var _li = $('<li></li>');
-          console.log("name", c);
           var container;
           if ($(_main).children().find('#chat-call' + id).length == 0) {
             container = getChatContainer(id, c.metadata.name);
@@ -359,7 +326,6 @@
           c.on('data', function (data) {
             var _msg = $('<p class="chat-msg text-right">' + data + '</p>');
             $('#chat-text' + id).append(_msg)
-            console.log('peer', peer);
           });
           c.on('close', function () {
             swal(c.peer + ' has left the chat.');
@@ -383,7 +349,6 @@
 
           connectedPeers[c.peer] = c;
         }
-        console.log('connectedPeers', connectedPeers)
       }
 
       $('#camera').on('click', function () {
@@ -416,7 +381,6 @@
         var _main = $('#chats');
         var _li = $('<li id="chat-container' + id + '"></li>');
         var container;
-        console.log($('#chat-container' + id))
         if ($(_main).children().find('#chat-call' + id).length == 0) {
           $(".chat-panel").hide();
           container = getChatContainer(id, name);
@@ -447,7 +411,6 @@
           $(this).next().toggle();
           $(this).toggle();
           var call = peer.call(_id, window.localStream);
-          console.log('call', call)
           placecall(call, _id);
         } else {
           swal('You are already in a call');
@@ -464,10 +427,28 @@
       });
 
       function endCall() {
+
+        if (sessionStorage.getItem('bravUser')) {
+          var user = JSON.parse(sessionStorage.getItem('bravUser'));
         if (window.existingCall) {
           window.existingCall.close();
-        }
+          isInCall = false;
+          $('#vedio'+window.existingCallId).parent().remove();
+          var c = peer.connect(window.existingCallId, {
+              label: 'drop',
+              serialization: 'none',
+              metadata: {
+                name: user.firstname + ' ' + user.lastname
+              }
+            });
+              c.on('open', function () {
+                c.send('Call disconnected');
+              });
+            }
+          }else{
+            window.location = '/';
       }
+    }
 
       $(document).on('click', '.send', function () {
         var _id = $(this).attr('data-id');
@@ -482,7 +463,6 @@
       });
 
        $(document).on('keypress', '.chat-box', function (key) {
-          console.log('evet', key)
           if (key.keyCode == 13) {
 
             var _id = $(this).attr('data-id');
@@ -523,7 +503,6 @@
           url: '/user/online',
           method: 'GET',
           success: function (res) {
-            console.log('onlineuser res', res)
             if (res.data.length > 0) {
               var _list = $('#users');
               for (var i = 0; i < res.data.length; i++) {
@@ -538,7 +517,6 @@
             }
           },
           error: function (err) {
-            console.log('Login error', err);
             $('#errMsg').text(err.msg);
           },
           dataType: 'JSON'
