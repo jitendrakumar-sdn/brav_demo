@@ -20,7 +20,13 @@ module.exports.http = {
     };
 
     var PeerServer = require('peer').PeerServer;
-    var server = PeerServer({port: 9000, path: '/api'});
+    var server = PeerServer({
+      port: 5103, path: '/api',
+      ssl: {
+        key: fs.readFileSync('/home/brav/brav_demo/config/certs_new/stagingsdei_com.key', 'utf8'),
+        cert: fs.readFileSync('/home/brav/brav_demo/config/certs_new/6a221c743fff90ed.crt', 'utf8')
+      }
+    });
 
   },
 
