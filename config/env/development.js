@@ -9,6 +9,7 @@
  * any private information to this file!
  *
  */
+var fs = require('fs');
 
 module.exports = {
   port: 5102,
