@@ -11,7 +11,11 @@
  */
 
 module.exports = {
-  port: 5102
+  port: 5102,
+  ssl: {
+    key: fs.readFileSync('/home/brav/brav_demo/config/certs_new/stagingsdei_com.key', 'utf8'),
+    cert: fs.readFileSync('/home/brav/brav_demo/config/certs_new/6a221c743fff90ed.crt', 'utf8')
+  }
 
   /***************************************************************************
    * Set the default database connection for models in the development       *
