@@ -50,7 +50,7 @@ module.exports.connections = {
   },
   mySqlLive: {
     adapter: 'sails-mysql',
-    host: 'http://192.155.246.146',
+    host: '192.155.246.146',
     port: '8001',
     user: 'brav',
     password: 'brav2020',

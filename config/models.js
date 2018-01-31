@@ -17,8 +17,8 @@ module.exports.models = {
    * connections (see `config/connections.js`)                                *
    *                                                                          *
    ***************************************************************************/
-  connection: 'mySql', //local
-  // connection: 'mySqlLive', //live
+  // connection: 'mySql', //local
+  connection: 'mySqlLive', //live
 
   /***************************************************************************
    *                                                                          *
