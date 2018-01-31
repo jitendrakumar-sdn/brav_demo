@@ -103,10 +103,27 @@ module.exports = {
   register: function (req, res) {
     if (req.body.firstname && req.body.username && req.body.password) {
       User.create(req.body, function (err, createdUser) {
-        if (err) return res.serverError({
-          'success': false,
-          'msg': 'Something went wrong!!! Try again later'
-        });
+        if (err) {
+          if (err.invalidAttributes && err.invalidAttributes.hasOwnProperty("username") || err === 'E_VALIDATION') {
+            let errMsg = err.invalidAttributes && err.invalidAttributes.username && err.invalidAttributes.username[0] ? err.invalidAttributes.username[0].message : 'User name already exist'
+            return res.ok({
+              'success': false,
+              'msg': errMsg
+            })
+          }
+
+
+          if (err === 'E_VALIDATION' && err.attributes[0] == 'username') {
+            return res.ok({
+              'success': false,
+              'msg': 'User name already exist'
+            })
+          }
+          return res.serverError({
+            'success': false,
+            'msg': 'Something went wrong!!! Try again later'
+          });
+        }
         if (!createdUser) return res.ok({
           'success': false,
           'msg': 'Invalid username or password'

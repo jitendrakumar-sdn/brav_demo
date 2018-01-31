@@ -71,7 +71,8 @@ function userController($rootScope, $location, userService, commonService, notif
   }
 
   function registerFn() {
-    if (USC.register && USC.register.firstName && commonService.isEmail(USC.register.username) && USC.register.password && USC.register.repeatpassword) {
+    console.log('asdadad')
+    if (USC.register && USC.register.firstname && commonService.isEmail(USC.register.username) && USC.register.password && USC.register.repeatpassword) {
       if (USC.register.password !== USC.register.repeatpassword) {
         notificationService.error('Password doesnt match');
         return false;
@@ -95,6 +96,8 @@ function userController($rootScope, $location, userService, commonService, notif
         }, function (err) {
           notificationService.error(err.msg);
         })
+    } else {
+      notificationService.error('Enter all manditory fields')
     }
   }
 }

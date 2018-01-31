@@ -42,9 +42,11 @@
 <script src="/js/froala_editor.pkgd.min.js"></script>
 <!--SCRIPTS END-->
 
-<body ng-app="brav">
-
-  <div ng-view></div>
+<body ng-app="brav" ng-controller="mainController as MSC" ng-class="MSC.isHeaderView ? 'white-background' : 'blue-background'">
+  <div ng-include="'/templates/header.html'" ng-if="MSC.isHeaderView"></div>
+  <div class="right-side-panel">
+    <div ng-view></div>
+  </div>
 
 </body>
 

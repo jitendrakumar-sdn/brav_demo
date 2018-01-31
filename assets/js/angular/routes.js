@@ -5,7 +5,7 @@ angular.module('brav')
         templateUrl: 'templates/userLogin.html',
         controller: 'userController as USC'
       })
-      .when('/regiter', {
+      .when('/register', {
         templateUrl: 'templates/userRegister.html',
         controller: 'userController as USC'
       })

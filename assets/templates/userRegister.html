@@ -5,17 +5,17 @@
       <div class="login-logo">
         <img src="images/login-log.png" alt="" class="">
       </div>
-      <form>
+      <form name="USC.registerFrm">
         <div class="form-group">
-          <input type="text" class="form-control txt-username" id="firstName" placeholder="First Name" ng-model="USC.register.firstname">
-          <input type="text" class="form-control txt-username" id="middleName" placeholder="Middle name">
-          <input type="text" class="form-control txt-username" id="LastName" placeholder="Last Name">
-          <input type="text" class="form-control txt-username" id="username" placeholder="Username">
-          <input type="password" class="form-control txt-username" id="password" placeholder="Password">
-          <input type="password" class="form-control txt-username" id="repeatPassword" placeholder="Repeat Password">
+          <input type="text" class="form-control txt-username" id="firstName" placeholder="First Name*" ng-model="USC.register.firstname">
+          <input type="text" class="form-control txt-username" id="middleName" placeholder="Middle name" ng-model="USC.register.middlename">
+          <input type="text" class="form-control txt-username" id="LastName" placeholder="Last Name" ng-model="USC.register.lastname">
+          <input type="text" class="form-control txt-username" id="username" placeholder="Username*" ng-model="USC.register.username">
+          <input type="password" class="form-control txt-username" id="password" placeholder="Password*" ng-model="USC.register.password">
+          <input type="password" class="form-control txt-username" id="repeatPassword" placeholder="Repeat Password*" ng-model="USC.register.repeatpassword">
           <p id="errMsg"></p>
           <!-- <button type="button" class="btn btn-default login-btn" id="nextBtn">next</button> -->
-          <button type="button" class="btn btn-default login-btn" id="registerBtn">Register</button>
+          <button type="button" class="btn btn-default login-btn" id="registerBtn" ng-click="USC.registerFn()">Register</button>
         </div>
       </form>
       <div class="password-link text-center">
