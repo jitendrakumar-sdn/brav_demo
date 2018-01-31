@@ -1017,15 +1017,9 @@ textarea {
   background: #598ebf;
 }
 
-#mynotes h2,
-#mynotes p {
+#mynotes h2{
   font-size: 100%;
-  font-weight: normal;
-}
-
-#mynotes ul,
-#mynotesli {
-  list-style: none;
+    font-weight: 600;;
 }
 
 #mynotes {
@@ -1048,17 +1042,19 @@ textarea {
   -webkit-transition: -webkit-transform .15s linear;
   margin: 1em;
   float: left;
-}
-
-#mynotes .main p {
-  font-family: "Reenie Beanie", arial, sans-serif;
-  font-size: 180%;
-}
-
-#mynotes .main {
   -webkit-transform: rotate(-6deg);
   -o-transform: rotate(-6deg);
   -moz-transform: rotate(-6deg);
+  overflow: hidden;
+  cursor: pointer;
+}
+#mynotes .main ul,
+#mynotes .main ol{
+  padding-left: 10px;
+}
+#mynotes .main p {
+  font-family: "Reenie Beanie", arial, sans-serif;
+  font-size: 180%;
 }
 
 #mynotes .main:nth-child(even) {
@@ -1097,4 +1093,6 @@ textarea {
   -o-transform: scale(1.25);
   position: relative;
   z-index: 5;
+  height: initial;
+  min-height: 10em;
 }
