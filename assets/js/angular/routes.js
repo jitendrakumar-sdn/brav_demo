@@ -35,7 +35,7 @@ angular.module('brav')
       })
       .when('/mediator/:id', {
         templateUrl: 'templates/mediator.html',
-        controller: 'mediatorController as MSC'
+        controller: 'mediatorController as MDSC'
       })
       .otherwise({
         redirectTo: '/'

@@ -44,6 +44,10 @@ module.exports.routes = {
     controller: 'UserController',
     action: 'profilepage'
   },
+  '/reset-password': {
+    controller: 'UserController',
+    action: 'resetpasswordpage'
+  },
   '/schedule': {
     controller: 'ScheduleController',
     action: 'schedulepage'

@@ -21,8 +21,13 @@ module.exports = {
 						res.render('pages/mediator', { _layoutFile: '../shared/mediator_layout.ejs', id: req.param('id') });
 					}
 				});
-		}else{
-			res.redirect('/');			
+	} else {
+		res.redirect('/');
+		// return res.ok({
+		// 	'success': false,
+		// 	'expiry': true,
+		// 	'msg': 'Your Session has been expired'
+		// });		
 		}
 	}
 };

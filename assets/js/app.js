@@ -1,9 +1,5 @@
 
 $(document).ready(function () {
-  $('#microphone').children().last().toggle();
-  $('#camera').children().last().toggle();
-  $('#phone').children().last().toggle();
-  $('#record-icon').children().last().toggle();
 
   $("#chat").click(function () {
     $(".chat-panel").toggle();

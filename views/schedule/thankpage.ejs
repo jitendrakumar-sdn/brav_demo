@@ -14,43 +14,7 @@
 </head>
 
 <body style="background: #FFF">
-    <div class="video-call">
-        <div class="top-header">
-            <img src="../images/header-logo.png" alt="">
-        </div>
-        <div class="top-header-right">
-            <ul>
-                <li><a href="#" id="chat" onclick="changeContainerWidth();"><i class="fa fa-comments" aria-hidden="true"></i></a></li>
-                <li><a href="#" id="notes"><i class="fa fa-pencil-square" aria-hidden="true"></i></a></li>
-                <li><a href="#" id="alert-msg"><i class="fa fa-bell-o" aria-hidden="true"></i></a></li>
-                <li><a href="#"><img src="../images/user-img.jpg" class="user-img" alt=""></a></li>
-            </ul>
-        </div>
-
-    </div>
-    <!--video-call divion closed -->
-    <div class="left-side-bar">
-        <ul>
-            <li><a href="/note/view"><i class="fa fa-file-text-o" aria-hidden="true"></i></a></li>
-            <li class="active"><a href="/task"><i class="fa fa-calendar" aria-hidden="true"></i></a></li>
-            <li id="mediator"><a href="#"><i class="fa fa-video-camera" aria-hidden="true"></i></a></li>
-        </ul>
-    </div>
-    <div class="right-popup">
-        <div class="chat-panel" style="display: none"></div>
-        <div class="notes-panel" style="display: none"></div>
-        <div class="alert-panel" style="display: none"></div>
-        <div class="profile-edit text-center" style="display: none">
-            <img src="../images/user-img.jpg" alt="">
-            <div class="your-account">
-                <a href="">Your Account</a>
-            </div>
-            <div class="logout">
-                <a href="#">Logout</a>
-            </div>
-
-        </div>
-    </div>
+    <% include ../header %>
     <div class="right-side-panel main-container" id="">
         <div class="container container-top-margin">
             <div class="col-md-8 create-availability">
@@ -67,38 +31,3 @@
 </body>
 
 </html>
-
-<script src="../js/jquery.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script>
-    $('document').ready(function() {
-
-        $(".user-img").click(function() {
-            $(".profile-edit").toggle();
-        });
-     $('#chat').on('click', function(){
-         if($('.right-side-panel').hasClass('main-container')){
-             $('.right-side-panel').removeClass('main-container');  
-             $('.right-side-panel').addClass('after-container');
-             $(".chat-panel").show();
-         }else{
-             $('.right-side-panel').addClass('main-container');  
-             $('.right-side-panel').removeClass('after-container');  
-             $(".chat-panel").hide();
-         }
-     });
-
-        $("#notes").click(function() {
-            $(".notes-panel").toggle();
-        });
-        $("#alert-msg").click(function() {
-            $(".alert-panel").toggle();
-        });
-
-        $(".user-img").click(function() {
-            $(".profile-edit").toggle();
-        });
-
-    });
-
-</script>

@@ -10,7 +10,8 @@ function notificationService($q, $http, constants) {
     alert: alert,
     error: error,
     info: info,
-    warning: warning
+    warning: warning,
+    success: success
   };
 
   return NotificationService;
@@ -34,6 +35,10 @@ function notificationService($q, $http, constants) {
     notify(data, 'info')
   }
 
+  function success(data) {
+    notify(data, 'success')
+  }
+  
   function warning(data) {
     notify(data, 'warning')
   }

@@ -17,6 +17,7 @@
 // (if you're using LESS with the built-in default config, you'll want
 //  to change `assets/styles/importer.less` instead.)
 var cssFilesToInject = [
+  // '../node_modules/node_modules/angular-bootstrap-calendar/dist/css/angular-bootstrap-calendar.min.css',
   'styles/*.css'
 ];
 
@@ -43,18 +44,21 @@ var jsFilesToInject = [
   'js/fullcalendar.min.js',
   'js/scheduler.min.js',
   'js/bootstrap-datepicker.js',
-  // 'js/fullscreen.min.js',
+  'js/sweet-alert.min.js',
   'js/froala_editor.min.js',
   'js/froala_editor.pkgd.min.js',
-  // 'js/angular/app.js',
-  // 'js/angular/angular-routes.js',
+  // 'js/fullscreen.min.js',
 
-  'js/angular/angular.min.js',
-  'js/angular/angular-route.min.js',
-  'js/angular/app.js',
-  'js/angular/constants.js',
-  'js/angular/routes.js',
-  'js/**/*.js'
+  // 'js/angular/angular.min.js',
+  // 'js/angular/angular-route.min.js',
+  // 'js/angular/angular-froala.js',
+  // 'js/angular/froala-sanitize.js',
+  // '../node_modules/node_modules/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls.min.js',
+  // 'js/angular/app.js',
+  // 'js/angular/constants.js',
+  // 'js/angular/routes.js',
+  // 'js/angular/**/*.js'
+
 
 ];
 

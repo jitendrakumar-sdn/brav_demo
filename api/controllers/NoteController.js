@@ -23,6 +23,11 @@ module.exports = {
                 });
         } else {
             res.redirect('/');
+		// return res.ok({
+		// 	'success': false,
+		// 	'expiry': true,
+		// 	'msg': 'Your Session has been expired'
+		// });
         }
     },
     createnew: function(req, res){
@@ -39,22 +44,28 @@ module.exports = {
                         'msg': 'Enter all flieds'
                     });
                 } else {
-                    return res.jsonp({
+                    return res.ok({
                         'success': true,
                         'msg': 'Note created'
                     });
                 }
 
             });
-        }else{
-            res.redirect('/')
+        } else {
+            res.redirect('/');
+		// return res.ok({
+		// 	'success': false,
+		// 	'expiry': true,
+		// 	'msg': 'Your Session has been expired'
+		// });
         }
     },
     notes: function (req, res) {
         if (req.session.userId && req.session.loggedin) {
-            Note.find({
-                userid: req.session.userId
-            }).exec(function (err, resNote) {
+            var query;
+            if(req.query.userid)
+                query = { userid: req.query.userid};
+            Note.find(query).exec(function (err, resNote) {
                 if (err) return res.serverError({
                     'success': false,
                     'msg': 'Something went wrong!!! Try again later'
@@ -73,7 +84,12 @@ module.exports = {
                 }
             })
         } else {
-            res.redirect('/')
+            res.redirect('/');
+		// return res.ok({
+		// 	'success': false,
+		// 	'expiry': true,
+		// 	'msg': 'Your Session has been expired'
+		// });
         }
     },
     viewnote: function (req, res) {
@@ -93,6 +109,11 @@ module.exports = {
                 });
         } else {
             res.redirect('/');
+		// return res.ok({
+		// 	'success': false,
+		// 	'expiry': true,
+		// 	'msg': 'Your Session has been expired'
+		// });
         }
     }
 };

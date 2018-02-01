@@ -203,7 +203,8 @@ body {
   width: 207px;
   position: absolute;
   right: 0px;
-  top: 70px;
+   top: 70px; 
+  /* top: 50px; */
   /* padding-top: 100px; */
   z-index: 2;
   color: #fff;

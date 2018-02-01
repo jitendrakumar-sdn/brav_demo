@@ -2,14 +2,15 @@ angular
   .module('brav')
   .factory('userService', userService);
 
-userService.$inject = ['$q', '$http', 'constants', 'commonService'];
+userService.$inject = ['constants', 'commonService'];
 
-function userService($q, $http, constants, commonService) {
+function userService(constants, commonService) {
 
   var UserService = {
     getOnlineUser: getOnlineUser,
     getSingleUser: getSingleUser,
     login: login,
+    logout: logout,
     register: register
   };
 
@@ -27,6 +28,12 @@ function userService($q, $http, constants, commonService) {
 
   function login(data) {
     return commonService.addCall(constants.login, data);
+  }
+
+  function logout(data) {
+    return commonService.editCall(constants.logout, {
+      id: data
+    });
   }
 
   function register(data) {

@@ -1,2 +1,2 @@
 angular
-  .module('brav', ['ngRoute']);
+  .module('brav', ['ngRoute', 'froala', 'mwl.calendar', 'ui.bootstrap']);

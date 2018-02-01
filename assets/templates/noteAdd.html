@@ -2,9 +2,11 @@
   <div class="row">
     <div class="col-md-12">
       <h1>Notes</h1>
-      <textarea id="froala-editor"></textarea>
+      <!-- <textarea id="froala-editor" ng-model="NSC.note"></textarea> -->
+
+      <textarea froala="NSC.inputOptions" ng-model="NSC.note" ></textarea>
       <div style="width:140px">
-        <button id="newnotes" class="btn btn-default login-btn">Save</button>
+        <button id="newnotes" class="btn btn-default login-btn" ng-click="NSC.createNoteFn()">Save</button>
       </div>
     </div>
   </div>

@@ -1,49 +1,49 @@
 <div ng-controller="headerController as HSC">
   <div class="video-call">
     <div class="top-header">
-      <img src="../images/header-logo.png" alt="">
+      <img src="../images/header-logo.png" alt="Brav Logo">
     </div>
     <div class="top-header-right">
       <ul>
-        <li ng-click="HSC.toggleChatpanelFn()">
-          <a href="" id="chat">
-          <i class="fa fa-comments" aria-hidden="true"></i>
-        </a>
+        <li ng-click="HSC.toggleChatPanelFn()">
+          <a href="javascript:void(0)" id="chat">
+            <i class="fa fa-comments" aria-hidden="true"></i>
+          </a>
         </li>
         <li>
           <a href="#!/note/add" id="notes">
-          <i class="fa fa-pencil-square" aria-hidden="true"></i>
-        </a>
+            <i class="fa fa-pencil-square" aria-hidden="true"></i>
+          </a>
         </li>
         <li>
-          <a href="" id="alert-msg">
-          <i class="fa fa-bell-o" aria-hidden="true"></i>
-        </a>
+          <a href="javascript:void(0)" id="alert-msg">
+            <i class="fa fa-bell-o" aria-hidden="true"></i>
+          </a>
         </li>
-        <li>
-          <a href="">
-          <img src="../images/user-img.jpg" class="user-img" alt="">
-        </a>
+        <li ng-click="HSC.toggleProfilePanelFn()">
+          <a href="javascript:void(0)">
+            <img src="../images/user-img.jpg" class="user-img" alt="">
+          </a>
         </li>
       </ul>
     </div>
   </div>
   <div class="left-side-bar">
     <ul>
-      <li>
-        <a href="">
-        <i class="fa fa-file-text-o" aria-hidden="true"></i>
-      </a>
+      <li ng-class="{active: isNotesPage}">
+        <a href="#!/note">
+          <i class="fa fa-file-text-o" aria-hidden="true"></i>
+        </a>
       </li>
-      <li>
-        <a href="/task">
-        <i class="fa fa-calendar" aria-hidden="true"></i>
-      </a>
+      <li ng-class="{active: isSchedulePage}">
+        <a href="#!/schedule">
+          <i class="fa fa-calendar" aria-hidden="true"></i>
+        </a>
       </li>
-      <li class="active">
-        <a href="">
-        <i class="fa fa-video-camera" aria-hidden="true"></i>
-      </a>
+      <li ng-class="{active: isMediatorPage}">
+        <a ng-href="#!/mediator/{{HSC.user.id}}">
+          <i class="fa fa-video-camera" aria-hidden="true"></i>
+        </a>
       </li>
     </ul>
   </div>
@@ -51,7 +51,7 @@
     <div class="chat-panel">
       <div class="user-container" ng-if="HSC.isChatPanelOpen">
         <ul id="users">
-          <li class="client" ng-repeat="user in HSC.onlineUser" ng-if="user.id != HSC.user.id" ng-click="HSC.openChat(user.id, user.firstname + ' ' + user.lastname)">{{user.firstname }} {{user.lastname}}
+          <li class="client" ng-repeat="user in HSC.onlineUser" ng-if="user.id != HSC.user.id" ng-click="HSC.openChatFn(user.id, user.firstname + ' ' + user.lastname)">{{user.firstname }} {{user.lastname}}
           </li>
         </ul>
       </div>
@@ -60,11 +60,11 @@
     <div class="alert-panel" style="display: none"></div>
     <div class="profile-edit text-center" ng-if="HSC.isProfilePanelOpen">
       <img src="../images/user-img.jpg" alt="">
-      <div class="your-account">
+      <div class="your-account" ng-click="HSC.toggleProfilePanelFn()">
         <a href="#!/profile">Your Account</a>
       </div>
-      <div class="logout" ng-click="HSC.logout()">
-        <a href="" id="logout">Logout</a>
+      <div class="logout" ng-click="HSC.logoutFn()">
+        <a href="javascript:void(0)" id="logout">Logout</a>
       </div>
     </div>
   </div>
@@ -72,9 +72,9 @@
     <ul id="chats">
       <li ng-repeat="chat in HSC.chats" ng-if="chat.isDisplayed" ng-init="show=true">
         <p class="chat-header" ng-click="show=!show"> {{chat.name | uppercase}}
-          <span class="chat-call-cancel" ng-click="HSC.openChat(chat.id)">x</span>
-          <span class="chat-call" ng-click="HSC.call(chat.id)">call</span>
-          <span class="chat-call-drop" style="display:none" ng-click="HSC.dropcall(chat.id)">drop</span>
+          <span class="chat-call-cancel" ng-click="HSC.openChatFn(chat.id)">x</span>
+          <span class="chat-call" ng-click="callPeerFn(chat.id)" ng-if="isMediatorPage">call</span>
+          <span class="chat-call-drop" style="display:none" ng-click="endCallFn(chat.id)">drop</span>
         </p>
         <div class="chat-text" ng-if="show">
           <span ng-repeat="msg in chat.chats">
@@ -82,8 +82,8 @@
             <p ng-if="!msg.from" class="chat-msg">{{msg.msg}}</p>
           </span>
         </div>
-        <input type="text" class="chat-box" ng-model="chat.inputmsg" ng-keyup="HSC.sendmsg(chat.id, chat.inputmsg)" ng-if="show">
-        <i class="send fa fa-paper-plane" aria-hidden="true" ng-click="HSC.sendmsg(chat.id, chat.inputmsg)" ng-if="show"></i>
+        <input type="text" class="chat-box" ng-model="chat.inputmsg" ng-keyup="HSC.sendMsgFn(chat.id, chat.inputmsg, $event)" ng-if="show">
+        <i class="send fa fa-paper-plane" aria-hidden="true" ng-click="HSC.sendMsgFn(chat.id, chat.inputmsg)" ng-if="show"></i>
       </li>
     </ul>
   </div>

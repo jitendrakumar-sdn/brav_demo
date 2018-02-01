@@ -79,6 +79,12 @@ module.exports = {
   registerpage: function (req, res) {
     res.view();
   },
+  resetpasswordpage: function (req, res) {
+    res.view();
+  },
+  resetpassword: function (req, res) {
+    res.view();
+  },
   profilepage: function (req, res) {
 
     if (req.session.userId && req.session.loggedin) {
@@ -86,15 +92,30 @@ module.exports = {
         .checkLogin(req.session.userId)
         .exec(function (err, ress) {
           if (err) {
-            ress.redirect('/');
+            // res.redirect('/');
+            return res.ok({
+              'success': false,
+              'expiry': true,
+              'msg': 'Your Session has been expired'
+            });
           } else if (!ress) {
-            ress.redirect('/');
+            // res.redirect('/');
+            return res.ok({
+              'success': false,
+              'expiry': true,
+              'msg': 'Your Session has been expired'
+            });
           } else {
             res.view();
           }
         });
     } else {
       res.redirect('/');
+		// return res.ok({
+		// 	'success': false,
+		// 	'expiry': true,
+		// 	'msg': 'Your Session has been expired'
+		// });
     }
   },
   loginpage: function (req, res) {
@@ -164,7 +185,12 @@ module.exports = {
     if (req.session.userId && req.session.loggedin) {
 
     } else {
-      res.redirect('/')
+      res.redirect('/');
+		// return res.ok({
+		// 	'success': false,
+		// 	'expiry': true,
+		// 	'msg': 'Your Session has been expired'
+		// });
     }
   }
 };

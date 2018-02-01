@@ -12,10 +12,20 @@ module.exports = {
         .checkLogin(req.session.userId)
         .exec(function (err, ress) {
           if (err) {
-            ress.redirect('/');
+            res.redirect('/');
+		// return res.ok({
+		// 	'success': false,
+		// 	'expiry': true,
+		// 	'msg': 'Your Session has been expired'
+		// });
           }
           else if (!ress) {
-            ress.redirect('/');
+            res.redirect('/');
+		// return res.ok({
+		// 	'success': false,
+		// 	'expiry': true,
+		// 	'msg': 'Your Session has been expired'
+		// });
           }
           else {
             res.view();
@@ -23,6 +33,11 @@ module.exports = {
         });
     } else {
       res.redirect('/');
+		// return res.ok({
+		// 	'success': false,
+		// 	'expiry': true,
+		// 	'msg': 'Your Session has been expired'
+		// });
     }
   },
   thankpage: function (req, res) {
@@ -31,10 +46,20 @@ module.exports = {
         .checkLogin(req.session.userId)
         .exec(function (err, ress) {
           if (err) {
-            ress.redirect('/');
+            // res.redirect('/');
+            return res.ok({
+              'success': false,
+              'expiry': true,
+              'msg': 'Your Session has been expired'
+            });
           }
           else if (!ress) {
-            ress.redirect('/');
+            res.redirect('/');
+		// return res.ok({
+		// 	'success': false,
+		// 	'expiry': true,
+		// 	'msg': 'Your Session has been expired'
+		// });
           }
           else {
             res.view();
@@ -42,6 +67,11 @@ module.exports = {
         });
     } else {
       res.redirect('/');
+		// return res.ok({
+		// 	'success': false,
+		// 	'expiry': true,
+		// 	'msg': 'Your Session has been expired'
+		// });
     }
   },
   newschedule: function (req, res, ok) {

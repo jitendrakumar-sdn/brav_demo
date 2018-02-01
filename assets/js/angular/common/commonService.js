@@ -12,6 +12,7 @@ function commonService($q, $http, notificationService) {
     editCall: editCall,
     formValNotManditory: formValNotManditory,
     getAllCall: getAllCall,
+    getByIdCall: getByIdCall,
     getSessionData: getSessionData,
     isEmail: isEmail
   };
@@ -29,10 +30,8 @@ function commonService($q, $http, notificationService) {
         url: uri,
         data: data
       }).then(function (response) {
-        console.log('response', response.data);
         deferred.resolve(response.data);
       }, function (error) {
-        console.log('error', error);
         deferred.reject(error);
       });
     } else deferred.reject({
@@ -122,6 +121,7 @@ function commonService($q, $http, notificationService) {
   function getByIdCall(uri, data) {
     var deferred = $q.defer();
     if (data && uri) {
+      console.log(data)
       $http({
         method: "GET",
         url: uri,
@@ -148,9 +148,9 @@ function commonService($q, $http, notificationService) {
     }
   }
 
-  function getSessionData(){
-    if (sessionStorage.getItem('bravUser')){
+  function getSessionData() {
+    if (sessionStorage.getItem('bravUser')) {
       return JSON.parse(sessionStorage.getItem('bravUser'));
-    }else return false;
+    } else return false;
   }
 }

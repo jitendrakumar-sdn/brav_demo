@@ -5,6 +5,10 @@
   "description": "a Sails application",
   "keywords": [],
   "dependencies": {
+    "angular": "^1.6.8",
+    "angular-bootstrap-calendar": "^1.0.0",
+    "angular-ui-bootstrap": "^2.5.6",
+    "bootstrap": "^4.0.0",
     "ejs": "2.3.4",
     "fullcalendar": "^3.8.1",
     "grunt": "0.4.5",
@@ -20,6 +24,7 @@
     "grunt-sails-linker": "~0.10.1",
     "grunt-sync": "0.2.4",
     "include-all": "~0.1.6",
+    "moment": "^2.20.1",
     "peer": "^0.2.8",
     "rc": "1.0.1",
     "sails": "~0.12.1",
