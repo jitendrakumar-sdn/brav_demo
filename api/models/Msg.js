@@ -1,5 +1,5 @@
 /**
- * Schedule.js
+ * Msg.js
  *
  * @description :: TODO: You might write a short summary of how this model works and what it represents here.
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
@@ -8,31 +8,14 @@
 module.exports = {
 
   attributes: {
-    title: {
-      type: 'STRING',
+    msg: {
+      type: 'text',
       required: true
     },
-    start: {
-      type: 'STRING',
-      required: true
+    to: {
+      model: 'user'
     },
-    end: {
-      type: 'STRING',
-      required: true
-    },
-    time: {
-      type: 'STRING',
-      required: true
-    },
-    availabilty: {
-      type: 'STRING',
-      required: true
-    },
-    description: {
-      type: 'TEXT',
-      required: true
-    },
-    userid: {
+    from: {
       model: 'user'
     },
     seen: {

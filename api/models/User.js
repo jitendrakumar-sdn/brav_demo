@@ -8,23 +8,23 @@
 module.exports = {
 
   attributes: {
-    name : {
+    name: {
       type: 'STRING',
       required: true
     },
-    username : {
+    username: {
       type: 'STRING',
       email: true,
       required: true,
       unique: true
     },
-    password : {
+    password: {
       type: 'STRING',
       required: true
     },
     online: {
       type: 'BOOLEAN',
-      default: false
+      defaultsTo: false
     },
     dob: {
       type: 'date',
@@ -37,7 +37,18 @@ module.exports = {
     languages: {
       type: 'STRING',
       required: true
+    },
+    msgfrom: {
+      collection: 'msg',
+      via: 'from'
+    },
+    msgto: {
+      collection: 'msg',
+      via: 'to'
+    },
+    notes: {
+      collection: 'notes',
+      via: 'userid'
     }
   }
 };
-

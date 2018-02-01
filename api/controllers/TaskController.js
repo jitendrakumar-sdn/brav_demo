@@ -13,32 +13,14 @@ module.exports = {
         .exec(function (err, ress) {
           if (err) {
             res.redirect('/');
-		// return res.ok({
-		// 	'success': false,
-		// 	'expiry': true,
-		// 	'msg': 'Your Session has been expired'
-		// });
-          }
-          else if (!res) {
+          } else if (!res) {
             res.redirect('/');
-		// return res.ok({
-		// 	'success': false,
-		// 	'expiry': true,
-		// 	'msg': 'Your Session has been expired'
-		// });
-          }
-          else {
+          } else {
             res.view();
           }
         });
     } else {
       res.redirect('/');
-		// return res.ok({
-		// 	'success': false,
-		// 	'expiry': true,
-		// 	'msg': 'Your Session has been expired'
-		// });
     }
   },
 };
-

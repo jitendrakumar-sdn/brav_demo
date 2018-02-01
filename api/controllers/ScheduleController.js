@@ -13,11 +13,9 @@ module.exports = {
         .exec(function (err, ress) {
           if (err) {
             res.redirect('/');
-          }
-          else if (!ress) {
+          } else if (!ress) {
             res.redirect('/');
-          }
-          else {
+          } else {
             res.view();
           }
         });
@@ -37,11 +35,9 @@ module.exports = {
               'expiry': true,
               'msg': 'Your Session has been expired'
             });
-          }
-          else if (!ress) {
+          } else if (!ress) {
             res.redirect('/');
-          }
-          else {
+          } else {
             res.view();
           }
         });
@@ -94,29 +90,104 @@ module.exports = {
       });
   },
   getNotification: function (req, res) {
-    Schedule
-    .find({
-        or: [{
-          start: req.query.start
-        }, {
+    if (req.query.start && req.query.time) {
+      Schedule
+        .find({
+          or: [{
+            start: req.query.start
+          }, {
             end: req.query.start
-        }], time: req.query.time
-      })
-      .exec(function (err, ress) {
-        if (err) return res.serverError({
-          'success': false,
-          'msg': 'Something went wrong!!! Try again later'
+          }],
+          time: req.query.time
+        })
+        .exec(function (err, ress) {
+          if (err) return res.serverError({
+            'success': false,
+            'msg': 'Something went wrong!!! Try again later'
+          });
+          if (ress.length == 0) return res.ok({
+            'success': false,
+            'msg': 'Notification not found'
+          });
+          return res.ok({
+            'success': true,
+            'msg': 'Notification Found',
+            'data': ress
+          });
         });
-        if (ress.length == 0) return res.ok({
-          'success': false,
-          'msg': 'Notification not found'
-        });
-        return res.ok({
-          'success': true,
-          'msg': 'Notification Found',
-          'data': ress
-        });
+    } else {
+      return res.ok({
+        'success': false,
+        'msg': 'Provide start date and time'
       });
+    }
+  },
+  seenNotification: function (req, res) {
+    if (req.query.userid) {
+      Schedule
+        .update({
+          userid: req.query.userid
+        }, {
+          seen: true
+        })
+        .exec(function (err, updated) {
+          if (err) {
+            return res.serverError({
+              "success": false,
+              "msg": err
+            })
+          }
+          console.log(updated)
+          if (!updated) {
+            return res.ok({
+              "success": false,
+              "msg": "Notification seen can not be updated"
+            })
+          }
+          return res.ok({
+            "success": true,
+            "msg": "Notification seen updated successfull"
+          })
+        })
+    } else {
+      return res.ok({
+        "success": false,
+        "msg": "Please provide user ID"
+      })
+    }
+  },
+  readNotification: function (req, res) {
+    if (req.query.id) {
+      Schedule
+        .update({
+          id: req.query.id
+        }, {
+          read: true
+        })
+        .exec(function (err, updated) {
+          if (err) {
+            return res.serverError({
+              "success": false,
+              "msg": err
+            })
+          }
+          console.log(updated)
+          if (!updated) {
+            return res.ok({
+              "success": false,
+              "msg": "Notification read can not be updated"
+            })
+          }
+          return res.ok({
+            "success": true,
+            "msg": "Notification read updated successfull"
+          })
+        })
+    } else {
+      return res.ok({
+        "success": false,
+        "msg": "Please provide notification ID"
+      })
+    }
   }
 };
-

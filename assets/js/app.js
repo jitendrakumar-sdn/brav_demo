@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
 
   $("#chat").click(function () {
@@ -15,40 +14,72 @@ $(document).ready(function () {
     $(".alert-panel").toggle();
     $(".notes-panel").hide();
     $(".chat-panel").hide();
-  });
-  // $(".notes-panel").click(function () {
-  //   $(".alert-panel").hide();
-  //   $(".notes-panel").toggle();
-  //   $(".chat-panel").hide();
-  // });
-  $(".user-img").click(function() {
-      $(".profile-edit").toggle();
+
+    $.ajax({
+      url: '/schedule/seenNotification',
+      method: 'PUT',
+      data: {
+        userid: JSON.parse(sessionStorage.getItem('bravUser')).id
+      },
+      success: function (res) {
+
+      },
+      error: function (err) {
+
+      }
+    });
+
   });
 
-  $('#logout').on('click',function(){
-    console.log('logout')
-    if(sessionStorage.getItem('bravUser')){
+  $("#notifications li").on('click', function () {
+    var _id = $(this).attr('data-id');
+    console.log("notification", _id);
+    if (_id) {
+      $.ajax({
+        url: '/schedule/readNotification',
+        method: 'PUT',
+        data: {
+          id: _id
+        },
+        success: function (res) {
+
+        },
+        error: function (err) {
+
+        }
+      });
+    }
+  });
+
+  $(".user-img").click(function () {
+    $(".profile-edit").toggle();
+  });
+
+  $('#logout').on('click', function () {
+    if (sessionStorage.getItem('bravUser')) {
       var id = JSON.parse(sessionStorage.getItem('bravUser')).id;
       $.ajax({
         url: "/user/logout",
         method: "POST",
-        data: {id:id},
-        success: function(res){
-          if(res.success){
+        data: {
+          id: id
+        },
+        success: function (res) {
+          if (res.success) {
             sessionStorage.removeItem('bravUser');
             window.location = '/';
           }
         },
-        error: function(err){
+        error: function (err) {
 
         },
         dataType: 'JSON'
       });
-    }else{
+    } else {
       window.location = '/';
     }
   });
-  
+
   $('#mediator').on('click', function () {
     if (sessionStorage.getItem('bravUser')) {
       window.location = '/mediator/' + JSON.parse(sessionStorage.getItem('bravUser'))['id'];

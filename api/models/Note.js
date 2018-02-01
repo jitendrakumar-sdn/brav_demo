@@ -13,8 +13,11 @@ module.exports = {
       required: true
     },
     userid: {
-      model: 'User'
+      model: 'user'
+    },
+    deleted: {
+      type: 'BOOLEAN',
+      defaultsTo: false
     }
   }
 };
-

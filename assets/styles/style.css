@@ -80,7 +80,9 @@ body {
   padding: 10px 30px;
 }
 
-.gery-background h1,.gery-background h2,.gery-background h3 {
+.gery-background h1,
+.gery-background h2,
+.gery-background h3 {
   color: #FFF;
   text-transform: uppercase;
   font-weight: bold;
@@ -177,6 +179,7 @@ body {
 .top-header-right ul li {
   display: inline-block;
   padding: 10px 12px;
+  position: relative;
 }
 
 .top-header-right ul li a {
@@ -203,7 +206,7 @@ body {
   width: 207px;
   position: absolute;
   right: 0px;
-   top: 70px; 
+  top: 70px;
   /* top: 50px; */
   /* padding-top: 100px; */
   z-index: 2;
@@ -596,7 +599,8 @@ textarea {
   height: 31px;
   cursor: pointer;
 }
-.modal .modal-content p{
+
+.modal .modal-content p {
   color: initial;
   padding-left: 20px;
 }
@@ -1022,9 +1026,10 @@ textarea {
   background: #598ebf;
 }
 
-#mynotes h2{
+#mynotes h2 {
   font-size: 100%;
-    font-weight: 600;;
+  font-weight: 600;
+  ;
 }
 
 #mynotes {
@@ -1053,10 +1058,12 @@ textarea {
   overflow: hidden;
   cursor: pointer;
 }
+
 #mynotes .main ul,
-#mynotes .main ol{
+#mynotes .main ol {
   padding-left: 10px;
 }
+
 #mynotes .main p {
   font-family: "Reenie Beanie", arial, sans-serif;
   font-size: 180%;
@@ -1100,6 +1107,53 @@ textarea {
   z-index: 5;
   height: initial;
   min-height: 10em;
-    /* width: auto;
+  /* width: auto;
     margin-left: 80px; */
+}
+
+#notifications {
+  position: fixed;
+  top: 70px;
+  right: 0px;
+  background: #eee;
+  color: #375d81;
+  font-weight: 700;
+  font-size: 11px;
+  width: 300px;
+  padding: 0;
+}
+
+#notifications li {
+  list-style: none;
+  padding: 10px 15px;
+  border-bottom: 1px solid;
+  border-left: 1px solid;
+}
+
+#notifications li:hover {
+  background: #375d81;
+  color: #eee;
+}
+
+#notifications li a {
+  font-weight: 600;
+}
+
+#notifications li a:hover {
+  color: #fff;
+}
+
+.notification-count {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  background: red;
+  color: white;
+  border-radius: 50%;
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  min-width: 20px;
+  min-height: 18px;
+  text-align: center;
 }
