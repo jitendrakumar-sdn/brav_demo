@@ -721,11 +721,11 @@ function Peer(id, options) {
 
   // Configurize options
   options = util.extend({
-    debug: 0, // 1: Errors, 2: Warnings, 3: All logs
+    debug: 3, // 1: Errors, 2: Warnings, 3: All logs
     host: util.CLOUD_HOST,
     port: util.CLOUD_PORT,
     key: 'peerjs',
-    path: '/',
+    path: '/api',
     token: util.randomToken(),
     config: util.defaultConfig
   }, options);
@@ -1420,7 +1420,7 @@ var RTCPeerConnection = require('./adapter').RTCPeerConnection;
 var util = {
   noop: function() {},
 
-  CLOUD_HOST: '0.peerjs.com',
+  CLOUD_HOST: 'localhost',
   CLOUD_PORT: 9000,
 
   // Browsers that need chunking:

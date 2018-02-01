@@ -13,19 +13,9 @@ module.exports = {
         .exec(function (err, ress) {
           if (err) {
             res.redirect('/');
-		// return res.ok({
-		// 	'success': false,
-		// 	'expiry': true,
-		// 	'msg': 'Your Session has been expired'
-		// });
           }
           else if (!ress) {
             res.redirect('/');
-		// return res.ok({
-		// 	'success': false,
-		// 	'expiry': true,
-		// 	'msg': 'Your Session has been expired'
-		// });
           }
           else {
             res.view();
@@ -33,11 +23,6 @@ module.exports = {
         });
     } else {
       res.redirect('/');
-		// return res.ok({
-		// 	'success': false,
-		// 	'expiry': true,
-		// 	'msg': 'Your Session has been expired'
-		// });
     }
   },
   thankpage: function (req, res) {
@@ -55,11 +40,6 @@ module.exports = {
           }
           else if (!ress) {
             res.redirect('/');
-		// return res.ok({
-		// 	'success': false,
-		// 	'expiry': true,
-		// 	'msg': 'Your Session has been expired'
-		// });
           }
           else {
             res.view();
@@ -67,15 +47,11 @@ module.exports = {
         });
     } else {
       res.redirect('/');
-		// return res.ok({
-		// 	'success': false,
-		// 	'expiry': true,
-		// 	'msg': 'Your Session has been expired'
-		// });
     }
   },
   newschedule: function (req, res, ok) {
     if (req.body.title && req.body.start && req.body.end && req.body.time && req.body.availabilty && req.body.description) {
+      req.body.userid = req.session.userId;
       Schedule.create(req.body, function (err, createdSchedule) {
         if (err) return res.serverError({
           'success': false,
@@ -88,7 +64,7 @@ module.exports = {
             'msg': 'Enter all flieds'
           });
         } else {
-          return res.jsonp({
+          return res.ok({
             'success': true,
             'msg': 'Schedule inserted'
           });
@@ -115,6 +91,31 @@ module.exports = {
           'msg': 'Invalid username or password'
         });
         return res.ok(ress);
+      });
+  },
+  getNotification: function (req, res) {
+    Schedule
+    .find({
+        or: [{
+          start: req.query.start
+        }, {
+            end: req.query.start
+        }], time: req.query.time
+      })
+      .exec(function (err, ress) {
+        if (err) return res.serverError({
+          'success': false,
+          'msg': 'Something went wrong!!! Try again later'
+        });
+        if (ress.length == 0) return res.ok({
+          'success': false,
+          'msg': 'Notification not found'
+        });
+        return res.ok({
+          'success': true,
+          'msg': 'Notification Found',
+          'data': ress
+        });
       });
   }
 };

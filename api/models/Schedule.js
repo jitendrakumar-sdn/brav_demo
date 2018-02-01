@@ -31,6 +31,9 @@ module.exports = {
     description: {
       type: 'text',
       required: true
+    },
+    userid: {
+      model: 'User'
     }
   }
 };

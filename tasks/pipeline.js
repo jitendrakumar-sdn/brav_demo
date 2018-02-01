@@ -38,7 +38,6 @@ var jsFilesToInject = [
   'js/mdl-jquery-modal-dialog.js',
   'js/bootstrap.min.js',
   'js/select2.min.js',
-  'js/app.js',
   'js/peer.min.js',
   'js/moment.min.js',
   'js/fullcalendar.min.js',
@@ -47,6 +46,7 @@ var jsFilesToInject = [
   'js/sweet-alert.min.js',
   'js/froala_editor.min.js',
   'js/froala_editor.pkgd.min.js',
+  'js/app.js',
   // 'js/fullscreen.min.js',
 
   // 'js/angular/angular.min.js',

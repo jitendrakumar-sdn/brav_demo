@@ -1,28 +1,88 @@
-<div class="login-container">
-  <div class="container">
-    <div class="col-md-4"></div>
-    <div class="col-md-4 text-center margin-top-login">
-      <div class="login-logo">
-        <img src="images/login-log.png" alt="" class="">
-      </div>
-      <form>
-        <div class="form-group">
-          <input type="text" class="form-control txt-username" id="firstName" placeholder="First Name *">
-          <input type="text" class="form-control txt-username" id="middleName" placeholder="Middle name">
-          <input type="text" class="form-control txt-username" id="LastName" placeholder="Last Name">
-          <input type="text" class="form-control txt-username" id="username" placeholder="Username *">
-          <input type="password" class="form-control txt-username" id="password" placeholder="Password *">
-          <input type="password" class="form-control txt-username" id="repeatPassword" placeholder="Repeat Password *">
-          <p id="errMsg"></p>
-          <button type="button" class="btn btn-default login-btn" id="registerBtn">Register</button>
-        </div>
-      </form>
-      <div class="password-link text-center">
-        <a href="/" id="login-user">Already Registered!!!</a>
-      </div>
+<div class="set-password-header pull-left">
+    <div class="container">
+        <img src="images/top-logo.jpg" alt="">
     </div>
-    <div class="col-md-4"></div>
-  </div>
+</div>
+<div class="set-password">
+    <div class="container">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 gery-background" id="profile">
+            <h3>Create Your Profile</h3>
+            <h4>Please fill out your account information:</h4>
+            <form>
+                <div class="form-group">
+                    <input type="text" class="form-control txt-username retype-password" id="name" placeholder="Name *">
+                    <input type="text" class="form-control txt-username retype-password" id="username" placeholder="Username *">
+                    <p id="checkAvail" style="display:none;">Email is alraedy register.</p>
+                    <input type="password" class="form-control txt-username retype-password" id="password" placeholder="Password (min 8 characters) *">
+                    <input type="password" class="form-control txt-username retype-password" id="repeatPassword" placeholder="Retype Password *">
+                    <p id="errMsg"></p>
+                    <button type="submit" class="btn btn-default login-btn" id="nextBtn">SUBMIT</button>
+                </div>
+            </form>
+            <div class="password-link text-center">
+                <a href="/" id="login-user">Already Registered!!!</a>
+            </div>
+        </div>
+        <div class="col-md-6 gery-background" id="userdetails" style="display:none;">
+            <h3>Welcome <span id="myname"></span>,</h3>
+            <form>
+                <div class="form-group margin-top-feild">
+                    <label class="txt-label col-sm-12">Birth Date<sup>*</sup></label>
+                    <div class="col-sm-12 padding-zero">
+                        <div class='input-group form-control txt-username retype-password date' id='dob'>
+                            <input type='text' class="form-control" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- <div class="col-sm-4 padding-zero">
+                        <input type="text" placeholder="Month" id="month" class="birthdate">
+                    </div>
+                    <div class="col-sm-4 padding-zero-767">
+                        <input type="text" placeholder="Day" id="date" class="birthdate">
+                    </div>
+
+                    <div class="col-sm-4 padding-zero">
+                        <input type="text" placeholder="Year" id="year" class="birthdate">
+                    </div> -->
+                </div>
+                <div class="clearfix"></div>
+                <div class="form-group margin-top-feild">
+                    <label class="txt-label col-sm-12">Time Zone<sup>*</sup></label>
+                    <div class="col-sm-12 padding-zero">
+                        <select name="" id="timezone" class="input-group form-control txt-username retype-password date birthdate">
+                        <option value="">Select Time Zone</option>
+                    </select>
+                        <!-- <input type="text" placeholder="Select time zone" id="timezone" class="birthdate"> -->
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="form-group margin-top-feild">
+                    <label class="txt-label col-sm-12">Languages<sup>*</sup></label>
+                    <div class="col-sm-12 padding-zero">
+                        <select name="" id="languages" class="input-group form-control txt-username retype-password date birthdate" multiple="true">
+                        <option value="">Select Languages</option>
+                    </select>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <p id="errMsg2">
+
+                </p>
+                <div class="form-group margin-top-feild">
+                    <button type="submit" class="btn btn-default login-btn" id="registerBtn">SUBMIT</button>
+                </div>
+                <p class="txt-password">Brav respects and protects your privacy. View full privacy policy <a href="#">here</a>.</p>
+            </form>
+        </div>
+        <div class="col-md-3">
+
+        </div>
+    </div>
 </div>
 <script src="../js/jquery.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
@@ -30,49 +90,124 @@
 <script src="../js/app.js"></script>
 
 <script>
-  $(document).ready(function () {
-    $("#registerBtn").click(function () {
-      $('#errMsg').text('');
-      var _firstName = $('#firstName').val();
-      var _lastName = $('#lastName').val();
-      var _middleName = $('#middleName').val();
-      var _userName = $('#username').val();
-      var _password = $('#password').val();
-      if (_firstName && isValidEmail(_userName) && _password && _password == $('#repeatPassword').val()) {
+    $(document).ready(function () {
 
-        let data = {
-          firstname: _firstName,
-          lastname: _lastName ? _lastName : '',
-          middlename: _middleName ? _middleName : '',
-          username: _userName,
-          password: _password
-        };
+        $('#languages').select2();
+        $('#timezone').select2();
+        var today = new Date();
+        today.setFullYear(today.getFullYear() - 10);
+
+        $('#dob').datetimepicker({
+            format: 'YYYY-MM-DD',
+            maxDate: today,
+            viewMode: 'years'
+        });
+
+        let data = {};
+
+        $("#nextBtn").click(function (e) {
+                e.preventDefault();
+            $('#errMsg').text('');
+            var _name = $('#name').val();
+            var _userName = $('#username').val();
+            var _password = $('#password').val();
+            console.log('isValidEmail(_userName)', isValidEmail(_userName))
+            if (_name && isValidEmail(_userName) && _password && _password.length > 7 && _password == $('#repeatPassword').val()) {
+
+                data = {
+                    name: _name,
+                    username: _userName,
+                    password: _password
+                };
+                $('#myname').text(data.name);
+                $('#profile').toggle();
+                $('#userdetails').toggle();
+            } else {
+                if (!_userName)
+                    $('#errMsg').text('Enter valid Username');
+                else if (!_name)
+                    $('#errMsg').text('Enter valid Name');
+                else if (!_password)
+                    $('#errMsg').text('Enter valid Password');
+                else if (_password != $('#repeatPassword').val() || _password.length < 8)
+                    $('#errMsg').text('Password should be minimum of 8 charcter');
+            }
+        });
+
+        $("#registerBtn").click(function (e) {
+                e.preventDefault();
+            $('#errMsg2').text('');
+            var timezone = $('#timezone').val();
+            var languages = $('#languages').val();
+            var dob = $('#dob').data('date');
+            if (data.name && isValidEmail(data.username) && data.password && data.password.length > 7 && languages && timezone && dob) {
+
+                data.languages = String(languages.join(','));
+                data.timezone = timezone;
+                data.dob = dob;
+                $.ajax({
+                    url: '/user/register',
+                    method: 'POST',
+                    data: data,
+                    success: function (res) {
+                        if (res.success) {
+                            window.location = '/';
+                        } else {
+                            swal({ title: res.msg, icon: 'error' })
+                        }
+                    },
+                    error: function (err) {
+                        $('#errMsg2').text(err.msg);
+                    },
+                    dataType: 'JSON'
+                });
+            } else {
+                if (!data.username)
+                    $('#errMsg2').text('Enter valid Username');
+                else if (!data.name)
+                    $('#errMsg2').text('Enter valid Name');
+                else if (!data.password)
+                    $('#errMsg2').text('Enter valid Password');
+                else if (data.password != $('#repeatPassword').val() || data.password.length < 8)
+                    $('#errMsg2').text('Password should be minimum of 8 charcter');
+                else if (!languages)
+                    $('#errMsg2').text('Please select language');
+                else if (!timezone)
+                    $('#errMsg2').text('Please select timezone');
+                else if (!dob)
+                    $('#errMsg2').text('Please select dob');
+            }
+        });
 
         $.ajax({
-          url: '/user/register',
-          method: 'POST',
-          data: data,
-          success: function (res) {
-            if (res.success) {
-              window.location = '/';
-            } else {
-              swal({title: res.msg, icon: 'error'})
-            }
-          },
-          error: function (err) {
-            $('#errMsg').text(err.msg);
-          },
-          dataType: 'JSON'
+            url: '../json/languages.json',
+            method: 'GET',
+            success: function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    var option2 = new Option(data[i].code + ' ' + data[i].name + ' ' + data[i].nativeName, data[i].code + ' ' + data[i].name + ' ' + data[i].nativeName);
+                    $('#languages').append(option2).trigger('change');
+                }
+            },
+            error: function (err) {
+                $('#errMsg').text(err.msg);
+            },
+            dataType: 'JSON'
         });
-      } else {
-        if (!_userName)
-          $('#errMsg').text('Enter valid Password');
-        else if (!_firstName)
-          $('#errMsg').text('Enter valid First Name');
-        else if (!_password)
-          $('#errMsg').text('Enter valid Password');
-      }
+        $.ajax({
+            url: '../json/timezones.json',
+            method: 'GET',
+            success: function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    var option2 = new Option(data[i].abbr + '-' + data[i].value + ' ' + data[i].text, data[i].abbr + ' ' + data[i].value + ' ' + data[i].text);
+                    $('#timezone').append(option2).trigger('change');
+                }
+            },
+            error: function (err) {
+                $('#errMsg').text(err.msg);
+            },
+            dataType: 'JSON'
+        });
+
     });
-  });
 
 </script>

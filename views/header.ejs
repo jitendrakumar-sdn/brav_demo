@@ -40,8 +40,8 @@
           <i class="fa fa-calendar" aria-hidden="true"></i>
         </a>
         </li>
-        <li class="active" id="mediator">
-            <a href="">
+        <li id="mediator">
+            <a href="#">
           <i class="fa fa-video-camera" aria-hidden="true"></i>
         </a>
         </li>
@@ -75,7 +75,7 @@
 </div>
 <script src="../js/jquery.min.js"></script>
 <script src='../js/moment.min.js'></script>
-<script src="../js/peer.min.js"></script>
+<script src="../js/peer.js"></script>
  <script>
     $(document).ready(function () {
         var id = JSON.parse(sessionStorage.getItem('bravUser')); // this has to user id from db
@@ -153,7 +153,7 @@
             } else {
                 swal('You are already in a call');
             }
-            callPeer(_id);
+            // callPeer(_id);
         });
 
         $(document).on('click', '.chat-call-drop', function (e) {
@@ -178,7 +178,6 @@
 
         $(document).on('keypress', '.chat-box', function (key) {
             if (key.keyCode == 13) {
-
                 var _id = $(this).attr('data-id');
                 var m = $('#chat-box' + _id).val();
                 if (m) {
@@ -199,7 +198,9 @@
         function placecall(call, index) {
             index = !index || index === 0 ? 1 : index;
             var _main = $('#clientvedios');
+            console.log('call',call)
             if ($(_main).children().find('#vedio' + index).length == 0) {
+                console.log('calliing')
                 call.on('stream', function (remoteStream) {
                     $('#call').hide();
                     var _div = $('<div class="single-client-vedio" ></div>');
@@ -230,7 +231,7 @@
                         label: 'drop',
                         serialization: 'none',
                         metadata: {
-                            name: user.firstname + ' ' + user.lastname
+                            name: user.name 
                         }
                     });
                     c.on('open', function () {
@@ -251,6 +252,7 @@
             .mediaDevices
             .getUserMedia(constraints)
             .then(function (stream) {
+                console.log('recieved')
                 window.localStream = stream;
                 $('#my-video').prop('src', URL.createObjectURL(stream));
                 peer.on('call', function (call) {
@@ -291,7 +293,7 @@
                         serialization: 'none',
                         metadata: {
                             message: msg,
-                            name: user.firstname + ' ' + user.lastname
+                            name: user.name
                         }
                     });
                     c.on('open', function () {
@@ -368,8 +370,7 @@
                         var _list = $('#users');
                         for (var i = 0; i < res.data.length; i++) {
                             if (res.data[i].id != id)
-                                _list.append('<li class="client" data-id="' + res.data[i].id + '" data-name="' + res.data[i].firstname + ' ' + res.data[i].lastname + '">' + res.data[i].firstname + ' ' + res.data[i].lastname +
-                                    '</li>');
+                                _list.append('<li class="client" data-id="' + res.data[i].id + '" data-name="' + res.data[i].name + '">' + res.data[i].name + '</li>');
                             else if (res.data[i].id == id) //temporary
                                 currentUser = res.data[i];
                         }
@@ -399,7 +400,7 @@
             //             var _list = $('#users');
             //             for (var i = 0; i < res.data.length; i++) {
             //                 if (res.data[i].id != id)
-            //                     _list.append('<li class="client" data-id="' + res.data[i].id + '" data-name="' + res.data[i].firstname + ' ' + res.data[i].lastname + '">' + res.data[i].firstname + ' ' + res.data[i].lastname +
+            //                     _list.append('<li class="client" data-id="' + res.data[i].id + '" data-name="' + res.data[i].name + ' ' + res.data[i].lastname + '">' + res.data[i].name + ' ' + res.data[i].lastname +
             //                         '</li>');
             //                 else if (res.data[i].id == id) //temporary
             //                     currentUser = res.data[i];

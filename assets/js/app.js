@@ -16,6 +16,11 @@ $(document).ready(function () {
     $(".notes-panel").hide();
     $(".chat-panel").hide();
   });
+  // $(".notes-panel").click(function () {
+  //   $(".alert-panel").hide();
+  //   $(".notes-panel").toggle();
+  //   $(".chat-panel").hide();
+  // });
   $(".user-img").click(function() {
       $(".profile-edit").toggle();
   });

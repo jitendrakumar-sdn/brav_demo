@@ -114,7 +114,7 @@
                         <p class="email-txt">Time Zone</p>
                     </div>
                     <div class="col-sm-6">
-                        <p class="emailid">Pacific Standard Time, PST</p>
+                        <p class="emailid" id="timezone">Pacific Standard Time, PST</p>
                     </div>
                     <div class="clearfix"></div>
                     <div class="col-sm-3 padding-zero">
@@ -184,9 +184,10 @@
         
             if (sessionStorage.getItem('bravUser')) {
                 var myname = JSON.parse(sessionStorage.getItem('bravUser'));
-                $('#myname').text(myname.firstname + ' ' + myname.middlename + ' ' + myname.lastname);
+                $('#myname').text(myname.name);
                 $('#username').text(myname.username);
                 $('#emailid').text(myname.username);
+                $('#timezone').text(myname.timezone);
             }
 
             $('#datetime').datetimepicker({
@@ -301,11 +302,11 @@
                         var id = JSON.parse(sessionStorage.getItem('bravUser'))['id'];
                         for (var i = 0; i < res.data.length; i++) {
                             if (res.data[i].id != id)
-                                _list.append('<li class="client" data-id="' + res.data[i].id + '" data-name="' + res.data[i].firstname + ' ' + res.data[i].lastname + '">' + res.data[i].firstname + ' ' + res.data[i].lastname +
+                                _list.append('<li class="client" data-id="' + res.data[i].id + '" data-name="' + res.data[i].name + '">' + res.data[i].name +
                                     '</li>');
                             else if (res.data[i].id == id) //temporary
                                 currentUser = res.data[i];
-                            var option2 = new Option(res.data[i].firstname, res.data[i].firstname);
+                            var option2 = new Option(res.data[i].name, res.data[i].name);
                             $('#availability').append(option2).trigger('change');
                         }
                     } else {
@@ -358,7 +359,7 @@
                         serialization: 'none',
                         metadata: {
                             message: msg,
-                            name: user.firstname + ' ' + user.lastname
+                            name: user.name
                         }
                     });
                     c.on('open', function () {

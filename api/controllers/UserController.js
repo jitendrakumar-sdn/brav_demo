@@ -86,7 +86,6 @@ module.exports = {
     res.view();
   },
   profilepage: function (req, res) {
-
     if (req.session.userId && req.session.loggedin) {
       UserService
         .checkLogin(req.session.userId)
@@ -122,24 +121,18 @@ module.exports = {
     res.view();
   },
   register: function (req, res) {
-    if (req.body.firstname && req.body.username && req.body.password) {
+    console.log('req.body', req.body)
+    if (req.body.name && req.body.username && req.body.password && req.body.languages && req.body.timezone && req.body.dob) {
       User.create(req.body, function (err, createdUser) {
         if (err) {
           if (err.invalidAttributes && err.invalidAttributes.hasOwnProperty("username") || err === 'E_VALIDATION') {
-            let errMsg = err.invalidAttributes && err.invalidAttributes.username && err.invalidAttributes.username[0] ? err.invalidAttributes.username[0].message : 'User name already exist'
+            let errMsg = err.invalidAttributes && err.invalidAttributes.username && err.invalidAttributes.username[0] ? err.invalidAttributes.username[0].message : 'User name already exist';
             return res.ok({
               'success': false,
               'msg': errMsg
             })
           }
-
-
-          if (err === 'E_VALIDATION' && err.attributes[0] == 'username') {
-            return res.ok({
-              'success': false,
-              'msg': 'User name already exist'
-            })
-          }
+          console.log('err',err)
           return res.serverError({
             'success': false,
             'msg': 'Something went wrong!!! Try again later'

@@ -8,15 +8,9 @@
 module.exports = {
 
   attributes: {
-    firstname : {
+    name : {
       type: 'STRING',
       required: true
-    },
-    middlename : {
-      type: 'STRING'
-    },
-    lastname : {
-      type: 'STRING'
     },
     username : {
       type: 'STRING',
@@ -28,9 +22,21 @@ module.exports = {
       type: 'STRING',
       required: true
     },
-    online : {
+    online: {
       type: 'BOOLEAN',
       default: false
+    },
+    dob: {
+      type: 'date',
+      required: true
+    },
+    timezone: {
+      type: 'STRING',
+      required: true
+    },
+    languages: {
+      type: 'STRING',
+      required: true
     }
   }
 };

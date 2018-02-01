@@ -80,7 +80,7 @@ body {
   padding: 10px 30px;
 }
 
-.gery-background h1 {
+.gery-background h1,.gery-background h2,.gery-background h3 {
   color: #FFF;
   text-transform: uppercase;
   font-weight: bold;

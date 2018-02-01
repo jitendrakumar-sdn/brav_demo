@@ -85,7 +85,7 @@
 //           serialization: 'none',
 //           metadata: {
 //             message: msg,
-//             name: HSC.user.firstname + ' ' + HSC.user.lastname
+//             name: HSC.user.name + ' ' + HSC.user.lastname
 //           }
 //         });
 //         console.log('peer', peer)
