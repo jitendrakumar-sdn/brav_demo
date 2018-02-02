@@ -38,16 +38,20 @@ module.exports = {
       type: 'STRING',
       required: true
     },
-    msgfrom: {
-      collection: 'msg',
-      via: 'from'
-    },
+    // msgfrom: {
+    //   collection: 'msg',
+    //   via: 'from'
+    // },
     msgto: {
       collection: 'msg',
       via: 'to'
     },
     notes: {
-      collection: 'notes',
+      collection: 'note',
+      via: 'userid'
+    },
+    schedule: {
+      collection: 'schedule',
       via: 'userid'
     }
   }

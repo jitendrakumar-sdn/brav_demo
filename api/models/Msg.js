@@ -12,12 +12,16 @@ module.exports = {
       type: 'text',
       required: true
     },
+    msgid: {
+      type: 'text',
+      required: true
+    },
     to: {
       model: 'user'
     },
-    from: {
-      model: 'user'
-    },
+    // from: {
+    //   model: 'user'
+    // },
     seen: {
       type: 'BOOLEAN',
       defaultsTo: false

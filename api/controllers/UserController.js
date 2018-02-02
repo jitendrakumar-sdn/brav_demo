@@ -48,7 +48,9 @@ module.exports = {
           //     'success': false,
           //     'msg': 'You are already online in some browser'
           //   });
-          User.update(ress, {
+          User.update({
+            id: ress.id
+          }, {
             online: true
           }, function (errUpdate, resUpdate) {
             if (errUpdate) return res.serverError({
@@ -61,6 +63,11 @@ module.exports = {
             });
             req.session.userId = ress.id;
             req.session.loggedin = true;
+            ress = {
+              id: ress.id,
+              name: ress.name,
+              username: ress.username
+            }
             return res.ok({
               'success': true,
               'msg': 'Login successfull',

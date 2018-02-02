@@ -261,22 +261,25 @@
               serialization: 'none',
               metadata: {
                 message: msg,
-                name: user.name
+                name: user.name,
+                msgid: id + '-' + user.id
               }
             });
             c.on('open', function () {
               c.send(msg)
             });
 
+            var data = {
+              msg: msg,
+              to: String(id),
+              from: String(user.id),
+              msgid: id + '-' + user.id
+            };
+            console.log(data)
             $.ajax({
               url: '/msg/new',
               method: 'POST',
-              data: {
-                msg: msg,
-                to: id,
-                from: user.id,
-                msgid: id + '-' + user.id
-              },
+              data: data,
               success: function (res) {
 
               },
