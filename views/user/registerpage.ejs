@@ -184,7 +184,7 @@
             method: 'GET',
             success: function (data) {
                 for (var i = 0; i < data.length; i++) {
-                    var option2 = new Option(data[i].code + ' ' + data[i].name + ' ' + data[i].nativeName, data[i].code + ' ' + data[i].name + ' ' + data[i].nativeName);
+                    var option2 = new Option(data[i].name + '(' + data[i].nativeName + ')', data[i].code + ' ' + data[i].name);
                     $('#languages').append(option2).trigger('change');
                 }
             },
@@ -198,7 +198,7 @@
             method: 'GET',
             success: function (data) {
                 for (var i = 0; i < data.length; i++) {
-                    var option2 = new Option(data[i].abbr + '-' + data[i].value + ' ' + data[i].text, data[i].abbr + ' ' + data[i].value + ' ' + data[i].text);
+                    var option2 = new Option(data[i].abbr + '-' + data[i].value + '-' + data[i].text, data[i].abbr + ' ' + data[i].utc);
                     $('#timezone').append(option2).trigger('change');
                 }
             },

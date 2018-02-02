@@ -38,12 +38,12 @@ module.exports = {
       type: 'STRING',
       required: true
     },
-    // msgfrom: {
-    //   collection: 'msg',
-    //   via: 'from'
-    // },
+    msgfrom: {
+      collection: 'Msg',
+      via: 'from'
+    },
     msgto: {
-      collection: 'msg',
+      collection: 'Msg',
       via: 'to'
     },
     notes: {
@@ -52,6 +52,10 @@ module.exports = {
     },
     schedule: {
       collection: 'schedule',
+      via: 'userid'
+    },
+    files: {
+      collection: 'Fileupload',
       via: 'userid'
     }
   }

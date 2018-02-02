@@ -97,8 +97,9 @@ module.exports = {
             start: req.query.start
           }, {
             end: req.query.start
-          }],
-          time: req.query.time
+            }],
+          time: req.query.time,
+          userid: req.session.userId
         })
         .exec(function (err, ress) {
           if (err) return res.serverError({

@@ -9,7 +9,7 @@ module.exports = {
 
   attributes: {
     title: {
-      type: 'STRING',
+      type: 'LONGTEXT',
       required: true
     },
     start: {
@@ -29,11 +29,12 @@ module.exports = {
       required: true
     },
     description: {
-      type: 'TEXT',
+      type: 'LONGTEXT',
       required: true
     },
     userid: {
-      model: 'user'
+      model: 'User',
+      required: true
     },
     seen: {
       type: 'BOOLEAN',

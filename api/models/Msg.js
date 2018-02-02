@@ -9,19 +9,21 @@ module.exports = {
 
   attributes: {
     msg: {
-      type: 'text',
+      type: 'LONGTEXT',
       required: true
     },
     msgid: {
-      type: 'text',
+      type: 'TEXT',
       required: true
     },
     to: {
-      model: 'user'
+      model: 'User',
+      required: true
     },
-    // from: {
-    //   model: 'user'
-    // },
+    from: {
+      model: 'User',
+      required: true
+    },
     seen: {
       type: 'BOOLEAN',
       defaultsTo: false

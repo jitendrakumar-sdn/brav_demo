@@ -73,6 +73,10 @@ module.exports.routes = {
     action: 'index',
     skipAssets: true
   },
+  '/fileupload': {
+    controller: 'FileuploadController',
+    action: 'fileuploadpage'
+  },
 
   /***************************************************************************
    *                                                                          *

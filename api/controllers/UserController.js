@@ -192,5 +192,24 @@ module.exports = {
       // 	'msg': 'Your Session has been expired'
       // });
     }
+  },
+  getAll: function(req, res){
+    User
+      .find()
+      .exec(function (err, users) {
+        if (err) return res.serverError({
+          'success': false,
+          'msg': 'Something went wrong!!! Try again later'
+        });
+        if (users.length == 0) return res.ok({
+          'success': false,
+          'msg': 'No users found'
+        });
+        return res.ok({
+          'success': true,
+          'msg': 'Found user',
+          data: users
+        });
+      })
   }
 };

@@ -23,9 +23,15 @@
     <div class="top-header-right">
       <ul>
         <li>
-          <a href="#" id="chat">
-            <i class="fa fa-comments" aria-hidden="true"></i>
+        <a href="#" id="online-users">
+            <i class="fa fa-user" aria-hidden="true"></i>
           </a>
+        </li>
+        <li>
+          <a href="#" id="chat">
+            <span id="total-newmsg" class="notification-count"></span>
+              <i class="fa fa-comments" aria-hidden="true"></i>
+            </a>
         </li>
         <li>
           <a href="/note/create" id="notes">
@@ -67,16 +73,23 @@
     </ul>
   </div>
   <div class="right-popup">
-    <div class="chat-panel" style="display: none">
+    <div class="user-panel" style="display: none">
       <div class="user-container">
         <ul id="users">
 
         </ul>
       </div>
-    </div>
+      </div>
+    <div class="chat-panel" style="display: none">
+      <!-- <div class="chat-container"> -->
+        <ul id="new-chats" class="top-menus">
+
+        </ul>
+      <!-- </div> -->
+  </div>
     <div class="notes-panel" style="display: none"></div>
     <div class="alert-panel" style="display: none">
-      <ul id="notifications">
+      <ul id="notifications" class="top-menus">
 
       </ul>
     </div>
@@ -255,6 +268,12 @@
           if (sessionStorage.getItem('bravUser')) {
             var user = JSON.parse(sessionStorage.getItem('bravUser'));
 
+            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var text;
+              for (var i = 1; i < 9; i++)
+                text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+            var msgId = id + '-' + user.id + '-' + text;
 
             var c = peer.connect(id, {
               label: 'chat',
@@ -262,7 +281,7 @@
               metadata: {
                 message: msg,
                 name: user.name,
-                msgid: id + '-' + user.id
+                msgid: msgId
               }
             });
             c.on('open', function () {
@@ -271,9 +290,9 @@
 
             var data = {
               msg: msg,
-              to: String(id),
-              from: String(user.id),
-              msgid: id + '-' + user.id
+              to: parseInt(id),
+              from: parseInt(user.id),
+              msgid: msgId
             };
             console.log(data)
             $.ajax({
@@ -314,14 +333,15 @@
         } else if (c.label === 'chat') {
           var id = c.peer;
           var _main = $('#chats');
-          var _li = $('<li></li>');
+          var _li = $('<li id="chat-container' + id + '"></li>');
           var container;
           if ($(_main).children().find('#chat-call' + id).length == 0) {
             container = getChatContainer(id, c.metadata.name);
             $(_main).append($(_li).append($(container)));
           }
           c.on('data', function (data) {
-            var _msg = $('<p class="chat-msg text-right">' + data + '</p>');
+              getAllMsgs(id, JSON.parse(sessionStorage.getItem('bravUser')).id);
+            var _msg = $('<p class="chat-msg text-right">' + data + '<span>'+moment().format("h:mm A")+'</span></p>');
             $('#chat-text' + id).append(_msg);
             $.ajax({
               url: '/msg/read',
@@ -363,7 +383,6 @@
       $('#microphone').children().last().toggle();
       $('#record-icon').children().last().toggle();
       $('#phone').children().last().toggle();
-      $('#total-notifications').toggle();
 
       $('#camera').on('click', function () {
         $('#camera').children().last().toggle();
@@ -390,13 +409,14 @@
         var _li = $('<li id="chat-container' + id + '"></li>');
         var container;
         if ($(_main).children().find('#chat-call' + id).length == 0) {
-          $(".chat-panel").hide();
           container = getChatContainer(id, name);
           $(_main).append($(_li).append($(container)));
         } else if ($(_main).children().find('#chat-call' + id).length == 1) {
-          $(".chat-panel").hide();
           $('#chat-container' + id).show();
         }
+        $(".chat-panel").hide();
+        $(".user-panel").hide();
+          getAllMsgs(JSON.parse(sessionStorage.getItem('bravUser')).id, id);
       });
       $(document).on('click', '.chat-call-cancel', function (e) {
         e.stopPropagation();
@@ -456,7 +476,7 @@
         var m = $('#chat-box' + _id).val();
         if (m) {
           var _chatWindow = $('#chat-text' + _id);
-          var _msg = $('<p class="chat-msg">' + $('#chat-box' + _id).val() + '</p>');
+          var _msg = $('<p class="chat-msg">' + $('#chat-box' + _id).val()  + '<span>' + moment().format("h:mm A") +'</span></p>');
           $(_chatWindow).append(_msg);
           $('#chat-box' + _id).val('');
           sendMsg(m, _id);
@@ -468,7 +488,7 @@
           var m = $('#chat-box' + _id).val();
           if (m) {
             var _chatWindow = $('#chat-text' + _id);
-            var _msg = $('<p class="chat-msg">' + $('#chat-box' + _id).val() + '</p>');
+            var _msg = $('<p class="chat-msg">' + $('#chat-box' + _id).val() + '<span>' + moment().format("h:mm A") +'</span></p>');
             $(_chatWindow).append(_msg);
             $('#chat-box' + _id).val('');
             sendMsg(m, _id);
@@ -486,7 +506,7 @@
       }
 
       init();
-      getOnlineUsers();
+      // getOnlineUsers();
 
       function getOnlineUsers() {
         $.ajax({
@@ -524,43 +544,7 @@
         });
       }
 
-      setInterval(function () {
-        getnotification();
-      }, 60000);
-
-      getnotification();
-
-      function getnotification() {
-        var today = moment().format('YYYY-MM-DD');
-        var time = moment().format('h:mm A');
-        var data = {
-          start: today,
-          time: time
-        }
-        $.ajax({
-          url: '/schedule/getNotification',
-          method: 'GET',
-          data: data,
-          success: function (res) {
-            if (res.success) {
-              var _notification = $('#notifications');
-              $('#total-notifications').text(res.data.length);
-              $('#total-notifications').toggle();
-              for (var i = 0; i < res.data.length; i++) {
-                var _li = $('<li data-id="' + res.data[i].id + '">Your session for ' + res.data[i].title +
-                  ' has started with<br>' +
-                  JSON.parse(res.data[i].availabilty).join(',') +
-                  '<br><br><a href="#">Join the session</a></li>');
-                $(_notification).append($(_li));
-              }
-            } else {
-              // swal()
-            }
-          },
-          error: function (err) {},
-          dataType: 'JSON'
-        });
-      }
+      
     });
 
   </script>

@@ -25,6 +25,7 @@
     "grunt-sync": "0.2.4",
     "include-all": "~0.1.6",
     "moment": "^2.20.1",
+    "moment-timezone": "^0.5.14",
     "peer": "^0.2.8",
     "rc": "1.0.1",
     "sails": "~0.12.1",

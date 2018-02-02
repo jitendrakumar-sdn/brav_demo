@@ -200,6 +200,7 @@ body {
   right: 0px;
 }
 
+.user-panel,
 .chat-panel,
 .notes-panel {
   height: auto;
@@ -506,13 +507,16 @@ textarea {
 .user-container ul {
   padding: 0;
   margin: 0;
+  max-height: 450px;
+  overflow-y: auto;
 }
 
 .user-container li {
   list-style: none;
   font-weight: 600;
   font-style: italic;
-  padding: 10px 15px;
+  padding: 10px 15px 10px 30px;
+  position: relative;
 }
 
 .user-container li:hover {
@@ -530,7 +534,7 @@ textarea {
 
 .chat-container li {
   display: inline-block;
-  width: 200px;
+  width: 280px;
   margin: 10px;
   border: 1px solid #999;
   border-radius: 2px;
@@ -557,7 +561,7 @@ textarea {
 }
 
 .chat-container li .chat-text {
-  height: 200px;
+  height: 250px;
   padding: 10px;
   background: #fff;
   overflow-y: auto;
@@ -566,18 +570,36 @@ textarea {
 .chat-container li .chat-text p {
   color: #fff;
   padding: 5px;
-  width: 90%;
+  width: 80%;
+  font-size: 12px;
   border-radius: 5px;
+  position: relative;
 }
-
 .chat-container li .chat-text p.chat-msg {
   background: #598ebf;
   float: left;
+  overflow-wrap: break-word;
 }
 
 .chat-container li .chat-text p.chat-msg.text-right {
   float: right;
   background: #666;
+}
+.chat-container li .chat-text p span{
+    position: absolute;
+    font-size: 7px;
+    width: 35px;
+    font-weight: 600;
+  }
+
+.chat-container li .chat-text p.chat-msg span{
+    right: -33%;
+    color: #598ebf;
+}
+
+.chat-container li .chat-text p.chat-msg.text-right span{
+    left: -33%;
+    color: #666;
 }
 
 .chat-container li input {
@@ -1111,7 +1133,7 @@ textarea {
     margin-left: 80px; */
 }
 
-#notifications {
+.top-menus {
   position: fixed;
   top: 70px;
   right: 0px;
@@ -1123,23 +1145,26 @@ textarea {
   padding: 0;
 }
 
-#notifications li {
+.top-menus li {
   list-style: none;
   padding: 10px 15px;
   border-bottom: 1px solid;
   border-left: 1px solid;
+  cursor: pointer;
 }
 
-#notifications li:hover {
+.top-menus li:hover {
   background: #375d81;
   color: #eee;
 }
 
-#notifications li a {
+.top-menus li a,
+.top-menus li span {
   font-weight: 600;
 }
 
-#notifications li a:hover {
+.top-menus li a:hover,
+.top-menus li span:hover {
   color: #fff;
 }
 
@@ -1156,4 +1181,82 @@ textarea {
   min-width: 20px;
   min-height: 18px;
   text-align: center;
+}
+.is-online,
+.is-offline{
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    top: 38%;
+    left: 10px;
+    border-radius: 50%;
+}
+.is-offline{
+  background: red;
+}
+.is-online{
+  background: green;
+}
+.msg-time{
+  padding-left: 15px;
+}
+
+#uploadForm{
+  margin-top: 30px; 
+}
+ul#user-files{
+  list-style: none;
+  padding: 0;
+}
+ul#user-files li{
+  padding: 15px;
+  font-size: 17px;
+  font-weight: 600;
+  color: #375d81;
+  padding: 15px 15px 15px 50px;
+  position: relative;
+}
+ul#user-files li span{
+  font-size: 14px;
+  font-weight: initial;
+  color: #666;
+}
+ul#user-files li .fa.fa-file{
+  font-size: 40px;
+  position: absolute;
+  left: 5px;
+  top: 20px;
+}
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.btn-upload {
+  color: #fff;
+  background-color: #598ebf;
+  padding: 8px 20px;
+  font-size: 20px;
+  font-weight: bold;
+  outline: none;
+  border: none;
+}
+
+.upload-btn-wrapper input[type=file] {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+
+.upload-btn-wrapper input[type=submit]{
+  background: #598ebf;
+    color: #fff;
+    outline: none;
+    border: none;
+    padding: 8px 20px;
+    font-size: 20px;
+    font-weight: bold;
 }
