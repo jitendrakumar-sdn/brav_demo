@@ -42,12 +42,20 @@ module.exports.connections = {
    ***************************************************************************/
   mySql: {
     adapter: 'sails-mysql',
-    host: 'localhost',
+    host: '127.0.0.1',
     // port: '81',
     user: 'root',
-    password: 'root',
+    password: '',
     database: 'brav'
   },
+  // mySql: {
+  //   adapter: 'sails-mysql',
+  //   host: 'localhost',
+  //   // port: '81',
+  //   user: 'root',
+  //   password: 'root',
+  //   database: 'brav'
+  // },
   mySqlLive: {
     adapter: 'sails-mysql',
     host: 'http://192.155.246.146',

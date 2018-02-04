@@ -145,7 +145,7 @@ body {
   width: 100%;
   background: #375d81;
   position: fixed;
-  z-index: 1;
+  z-index: 99;
 }
 
 #my-video {
@@ -570,11 +570,12 @@ textarea {
 .chat-container li .chat-text p {
   color: #fff;
   padding: 5px;
-  width: 80%;
+  width: 90%;
   font-size: 12px;
   border-radius: 5px;
   position: relative;
 }
+
 .chat-container li .chat-text p.chat-msg {
   background: #598ebf;
   float: left;
@@ -585,21 +586,24 @@ textarea {
   float: right;
   background: #666;
 }
-.chat-container li .chat-text p span{
-    position: absolute;
-    font-size: 7px;
-    width: 35px;
-    font-weight: 600;
-  }
 
-.chat-container li .chat-text p.chat-msg span{
-    right: -33%;
-    color: #598ebf;
+.chat-container li .chat-text p span {
+  position: absolute;
+  font-size: 7px;
+  width: 35px;
+  bottom: 0;
+  font-weight: 600;
+  color: #fff;
 }
 
-.chat-container li .chat-text p.chat-msg.text-right span{
-    left: -33%;
-    color: #666;
+.chat-container li .chat-text p.chat-msg span {
+  right: 0;
+  /* color: #598ebf; */
+}
+
+.chat-container li .chat-text p.chat-msg.text-right span {
+  left: 0;
+  /* color: #666; */
 }
 
 .chat-container li input {
@@ -1182,34 +1186,40 @@ textarea {
   min-height: 18px;
   text-align: center;
 }
+
 .is-online,
-.is-offline{
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    position: absolute;
-    top: 38%;
-    left: 10px;
-    border-radius: 50%;
+.is-offline {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  top: 38%;
+  left: 10px;
+  border-radius: 50%;
 }
-.is-offline{
+
+.is-offline {
   background: red;
 }
-.is-online{
+
+.is-online {
   background: green;
 }
-.msg-time{
+
+.msg-time {
   padding-left: 15px;
 }
 
-#uploadForm{
-  margin-top: 30px; 
+#uploadForm {
+  margin-top: 30px;
 }
-ul#user-files{
+
+ul#user-files {
   list-style: none;
   padding: 0;
 }
-ul#user-files li{
+
+ul#user-files li {
   padding: 15px;
   font-size: 17px;
   font-weight: 600;
@@ -1217,17 +1227,20 @@ ul#user-files li{
   padding: 15px 15px 15px 50px;
   position: relative;
 }
-ul#user-files li span{
+
+ul#user-files li span {
   font-size: 14px;
   font-weight: initial;
   color: #666;
 }
-ul#user-files li .fa.fa-file{
+
+ul#user-files li .fa.fa-file {
   font-size: 40px;
   position: absolute;
   left: 5px;
   top: 20px;
 }
+
 .upload-btn-wrapper {
   position: relative;
   overflow: hidden;
@@ -1242,6 +1255,7 @@ ul#user-files li .fa.fa-file{
   font-weight: bold;
   outline: none;
   border: none;
+  width: 180px;
 }
 
 .upload-btn-wrapper input[type=file] {
@@ -1249,14 +1263,63 @@ ul#user-files li .fa.fa-file{
   left: 0;
   top: 0;
   opacity: 0;
+  width: 180px;
+  height: 36px;
+  cursor: pointer;
 }
 
-.upload-btn-wrapper input[type=submit]{
+.upload-btn-wrapper input[type=submit] {
   background: #598ebf;
-    color: #fff;
-    outline: none;
-    border: none;
-    padding: 8px 20px;
-    font-size: 20px;
-    font-weight: bold;
+  color: #fff;
+  outline: none;
+  border: none;
+  padding: 8px 20px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#my-notes {
+  position: fixed;
+  top: 70px;
+  bottom: 0;
+  background: #eee;
+  right: 0;
+  width: 300px;
+  overflow-y: auto;
+  z-index: 99;
+}
+
+#my-notes .new-note p {
+  color: #666;
+  padding: 5px 15px;
+  font-weight: 600;
+  font-size: 13px;
+  border-bottom: 1px dotted #598ebf;
+}
+
+#my-notes .new-note p span {
+  cursor: pointer;
+}
+
+#display-notes {
+  list-style: none;
+  padding: 0;
+}
+
+#display-notes>li {
+  padding: 10px 15px;
+  color: #3c3c3c;
+}
+
+#display-notes>li>div {
+  margin: 0;
+  padding-left: 20px;
+}
+
+#display-notes>li>input[type="checkbox"] {
+  float: left;
+}
+
+.fr-toolbar.fr-top {
+  z-index: 1;
 }

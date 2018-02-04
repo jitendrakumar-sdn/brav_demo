@@ -13,7 +13,7 @@ module.exports = {
         .exec(function (err, ress) {
           if (err) {
             res.redirect('/');
-          } else if (!res) {
+          } else if (!ress) {
             res.redirect('/');
           } else {
             res.view();

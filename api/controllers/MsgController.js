@@ -73,7 +73,7 @@ module.exports = {
       })
     }
   },
-  new: function (req, res) {
+  'new': function (req, res) {
     if (req.body.msg && req.body.to && req.body.from && req.body.msgid) {
       Msg
         .create(req.body)
@@ -105,7 +105,12 @@ module.exports = {
   unseen: function (req, res) {
     if (req.query.id) {
       Msg
-        .find({ to: req.query.id, seen: false }, { select: ['createdAt', 'id', 'msg', 'msgid', 'from', 'to'] })
+        .find({
+          to: req.query.id,
+          seen: false
+        }, {
+          select: ['createdAt', 'id', 'msg', 'msgid', 'from', 'to']
+        })
         .populate('from')
         .exec(function (err, unseen) {
           if (err) {
@@ -121,7 +126,11 @@ module.exports = {
             });
           }
           for (var i = 0; i < unseen.length; i++) {
-            unseen[i].from = { id: unseen[i].from.id, name: unseen[i].from.name, timezone: ((unseen[i].from.timezone).split(" ")[1]).split(',')[0] };
+            unseen[i].from = {
+              id: unseen[i].from.id,
+              name: unseen[i].from.name,
+              timezone: ((unseen[i].from.timezone).split(" ")[1]).split(',')[0]
+            };
           }
           return res.ok({
             "success": true,
@@ -141,16 +150,16 @@ module.exports = {
 
       Msg
         .find({
-          or: [
-            {
-              to: req.query.to,
-              from: req.query.from
-            }, {
-              to: req.query.from,
-              from: req.query.to
-            }
-          ]
-        }, { select: ['createdAt', 'msg', 'from', 'to'] })
+          or: [{
+            to: req.query.to,
+            from: req.query.from
+          }, {
+            to: req.query.from,
+            from: req.query.to
+          }]
+        }, {
+          select: ['createdAt', 'msg', 'from', 'to']
+        })
         .limit(20)
         .skip(req.query.skip || 0)
         .exec(function (err, msgs) {

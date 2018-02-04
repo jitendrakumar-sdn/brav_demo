@@ -2,7 +2,8 @@ module.exports = {
   getUser: function (val) {
     return User.findOne({
       "username": val.username,
-      "password": val.password
+      "password": val.password,
+      "deleted": false
     });
   },
   getOnlineUser: function (val) {

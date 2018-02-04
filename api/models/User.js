@@ -26,6 +26,10 @@ module.exports = {
       type: 'BOOLEAN',
       defaultsTo: false
     },
+    deleted: {
+      type: 'BOOLEAN',
+      defaultsTo: false
+    },
     dob: {
       type: 'date',
       required: true

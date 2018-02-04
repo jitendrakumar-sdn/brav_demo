@@ -1,10 +1,11 @@
 $(document).ready(function () {
 
-  if (window.location.pathname !== '/' && window.location.pathname !== '/register'){
+  if (window.location.pathname !== '/' && window.location.pathname !== '/register') {
 
     getnotification();
     msgUnSeen();
-    getUsers()
+    getUsers();
+    getNotes();
 
     setInterval(function () {
       getnotification();
@@ -12,7 +13,7 @@ $(document).ready(function () {
       getUsers();
     }, 60000);
   }
-  if (window.location.pathname === '/fileupload'){
+  if (window.location.pathname === '/fileupload') {
     getFiles();
   }
 
@@ -33,22 +34,32 @@ $(document).ready(function () {
     $(".notes-panel").hide();
     $(".alert-panel").hide();
     $(".user-panel").toggle();
-    getUsers();// call onl;y if user panel is open
+    getUsers(); // call onl;y if user panel is open
   });
 
 
   $("#notes").click(function () {
-    $(".notes-panel").toggle();
+    $(".notes-panel").animate({
+      width: "toggle"
+    });
+    $(".user-panel").hide();
     $(".chat-panel").hide();
     $(".alert-panel").hide();
+    getNotes();
   });
 
   $("#alert-msg").click(function () {
     $(".alert-panel").toggle();
     $(".notes-panel").hide();
     $(".chat-panel").hide();
-    seenNotification();// call only if alert panel is open
+    seenNotification(); // call only if alert panel is open
   });
+
+  $('#display-notes').on('click', 'li > input[type="checkbox"]', function () {
+    if ($(this).is(":checked")) {
+      deleteNotes($(this).attr('data-id'));
+    }
+  })
 
   $("#notifications li").on('click', function () {
     var _id = $(this).attr('data-id');
@@ -108,8 +119,8 @@ $(document).ready(function () {
 
 });
 
-function getAllMsgs(toId, fromId){
-  if (toId && fromId){
+function getAllMsgs(toId, fromId) {
+  if (toId && fromId) {
     $.ajax({
       url: '/msg/getAllMsgs',
       method: 'GET',
@@ -117,17 +128,17 @@ function getAllMsgs(toId, fromId){
         to: toId,
         from: fromId
       },
-      success: function(res){
-        if(res.success){
-          for(var i = 0; i< res.data.length; i++){
-            var _msg; 
+      success: function (res) {
+        if (res.success) {
+          for (var i = 0; i < res.data.length; i++) {
+            var _msg;
             var date;
             if (moment(res.data[i].createdAt).format("DD-MM-YYYY") === moment().format("DD-MM-YYYY"))
               date = moment(res.data[i].createdAt).format("h:mm A");
             else
               date = moment(res.data[i].createdAt).format("DD-MM-YYYY h:mm A");
-              
-            if(res.data[i].to == toId)
+
+            if (res.data[i].to == toId)
               _msg = $('<p class="chat-msg text-right">' + res.data[i].msg + '<span>' + date + '</span></p>');
             else
               _msg = $('<p class="chat-msg">' + res.data[i].msg + '<span>' + date + '</span></p>');
@@ -136,8 +147,8 @@ function getAllMsgs(toId, fromId){
           }
         }
       },
-      error: function(err){
-        console.log(err)        
+      error: function (err) {
+        // console.log(err)
       }
     })
   }
@@ -150,7 +161,7 @@ function isValidEmail(email) {
   return false;
 }
 
-function seenNotification(){
+function seenNotification() {
   $.ajax({
     url: '/schedule/seenNotification',
     method: 'PUT',
@@ -159,7 +170,7 @@ function seenNotification(){
     },
     success: function (res) {
       if (res.success)
-        $('#total-notifications').toggle();      
+        $('#total-notifications').toggle();
     },
     error: function (err) {
 
@@ -173,18 +184,18 @@ function getUsers() {
     url: '/user/getAll',
     method: 'GET',
     success: function (res) {
-      if (res.data.length > 0) {
+      if (res.success) {
         var _list = $('#users').html('');
         for (var i = 0; i < res.data.length; i++) {
-          if (res.data[i].id != JSON.parse(sessionStorage.getItem('bravUser'))['id']){
+          if (res.data[i].id != JSON.parse(sessionStorage.getItem('bravUser'))['id']) {
             var _li = $('<li class="client" data-id="' + res.data[i].id + '" data-name="' + res.data[i].name + '">' + res.data[i].name + '</li>');
             var _online;
-            if(res.data[i].online) _online = $('<span class="is-online"></span>');
+            if (res.data[i].online) _online = $('<span class="is-online"></span>');
             else _online = $('<span class="is-offline"></span>');
             $(_list).append($(_li).append(_online));
           }
         }
-      } else { }
+      } else {}
     },
     error: function (err) {
       $('#errMsg').text(err.msg);
@@ -201,13 +212,13 @@ function msgUnSeen() {
       id: JSON.parse(sessionStorage.getItem('bravUser')).id
     },
     success: function (res) {
-      if(res.success){
+      if (res.success) {
         var _main = $('#new-chats');
         _main.html('');
         $('#total-newmsg').text(res.data.length);
         $('#total-newmsg').toggle();
-        for(var i = 0; i < res.data.length; i++){
-          var _li = $('<li class="client" data-id="' + res.data[i].from.id + '" data-name="' + res.data[i].from.name + '">' + res.data[i].msg + '<br><span>' + res.data[i].from.name + '</span><span class="msg-time">' + moment(res.data[i].createdAt).format("h:mm A")+'</span></li>');
+        for (var i = 0; i < res.data.length; i++) {
+          var _li = $('<li class="client" data-id="' + res.data[i].from.id + '" data-name="' + res.data[i].from.name + '">' + res.data[i].msg + '<br><span>' + res.data[i].from.name + '</span><span class="msg-time">' + moment(res.data[i].createdAt).format("h:mm A") + '</span></li>');
           $(_main).append($(_li));
         }
       }
@@ -262,29 +273,81 @@ function getnotification() {
         // swal()
       }
     },
-    error: function (err) { },
+    error: function (err) {},
     dataType: 'JSON'
   });
 }
 
-function getFiles(){
+function getFiles() {
   $.ajax({
     url: '/fileupload/getFiles',
     method: 'POST',
     success: function (res) {
-      console.log(res)
-      if(res.success){
-        var _userfiles = $('#user-files');
+      var _userfiles = $('#user-files');
+      $(_userfiles).html('')
+      var _li;
+      if (res.success) {
         _userfiles.html('');
-        for(var i=0; i<res.data.length; i++){
-          var _li = $('<li><i class="fa fa-file"></i><a href="' + res.data[i].path +'" download>' + res.data[i].name + '</a><br><span>Uploaded by ' + res.data[i].uploadedby +' on '
-          +moment(res.data[i].createdAt).format("DD-MM-YYYY h:mm A")+'</span></li>');
+        for (var i = 0; i < res.data.length; i++) {
+          _li = $('<li><i class="fa fa-file"></i><a href="' + res.data[i].path + '" download>' + res.data[i].name + '</a><br><span>Uploaded by ' + res.data[i].uploadedby + ' on ' +
+            moment(res.data[i].createdAt).format("DD-MM-YYYY h:mm A") + '</span></li>');
           $(_userfiles).append($(_li))
         }
+      } else {
+        _li = $('<li class="text-center">You not uploaded any files yet</li>');
+        $(_userfiles).append($(_li))
       }
     },
-    error: function(err){
+    error: function (err) {
 
     }
   })
+}
+
+function getNotes() {
+  $.ajax({
+    method: "GET",
+    url: '/note/notes',
+    success: function (res) {
+      var _main = $('#display-notes');
+      $(_main).html('');
+      var _note;
+      if (res.success && res.data.length > 0) {
+        for (var i = 0; i < res.data.length; i++) {
+          _note = $('<li></li>');
+          $(_note).html('<input type="checkbox" data-id="' + res.data[i].id + '"/><div data-id="' + res.data[i].id + '">' + res.data[i].note + '</div>');
+          $(_main).append($(_note));
+        }
+      } else {
+        _note = $('<li class="text-center">You dont have notes for now.</li>');
+        $(_main).append($(_note));
+      }
+    },
+    error: function (err) {
+
+    },
+    dataType: 'JSON'
+  });
+}
+
+function deleteNotes(id) {
+  if (id) {
+    $.ajax({
+      url: '/note/deleteNote',
+      method: 'DELETE',
+      data: {
+        noteid: id
+      },
+      success: function (res) {
+        if (res.success) getNotes();
+        else swal({
+          title: res.msg,
+          icon: 'error'
+        })
+      },
+      error: function (err) {
+
+      }
+    })
+  }
 }

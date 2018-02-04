@@ -17,3 +17,4 @@ The id passed to /mediator/:id is made up by concatinating 3 client IDs which co
  To run the peering server 
  `nodejs peer-server.js`
 
+<!-- timezone pluggin added, and example to get timezine data is show in api/controller/MsgController in unseen function -->

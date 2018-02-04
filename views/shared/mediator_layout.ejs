@@ -23,18 +23,18 @@
     <div class="top-header-right">
       <ul>
         <li>
-        <a href="#" id="online-users">
+          <a href="#" id="online-users">
             <i class="fa fa-user" aria-hidden="true"></i>
           </a>
         </li>
         <li>
           <a href="#" id="chat">
             <span id="total-newmsg" class="notification-count"></span>
-              <i class="fa fa-comments" aria-hidden="true"></i>
-            </a>
+            <i class="fa fa-comments" aria-hidden="true"></i>
+          </a>
         </li>
         <li>
-          <a href="/note/create" id="notes">
+          <a href="#" id="notes">
             <i class="fa fa-pencil-square" aria-hidden="true"></i>
           </a>
         </li>
@@ -52,11 +52,10 @@
       </ul>
     </div>
   </div>
-  <!--video-call divion closed -->
   <div class="left-side-bar">
     <ul>
       <li>
-        <a href="/note/view">
+        <a href="/fileupload">
           <i class="fa fa-file-text-o" aria-hidden="true"></i>
         </a>
       </li>
@@ -79,15 +78,28 @@
 
         </ul>
       </div>
-      </div>
+    </div>
     <div class="chat-panel" style="display: none">
       <!-- <div class="chat-container"> -->
-        <ul id="new-chats" class="top-menus">
+      <ul id="new-chats" class="top-menus">
+
+      </ul>
+      <!-- </div> -->
+    </div>
+    <div class="notes-panel" style="display: none">
+      <div id="my-notes">
+        <div class="new-note">
+          <p class="">
+            <span>
+              << </span>
+                <a href="/note/create" class="pull-right">New Note</a>
+          </p>
+        </div>
+        <ul id="display-notes">
 
         </ul>
-      <!-- </div> -->
-  </div>
-    <div class="notes-panel" style="display: none"></div>
+      </div>
+    </div>
     <div class="alert-panel" style="display: none">
       <ul id="notifications" class="top-menus">
 
@@ -270,8 +282,8 @@
 
             var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
             var text;
-              for (var i = 1; i < 9; i++)
-                text += possible.charAt(Math.floor(Math.random() * possible.length));
+            for (var i = 1; i < 9; i++)
+              text += possible.charAt(Math.floor(Math.random() * possible.length));
 
             var msgId = id + '-' + user.id + '-' + text;
 
@@ -340,8 +352,9 @@
             $(_main).append($(_li).append($(container)));
           }
           c.on('data', function (data) {
-              getAllMsgs(id, JSON.parse(sessionStorage.getItem('bravUser')).id);
-            var _msg = $('<p class="chat-msg text-right">' + data + '<span>'+moment().format("h:mm A")+'</span></p>');
+            getAllMsgs(id, JSON.parse(sessionStorage.getItem('bravUser')).id);
+            var _msg = $('<p class="chat-msg text-right">' + data + '<span>' + moment().format("h:mm A") +
+              '</span></p>');
             $('#chat-text' + id).append(_msg);
             $.ajax({
               url: '/msg/read',
@@ -416,7 +429,7 @@
         }
         $(".chat-panel").hide();
         $(".user-panel").hide();
-          getAllMsgs(JSON.parse(sessionStorage.getItem('bravUser')).id, id);
+        getAllMsgs(JSON.parse(sessionStorage.getItem('bravUser')).id, id);
       });
       $(document).on('click', '.chat-call-cancel', function (e) {
         e.stopPropagation();
@@ -476,7 +489,8 @@
         var m = $('#chat-box' + _id).val();
         if (m) {
           var _chatWindow = $('#chat-text' + _id);
-          var _msg = $('<p class="chat-msg">' + $('#chat-box' + _id).val()  + '<span>' + moment().format("h:mm A") +'</span></p>');
+          var _msg = $('<p class="chat-msg">' + $('#chat-box' + _id).val() + '<span>' + moment().format(
+            "h:mm A") + '</span></p>');
           $(_chatWindow).append(_msg);
           $('#chat-box' + _id).val('');
           sendMsg(m, _id);
@@ -488,7 +502,8 @@
           var m = $('#chat-box' + _id).val();
           if (m) {
             var _chatWindow = $('#chat-text' + _id);
-            var _msg = $('<p class="chat-msg">' + $('#chat-box' + _id).val() + '<span>' + moment().format("h:mm A") +'</span></p>');
+            var _msg = $('<p class="chat-msg">' + $('#chat-box' + _id).val() + '<span>' + moment().format(
+              "h:mm A") + '</span></p>');
             $(_chatWindow).append(_msg);
             $('#chat-box' + _id).val('');
             sendMsg(m, _id);
@@ -544,7 +559,7 @@
         });
       }
 
-      
+
     });
 
   </script>

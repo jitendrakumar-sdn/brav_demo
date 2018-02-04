@@ -193,9 +193,17 @@ module.exports = {
       // });
     }
   },
-  getAll: function(req, res){
+  getAll: function (req, res) {
     User
-      .find()
+      .find({
+        deleted: false
+      }, {
+        fields: {
+          id: 1,
+          username: 1,
+          name: 1
+        }
+      })
       .exec(function (err, users) {
         if (err) return res.serverError({
           'success': false,
@@ -208,7 +216,7 @@ module.exports = {
         return res.ok({
           'success': true,
           'msg': 'Found user',
-          data: users
+          'data': users
         });
       })
   }
