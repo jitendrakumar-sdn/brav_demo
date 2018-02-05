@@ -648,8 +648,8 @@
           video.muted = false;
             $('#my-video2').prop('src', URL.createObjectURL(blob));
 
-            storeVedioInDatabase(blob);
-
+            storeVedioInDatabase(blob, window.existingCallId );
+            window.existingCallId = undefined;
 
           allCameraStreams.forEach(function (stream) {
             stream.getVideoTracks().forEach(function (track) {

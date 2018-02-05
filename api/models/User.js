@@ -61,6 +61,10 @@ module.exports = {
     files: {
       collection: 'Fileupload',
       via: 'userid'
+    },
+    video: {
+      collection: 'Videoupload',
+      via: 'userid'
     }
   }
 };

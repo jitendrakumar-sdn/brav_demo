@@ -19,6 +19,10 @@ module.exports = {
     userid: {
       model: 'User',
       required: true
+    },
+    clientid: {
+      model: 'User',
+      required: true
     }
   }
 };

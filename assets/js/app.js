@@ -195,7 +195,7 @@ function getUsers() {
             $(_list).append($(_li).append(_online));
           }
         }
-      } else {}
+      } else { }
     },
     error: function (err) {
       $('#errMsg').text(err.msg);
@@ -273,7 +273,7 @@ function getnotification() {
         // swal()
       }
     },
-    error: function (err) {},
+    error: function (err) { },
     dataType: 'JSON'
   });
 }
@@ -352,14 +352,18 @@ function deleteNotes(id) {
   }
 }
 
-function storeVedioInDatabase(blob){
-
-  var fd = new FormData();
-  fd.append('upl', blob, "vedio.webm");
-  fetch('/fileupload/uploadvideo',
-    {
-      method: 'post',
-      body: fd
-    });
-  
+function storeVedioInDatabase(blob, userid, clientid) {
+  if (blob && userid && clientid) {
+    var fd = new FormData();
+    fd.append('upl', blob, "vedio.webm");
+    fetch('/fileupload/uploadvideo',
+      {
+        method: 'POST',
+        body: fd,
+        headers: new Headers({
+          'userid': JSON.parse(sessionStorage.getItem('bravUser')).id,
+          'clientid': clientid
+        })
+      });
+  }
 }

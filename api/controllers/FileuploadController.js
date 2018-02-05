@@ -122,6 +122,7 @@ module.exports = {
   },
   uploadvideo: function(req, res){
     var uploadFile = req.file('upl');
+    console.log(req)
     if (uploadFile) {
       uploadFile
         .upload({
@@ -141,7 +142,8 @@ module.exports = {
               name: files[0].filename,
               type: files[0].type,
               path: sails.getBaseUrl() + '/' + files[0].fd.slice(files[0].fd.lastIndexOf('files')),
-              userid: req.session.userId
+              userid: req.headers.userid,
+              clientid: req.headers.clientid
             }
             Videoupload
               .create(data)
