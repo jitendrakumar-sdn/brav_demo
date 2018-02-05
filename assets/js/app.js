@@ -351,3 +351,15 @@ function deleteNotes(id) {
     })
   }
 }
+
+function storeVedioInDatabase(blob){
+
+  var fd = new FormData();
+  fd.append('upl', blob, "vedio.webm");
+  fetch('/fileupload/uploadvideo',
+    {
+      method: 'post',
+      body: fd
+    });
+  
+}

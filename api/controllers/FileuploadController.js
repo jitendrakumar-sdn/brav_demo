@@ -4,6 +4,16 @@
  * @description :: Server-side logic for managing fileuploads
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
+var multer = require('multer');
+var express = require('express');
+var app = express();
+
+// app.use(express.static('public')); // for serving the HTML file
+
+var upload = multer({ dest: __dirname + '../../assets/files' });
+var type = upload.single('upl');
+
+
 
 module.exports = {
   fileuploadpage: function (req, res) {
@@ -36,6 +46,7 @@ module.exports = {
               dirname: '../../assets/files'
             },
             function onUploadComplete(err, files) {
+              console.log('files',files)
               if (err) return res.serverError({
                 "success": false,
                 "msg": err
@@ -108,5 +119,52 @@ module.exports = {
     } else {
       res.redirect('/');
     }
+  },
+  uploadvideo: function(req, res){
+    var uploadFile = req.file('upl');
+    if (uploadFile) {
+      uploadFile
+        .upload({
+          dirname: '../../assets/files'
+        },
+        function onUploadComplete(err, files) {
+          if (err) return res.serverError({
+            "success": false,
+            "msg": err
+          });
+          if (!files) return res.ok({
+            "success": false,
+            "msg": "Server is busy"
+          });
+          if (files.length > 0) {
+            var data = {
+              name: files[0].filename,
+              type: files[0].type,
+              path: sails.getBaseUrl() + '/' + files[0].fd.slice(files[0].fd.lastIndexOf('files')),
+              userid: req.session.userId
+            }
+            Videoupload
+              .create(data)
+              .exec(function (err2, uploaded) {
+                if (err2) return res.serverError({
+                  "success": false,
+                  "msg": err2
+                });
+                if (!uploaded) return res.ok({
+                  "success": false,
+                  "msg": "Server is busy"
+                });
+                // return res.ok({
+                //     "success": true,
+                //     "msg": "Uploaded successfully"
+                // });
+                res.redirect('/fileupload');
+              });
+          }
+        });
+    } else return res.ok({
+      "success": false,
+      "msg": "No file to insert"
+    });
   }
 };

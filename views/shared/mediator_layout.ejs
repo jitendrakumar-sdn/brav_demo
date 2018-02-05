@@ -92,7 +92,7 @@
           <p class="">
             <span>
               << </span>
-                <a href="/note/create" class="pull-right">New Note</a>
+            <a href="/note/create" class="pull-right">New Note</a>
           </p>
         </div>
         <ul id="display-notes">
@@ -182,6 +182,10 @@
     </ul>
   </div>
 
+
+      <!-- <video id="my-video1" autoplay="true"></video> -->
+      <video id="my-video2" controls autoplay="true"></video>
+
   <!-- </body> -->
 
   <script src="../js/jquery.min.js"></script>
@@ -191,6 +195,14 @@
   <script src="../js/sweet-alert.min.js"></script>
   <script src="../js/app.js"></script>
   <script src="../js/peer.min.js"></script>
+
+  <!-- <script src="https://cdn.WebRTC-Experiment.com/RecordRTC.js"></script> -->
+
+  <script src="https://cdn.webrtc-experiment.com/MultiStreamsMixer.min.js"></script>
+
+  <script src="https://cdn.webrtc-experiment.com/RecordRTC.js"></script>
+  <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+  <script src="https://cdn.webrtc-experiment.com/DetectRTC.js"></script>
   <script>
     //allow to get microphone and camera
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
@@ -211,7 +223,7 @@
         path: '/api'
       });
       // Show this peer's ID.
-      peer.on('open', function (id) {});
+      peer.on('open', function (id) { });
       // Await connections from others
       peer.on('connection', connect);
       peer.on('error', function (err) {
@@ -270,6 +282,10 @@
                 window.existingCall = call;
                 call.answer(stream); // Answer the call with an A/V stream.
                 handleCall(call, call.peer);
+                // recorder = new MRecordRTC()
+                // addMyStream(stream);
+                  loadVedio($('#my-video'));
+                    loadVedio($('#vedio'+ call.peer));
               }
             });
           });
@@ -392,6 +408,7 @@
           connectedPeers[c.peer] = c;
         }
       }
+
       $('#camera').children().last().toggle();
       $('#microphone').children().last().toggle();
       $('#record-icon').children().last().toggle();
@@ -468,6 +485,8 @@
           if (window.existingCall) {
             window.existingCall.close();
             isInCall = false;
+            stoprecordimg($('#vedio' + window.existingCallId));
+            stoprecordimg($('#my-video'));
             $('#vedio' + window.existingCallId).parent().remove();
             var c = peer.connect(window.existingCallId, {
               label: 'drop',
@@ -538,7 +557,7 @@
                 else if (res.data[i].id == id) //temporary
                   currentUser = res.data[i];
               }
-            } else {}
+            } else { }
           },
           error: function (err) {
             $('#errMsg').text(err.msg);
@@ -554,12 +573,95 @@
         }, function (stream) {
           $('#my-video').prop('src', URL.createObjectURL(stream));
           window.localStream = stream;
+          // addMyStream(stream)
         }, function (err) {
           alert(err);
         });
       }
 
 
+
+      var allCameraStreams = [];
+
+      function captureAllCameras(callback) {
+        var streams = [];
+        var donotDuplicateDevices = {};
+
+        DetectRTC.videoInputDevices.forEach(function (device, idx) {
+          navigator.mediaDevices.getUserMedia({
+            audio: true,
+            video: {
+              mandatory: {},
+              optional: [{
+                sourceId: device.id
+              }]
+            }
+          }).then(function (stream) {
+            if (!donotDuplicateDevices[device.id]) {
+              donotDuplicateDevices[device.id] = true;
+              streams.push(stream);
+            }
+
+            allCameraStreams.push(stream);
+
+            if (idx == DetectRTC.videoInputDevices.length - 1) {
+              callback(streams);
+            }
+          }).catch(function () {
+            console.error(arguments);
+          });
+        })
+      }
+
+      var recorder;
+
+      function loadVedio(video){
+         $('#my-video2').prop('src','');
+
+        DetectRTC.load(function () {
+          captureAllCameras(function (streams) {
+            if (streams.length == 1) {
+              streams.push(streams[0]);
+            }
+
+            recorder = RecordRTC(streams, {
+              type: 'video',
+              mimeType: 'video/webm',
+              previewStream: function (s) {
+                video.muted = true;
+                setSrcObject(s, video);
+              }
+            });
+
+            recorder.startRecording();
+
+          
+          });
+        });
+      }
+
+      function stoprecordimg(video) {
+        recorder.stopRecording(function () {
+          var blob = recorder.getBlob();
+
+
+          video.muted = false;
+            $('#my-video2').prop('src', URL.createObjectURL(blob));
+
+            storeVedioInDatabase(blob);
+
+
+          allCameraStreams.forEach(function (stream) {
+            stream.getVideoTracks().forEach(function (track) {
+              track.stop();
+            });
+
+            stream.getAudioTracks().forEach(function (track) {
+              track.stop();
+            });
+          })
+        });
+      }
     });
 
   </script>
